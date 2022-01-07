@@ -6,32 +6,32 @@ macro(SetupShibokenAndPyside)
         find_package(PySide REQUIRED HINTS "${PYTHON_LIBRARY_DIR}/cmake")
     endif(DEFINED MACPORTS_PREFIX)
 
-    # Shiboken2Config.cmake may explicitly set CMAKE_BUILD_TYPE to Release which causes
+    # Shiboken6Config.cmake may explicitly set CMAKE_BUILD_TYPE to Release which causes
     # CMake to fail to create Makefiles for a debug build.
-    # So as a workaround we save and restore the value after checking for Shiboken2.
+    # So as a workaround we save and restore the value after checking for Shiboken6.
     set (SAVE_BUILD_TYPE ${CMAKE_BUILD_TYPE})
-    find_package(Shiboken2 QUIET)# REQUIRED
+    find_package(Shiboken6 QUIET)# REQUIRED
     set (CMAKE_BUILD_TYPE ${SAVE_BUILD_TYPE})
-    if (Shiboken2_FOUND)
-        # Shiboken2 config file was found but it may use the wrong Python version
+    if (Shiboken6_FOUND)
+        # Shiboken6 config file was found but it may use the wrong Python version
         # Try to get the matching config suffix and repeat finding the package
         set(SHIBOKEN_PATTERN .cpython-${Python3_VERSION_MAJOR}${Python3_VERSION_MINOR})
 
-        file(GLOB SHIBOKEN_CONFIG "${Shiboken2_DIR}/Shiboken2Config${SHIBOKEN_PATTERN}*.cmake")
+        file(GLOB SHIBOKEN_CONFIG "${Shiboken6_DIR}/Shiboken6Config${SHIBOKEN_PATTERN}*.cmake")
         if (SHIBOKEN_CONFIG)
         get_filename_component(SHIBOKEN_CONFIG_SUFFIX ${SHIBOKEN_CONFIG} NAME)
         string(SUBSTRING ${SHIBOKEN_CONFIG_SUFFIX} 15 -1 SHIBOKEN_CONFIG_SUFFIX)
         string(REPLACE ".cmake" "" PYTHON_CONFIG_SUFFIX ${SHIBOKEN_CONFIG_SUFFIX})
         message(STATUS "PYTHON_CONFIG_SUFFIX: ${PYTHON_CONFIG_SUFFIX}")
-        find_package(Shiboken2 QUIET)
+        find_package(Shiboken6 QUIET)
         endif()
     endif()
 
     # pyside6 changed its cmake files, this is the dance we have
     # to dance to be compatible with the old (<5.12) and the new versions (>=5.12)
-    if(NOT SHIBOKEN_INCLUDE_DIR AND TARGET Shiboken2::libshiboken)
-        get_property(SHIBOKEN_INCLUDE_DIR TARGET Shiboken2::libshiboken PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
-    endif(NOT SHIBOKEN_INCLUDE_DIR AND TARGET Shiboken2::libshiboken)
+    if(NOT SHIBOKEN_INCLUDE_DIR AND TARGET Shiboken6::libshiboken)
+        get_property(SHIBOKEN_INCLUDE_DIR TARGET Shiboken6::libshiboken PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+    endif(NOT SHIBOKEN_INCLUDE_DIR AND TARGET Shiboken6::libshiboken)
 
     if(NOT SHIBOKEN_INCLUDE_DIR)
         message("====================\n"

@@ -187,11 +187,11 @@ if(FREECAD_USE_SHIBOKEN)
             ${SHIBOKEN_LIBRARY}
         )
     else (SHIBOKEN_LIBRARY)
-        if (TARGET Shiboken2::libshiboken)
+        if (TARGET Shiboken6::libshiboken)
             list(APPEND FreeCADGui_LIBS
-                Shiboken2::libshiboken
+                Shiboken6::libshiboken
             )
-        endif (TARGET Shiboken2::libshiboken)
+        endif (TARGET Shiboken6::libshiboken)
     endif (SHIBOKEN_LIBRARY)
 endif(FREECAD_USE_SHIBOKEN)
 

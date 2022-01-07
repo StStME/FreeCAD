@@ -37,7 +37,7 @@ constexpr char * FC_PYSIDE_VERSION = "${PySide6_VERSION}";
 constexpr char * FC_PYBIND11_VERSION = "${pybind11_VERSION}";
 
 // Shiboken
-constexpr char * FC_SHIBOKEN_VERSION = "${Shiboken2_VERSION}";
+constexpr char * FC_SHIBOKEN_VERSION = "${Shiboken6_VERSION}";
 
 // vtk
 constexpr char * FC_VTK_VERSION = "${VTK_VERSION}";
