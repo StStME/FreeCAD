@@ -68,7 +68,7 @@ RUN apt-get install -y				\
 	libqt5webkit5-dev			\
 	libqt5x11extras5-dev			\
 	libqt5xmlpatterns5-dev			\
-	libshiboken2-dev			\
+	libshiboken6-dev			\
 	libspnav-dev				\
 	libvtk7-dev				\
 	libvtk7.1p				\

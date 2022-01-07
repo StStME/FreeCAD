@@ -85,7 +85,7 @@ BuildRequires:  python3-matplotlib
 BuildRequires:  python3-pycxx-devel
 %endif
 BuildRequires:  python3-pyside6-devel
-BuildRequires:  python3-shiboken2-devel
+BuildRequires:  python3-shiboken6-devel
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-qttools-static
@@ -195,8 +195,8 @@ LDFLAGS='-Wl,--as-needed -Wl,--no-undefined'; export LDFLAGS
        -DFREECAD_USE_EXTERNAL_PIVY=TRUE \
        -DFREECAD_USE_PCL=TRUE \
        -DBUILD_QT5=ON \
-       -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
-       -DSHIBOKEN_LIBRARY=-lshiboken2.%{py_suffix} \
+       -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken6 \
+       -DSHIBOKEN_LIBRARY=-lshiboken6.%{py_suffix} \
        -DPYTHON_SUFFIX=.%{py_suffix} \
        -DPYSIDE_INCLUDE_DIR=/usr/include/PySide6 \
        -DPYSIDE_LIBRARY=-lpyside6.%{py_suffix} \

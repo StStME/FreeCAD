@@ -55,7 +55,7 @@ extraction:
       - "libopencv-dev"
       - "libproj-dev"
       - "libpyside6-dev"
-      - "libshiboken2-dev"
+      - "libshiboken6-dev"
       - "libspnav-dev"
       - "libvtk7-dev"
       - "libx11-dev"

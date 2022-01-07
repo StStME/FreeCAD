@@ -8,8 +8,8 @@ apt-get install --no-install-recommends --yes build-essential cmake doxygen git 
     libocct-draw-dev libocct-foundation-dev libocct-modeling-algorithms-dev \
     libocct-modeling-data-dev libocct-ocaf-dev libocct-visualization-dev \
     libopencv-dev libproj-dev libpyside6-dev libqt5svg5-dev libqt5webkit5-dev \
-    libqt5xmlpatterns5-dev libshiboken2-dev libvtk9-dev libvtk9-qt-dev \
+    libqt5xmlpatterns5-dev libshiboken6-dev libvtk9-dev libvtk9-qt-dev \
     libvtk-dicom-dev libx11-dev libxerces-c-dev libxmu-dev libxmuu-dev \
     libzipios++-dev netgen netgen-headers pyside6-tools python3-dev \
     python3-matplotlib python3-pivy python3-ply python3-pyside6.qtsvg \
-    python3-pyside6.qtuitools qtchooser qttools5-dev shiboken2 swig
+    python3-pyside6.qtuitools qtchooser qttools5-dev shiboken6 swig

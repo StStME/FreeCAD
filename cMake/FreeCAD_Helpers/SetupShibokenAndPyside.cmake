@@ -35,7 +35,7 @@ macro(SetupShibokenAndPyside)
 
     if(NOT SHIBOKEN_INCLUDE_DIR)
         message("====================\n"
-                "shiboken2 not found.\n"
+                "shiboken6 not found.\n"
                 "====================\n")
     endif(NOT SHIBOKEN_INCLUDE_DIR)
 
@@ -95,7 +95,7 @@ macro(SetupShibokenAndPyside)
 
         # Now try to import the shiboken Python module and print a warning if it can't be loaded
         execute_process(
-        COMMAND ${PYTHON_EXECUTABLE} -c "import shiboken2"
+        COMMAND ${PYTHON_EXECUTABLE} -c "import shiboken6"
         RESULT_VARIABLE FAILURE
         OUTPUT_VARIABLE PRINT_OUTPUT
         )

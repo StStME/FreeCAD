@@ -352,9 +352,9 @@ QObject* PythonWrapper::toQObject(const Py::Object& pyobject)
         }
     }
 #else
-    // Access shiboken2/PySide6 via Python
+    // Access shiboken6/PySide6 via Python
     //
-    void* ptr = qt_getCppPointer(pyobject, "shiboken2", "getCppPointer");
+    void* ptr = qt_getCppPointer(pyobject, "shiboken6", "getCppPointer");
     return reinterpret_cast<QObject*>(ptr);
 #endif
 
@@ -378,9 +378,9 @@ QGraphicsItem* PythonWrapper::toQGraphicsItem(PyObject* pyPtr)
         }
     }
 #else
-    // Access shiboken2/PySide6 via Python
+    // Access shiboken6/PySide6 via Python
     //
-    void* ptr = qt_getCppPointer(Py::asObject(pyPtr), "shiboken2", "getCppPointer");
+    void* ptr = qt_getCppPointer(Py::asObject(pyPtr), "shiboken6", "getCppPointer");
     return reinterpret_cast<QGraphicsItem*>(ptr);
 #endif
     return nullptr;
@@ -395,9 +395,9 @@ Py::Object PythonWrapper::fromQIcon(const QIcon* icon)
     if (pyobj)
         return Py::asObject(pyobj);
 #else
-    // Access shiboken2/PySide6 via Python
+    // Access shiboken6/PySide6 via Python
     //
-    return qt_wrapInstance<const QIcon*>(icon, "QIcon", "shiboken2", "PySide6.QtGui", "wrapInstance");
+    return qt_wrapInstance<const QIcon*>(icon, "QIcon", "shiboken6", "PySide6.QtGui", "wrapInstance");
 #endif
     throw Py::RuntimeError("Failed to wrap icon");
 }
@@ -470,9 +470,9 @@ Py::Object PythonWrapper::fromQObject(QObject* object, const char* className)
     }
     throw Py::RuntimeError("Failed to wrap object");
 #else
-    // Access shiboken2/PySide6 via Python
+    // Access shiboken6/PySide6 via Python
     //
-    return qt_wrapInstance<QObject*>(object, className, "shiboken2", "PySide6.QtCore", "wrapInstance");
+    return qt_wrapInstance<QObject*>(object, className, "shiboken6", "PySide6.QtCore", "wrapInstance");
 #endif
 #if 0 // Unwrapping using sip/PyQt
     Q_UNUSED(className);
@@ -499,9 +499,9 @@ Py::Object PythonWrapper::fromQWidget(QWidget* widget, const char* className)
     throw Py::RuntimeError("Failed to wrap widget");
 
 #else
-    // Access shiboken2/PySide6 via Python
+    // Access shiboken6/PySide6 via Python
     //
-    return qt_wrapInstance<QWidget*>(widget, className, "shiboken2", "PySide6.QtWidgets", "wrapInstance");
+    return qt_wrapInstance<QWidget*>(widget, className, "shiboken6", "PySide6.QtWidgets", "wrapInstance");
 #endif
 
 #if 0 // Unwrapping using sip/PyQt
@@ -628,7 +628,7 @@ void PythonWrapper::createChildrenNameAttributes(PyObject* root, QObject* object
                         className = "QObject";
                 }
 
-                Py::Object pyChild(qt_wrapInstance<QObject*>(child, className, "shiboken2", "PySide6.QtWidgets", "wrapInstance"));
+                Py::Object pyChild(qt_wrapInstance<QObject*>(child, className, "shiboken6", "PySide6.QtWidgets", "wrapInstance"));
                 PyObject_SetAttrString(root, name.constData(), pyChild.ptr());
 #endif
             }
