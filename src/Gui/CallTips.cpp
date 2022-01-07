@@ -277,7 +277,7 @@ QMap<QString, CallTip> CallTipsList::extractTips(const QString& context) const
             // Make sure it's not a type object
             union PyType_Object typetype = {&PyType_Type};
             if (PyObject_IsInstance(obj.ptr(), typetype.o) != 1) {
-                // For wrapped objects with PySide2 use the object, not its type
+                // For wrapped objects with PySide6 use the object, not its type
                 // as otherwise attributes added at runtime won't be listed (e.g. MainWindowPy)
                 QString typestr(QLatin1String(Py_TYPE(obj.ptr())->tp_name));
 

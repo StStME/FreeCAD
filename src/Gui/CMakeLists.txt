@@ -206,11 +206,11 @@ if(FREECAD_USE_PYSIDE)
             ${PYSIDE_LIBRARY}
         )
     else (PYSIDE_LIBRARY)
-        if (TARGET PySide2::pyside2)
+        if (TARGET PySide6::pyside6)
             list(APPEND FreeCADGui_LIBS
-                PySide2::pyside2
+                PySide6::pyside6
             )
-        endif (TARGET PySide2::pyside2)
+        endif (TARGET PySide6::pyside6)
     endif (PYSIDE_LIBRARY)
     if (BUILD_QT5)
         include_directories(

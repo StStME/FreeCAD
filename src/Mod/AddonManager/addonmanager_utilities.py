@@ -33,7 +33,7 @@ from urllib.error import URLError
 from urllib.parse import urlparse
 from http.client import HTTPResponse
 
-from PySide2 import QtCore, QtWidgets
+from PySide6 import QtCore, QtWidgets
 
 import FreeCAD
 import FreeCADGui

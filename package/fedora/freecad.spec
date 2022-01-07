@@ -77,14 +77,14 @@ BuildRequires:  python3-pivy
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  openmpi-devel
 BuildRequires:  pcl-devel
-BuildRequires:  pyside2-tools
+BuildRequires:  pyside6-tools
 BuildRequires:  python3
 BuildRequires:  python3-devel
 BuildRequires:  python3-matplotlib
 %if ! %{bundled_pycxx}
 BuildRequires:  python3-pycxx-devel
 %endif
-BuildRequires:  python3-pyside2-devel
+BuildRequires:  python3-pyside6-devel
 BuildRequires:  python3-shiboken2-devel
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  qt5-qtsvg-devel
@@ -112,7 +112,7 @@ Requires:       hicolor-icon-theme
 Requires:       python3-collada
 Requires:       python3-matplotlib
 Requires:       python3-pivy
-Requires:       python3-pyside2
+Requires:       python3-pyside6
 Requires:	qt5-assistant
 %if %{bundled_smesh} 
 Provides:       bundled(smesh) = %{bundled_smesh_version}
@@ -198,8 +198,8 @@ LDFLAGS='-Wl,--as-needed -Wl,--no-undefined'; export LDFLAGS
        -DSHIBOKEN_INCLUDE_DIR=%{_includedir}/shiboken2 \
        -DSHIBOKEN_LIBRARY=-lshiboken2.%{py_suffix} \
        -DPYTHON_SUFFIX=.%{py_suffix} \
-       -DPYSIDE_INCLUDE_DIR=/usr/include/PySide2 \
-       -DPYSIDE_LIBRARY=-lpyside2.%{py_suffix} \
+       -DPYSIDE_INCLUDE_DIR=/usr/include/PySide6 \
+       -DPYSIDE_LIBRARY=-lpyside6.%{py_suffix} \
        -DPYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3 \
        -DMEDFILE_INCLUDE_DIRS=%{MEDFILE_INCLUDE_DIRS} \
        -DOpenGL_GL_PREFERENCE=GLVND \

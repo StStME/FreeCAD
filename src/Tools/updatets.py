@@ -112,8 +112,8 @@ def find_tools(noobsolete=True):
             LUPDATE += " -noobsolete"
     else:
         raise Exception("Cannot find lupdate")
-    if (os.system("pyside2-lupdate -version") == 0):
-        PYLUPDATE = "pyside2-lupdate"
+    if (os.system("pyside6-lupdate -version") == 0):
+        PYLUPDATE = "pyside6-lupdate"
     elif (os.system("pylupdate -version") == 0):
         PYLUPDATE = "pylupdate"
     elif (os.system("pylupdate5 -version") == 0):

@@ -192,7 +192,7 @@ public:
     }
     // paintGL() is invoked when e.g. using the method grabFramebuffer of this class
     // \code
-    // from PySide2 import QtWidgets
+    // from PySide6 import QtWidgets
     // mw = Gui.getMainWindow()
     // mdi = mw.findChild(QtWidgets.QMdiArea)
     // gl = mdi.findChild(QtWidgets.QOpenGLWidget)

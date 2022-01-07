@@ -184,7 +184,7 @@ class _TaskPanel:
 
         out = self.Calculix.readAllStandardOutput()
         # print(type(out))
-        # <class 'PySide2.QtCore.QByteArray'>
+        # <class 'PySide6.QtCore.QByteArray'>
 
         if out.isEmpty():
             self.femConsoleMessage("CalculiX stdout is empty", "#FF0000")

@@ -27,8 +27,8 @@ import os
 import hashlib
 from typing import Dict, List
 
-from PySide2 import QtCore, QtNetwork
-from PySide2.QtCore import QObject
+from PySide6 import QtCore, QtNetwork
+from PySide6.QtCore import QObject
 
 import addonmanager_utilities as utils
 from AddonManagerRepo import AddonManagerRepo

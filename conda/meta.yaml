@@ -51,7 +51,7 @@ requirements:
         - pybind11
         - coin3d
         - pivy
-        - pyside2
+        - pyside6
         - smesh
         - netgen 6.2.1808*
         - doxygen
@@ -64,7 +64,7 @@ requirements:
         - ply
         - tbb-devel
     run:
-        - {{ pin_compatible("pyside2") }}
+        - {{ pin_compatible("pyside6") }}
         - vtk
         - occt
         - qt

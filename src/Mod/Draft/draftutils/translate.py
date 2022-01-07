@@ -102,7 +102,7 @@ def translate(context, text, utf8_decode=False):
     >>> QtCore.QCoreApplication.translate(context, text, None, UnicodeUT8)
     >>> QtGui.QApplication.translate(context, text, None, UnicodeUT8)
 
-    Reference: https://doc.qt.io/qtforpython/PySide2/QtCore
+    Reference: https://doc.qt.io/qtforpython/PySide6/QtCore
 
     In Qt5 the strings are always assumed unicode, so the 4th parameter
     is for a different use, and it is not used.

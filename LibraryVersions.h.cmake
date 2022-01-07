@@ -31,7 +31,7 @@ constexpr char * FC_PCL_VERSION = "${PCL_VERSION}";
 constexpr char * FC_PYCXX_VERSION = "${PYCXX_VERSION}";
 
 // PySide
-constexpr char * FC_PYSIDE_VERSION = "${PySide2_VERSION}";
+constexpr char * FC_PYSIDE_VERSION = "${PySide6_VERSION}";
 
 // PyBind
 constexpr char * FC_PYBIND11_VERSION = "${pybind11_VERSION}";

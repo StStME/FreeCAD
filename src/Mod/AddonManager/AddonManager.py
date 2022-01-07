@@ -31,7 +31,7 @@ import tempfile
 from datetime import date, timedelta
 from typing import Dict
 
-from PySide2 import QtGui, QtCore, QtWidgets
+from PySide6 import QtGui, QtCore, QtWidgets
 import FreeCADGui
 
 from addonmanager_utilities import translate  # this needs to be as is for pylupdate

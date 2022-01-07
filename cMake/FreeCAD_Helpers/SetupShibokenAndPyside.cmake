@@ -27,7 +27,7 @@ macro(SetupShibokenAndPyside)
         endif()
     endif()
 
-    # pyside2 changed its cmake files, this is the dance we have
+    # pyside6 changed its cmake files, this is the dance we have
     # to dance to be compatible with the old (<5.12) and the new versions (>=5.12)
     if(NOT SHIBOKEN_INCLUDE_DIR AND TARGET Shiboken2::libshiboken)
         get_property(SHIBOKEN_INCLUDE_DIR TARGET Shiboken2::libshiboken PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
@@ -39,37 +39,37 @@ macro(SetupShibokenAndPyside)
                 "====================\n")
     endif(NOT SHIBOKEN_INCLUDE_DIR)
 
-    find_package(PySide2 QUIET)# REQUIRED
+    find_package(PySide6 QUIET)# REQUIRED
 
-    if(NOT PYSIDE_INCLUDE_DIR AND TARGET PySide2::pyside2)
-        get_property(PYSIDE_INCLUDE_DIR TARGET PySide2::pyside2 PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
-    endif(NOT PYSIDE_INCLUDE_DIR AND TARGET PySide2::pyside2)
+    if(NOT PYSIDE_INCLUDE_DIR AND TARGET PySide6::pyside6)
+        get_property(PYSIDE_INCLUDE_DIR TARGET PySide6::pyside6 PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
+    endif(NOT PYSIDE_INCLUDE_DIR AND TARGET PySide6::pyside6)
 
     if(NOT PYSIDE_INCLUDE_DIR)
         message("==================\n"
-                "PySide2 not found.\n"
+                "PySide6 not found.\n"
                 "==================\n")
     endif(NOT PYSIDE_INCLUDE_DIR)
 
-    find_package(PySide2Tools QUIET) #REQUIRED # PySide2 utilities (pyside2-uic & pyside2-rcc)
+    find_package(PySide6Tools QUIET) #REQUIRED # PySide6 utilities (pyside6-uic & pyside6-rcc)
     if(NOT PYSIDE2_TOOLS_FOUND)
         message("=======================\n"
-                "PySide2Tools not found.\n"
+                "PySide6Tools not found.\n"
                 "=======================\n")
     endif(NOT PYSIDE2_TOOLS_FOUND)
 
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Ext/PySide)
     file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/__init__.py "# PySide wrapper\n"
-                                  "from PySide2 import __version__\n"
-                                  "from PySide2 import __version_info__\n")
-    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtCore.py "from PySide2.QtCore import *\n\n"
+                                  "from PySide6 import __version__\n"
+                                  "from PySide6 import __version_info__\n")
+    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtCore.py "from PySide6.QtCore import *\n\n"
                                 "#QCoreApplication.CodecForTr=0\n"
                                 "#QCoreApplication.UnicodeUTF8=1\n")
-    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtGui.py  "from PySide2.QtGui import *\n"
-                                "from PySide2.QtWidgets import *\n"
+    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtGui.py  "from PySide6.QtGui import *\n"
+                                "from PySide6.QtWidgets import *\n"
                                 "QHeaderView.setResizeMode = QHeaderView.setSectionResizeMode\n")
-    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtSvg.py  "from PySide2.QtSvg import *\n")
-    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtUiTools.py  "from PySide2.QtUiTools import *\n")
+    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtSvg.py  "from PySide6.QtSvg import *\n")
+    file(WRITE ${CMAKE_BINARY_DIR}/Ext/PySide/QtUiTools.py  "from PySide6.QtUiTools import *\n")
 
     if(APPLE AND NOT BUILD_WITH_CONDA)
         install(
@@ -116,17 +116,17 @@ macro(SetupShibokenAndPyside)
 
     # Independent of the build option PySide modules must be loaded at runtime. Print a warning if it fails.
     execute_process(
-        COMMAND ${PYTHON_EXECUTABLE} -c "import PySide2;import os;print(os.path.dirname(PySide2.__file__), end='')"
+        COMMAND ${PYTHON_EXECUTABLE} -c "import PySide6;import os;print(os.path.dirname(PySide6.__file__), end='')"
         RESULT_VARIABLE FAILURE
         OUTPUT_VARIABLE PRINT_OUTPUT
     )
     if(FAILURE)
         message("================================\n"
-                "PySide2 Python module not found.\n"
+                "PySide6 Python module not found.\n"
                 "================================\n")
     else()
         message(STATUS "===============================================\n"
-                       "PySide2 Python module found at ${PRINT_OUTPUT}.\n"
+                       "PySide6 Python module found at ${PRINT_OUTPUT}.\n"
                        "===============================================\n")
     endif()
 

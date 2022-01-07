@@ -1,7 +1,7 @@
-# Try to find PySide2 utilities, PYSIDE2UIC and PYSIDE2RCC:
+# Try to find PySide6 utilities, PYSIDE2UIC and PYSIDE2RCC:
 # PYSIDE2UICBINARY - Location of PYSIDE2UIC executable
 # PYSIDE2RCCBINARY - Location of PYSIDE2RCC executable
-# PYSIDE2_TOOLS_FOUND - PySide2 utilities found.
+# PYSIDE2_TOOLS_FOUND - PySide6 utilities found.
 
 # Also provides macro similar to FindQt4.cmake's WRAP_UI and WRAP_RC,
 # for the automatic generation of Python code from Qt4's user interface
@@ -15,27 +15,27 @@ IF(PYSIDE2UICBINARY AND PYSIDE2RCCBINARY)
 ENDIF(PYSIDE2UICBINARY AND PYSIDE2RCCBINARY)
 
 if(WIN32 OR ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    #pyside2 tools are often in same location as python interpreter
+    #pyside6 tools are often in same location as python interpreter
     get_filename_component(PYTHON_BIN_DIR ${PYTHON_EXECUTABLE} PATH)
     set(PYSIDE_BIN_DIR ${PYTHON_BIN_DIR})
 endif(WIN32 OR ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
-# Since Qt v5.14, pyside2-uic and pyside2-rcc are directly provided by Qt5Core uic and rcc, with '-g python' option
+# Since Qt v5.14, pyside6-uic and pyside6-rcc are directly provided by Qt5Core uic and rcc, with '-g python' option
 # We test Qt5Core version to act accordingly
 
 FIND_PACKAGE(Qt5Core)
 
 IF(Qt5Core_VERSION VERSION_LESS 5.14)
   # Legacy (< 5.14)
-  FIND_PROGRAM(PYSIDE2UICBINARY NAMES python2-pyside2-uic pyside2-uic pyside2-uic-${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} pyuic5 HINTS ${PYSIDE_BIN_DIR})
-  FIND_PROGRAM(PYSIDE2RCCBINARY NAMES pyside2-rcc pyside2-rcc-${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} pyrcc5 HINTS ${PYSIDE_BIN_DIR})
+  FIND_PROGRAM(PYSIDE2UICBINARY NAMES python2-pyside6-uic pyside6-uic pyside6-uic-${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} pyuic5 HINTS ${PYSIDE_BIN_DIR})
+  FIND_PROGRAM(PYSIDE2RCCBINARY NAMES pyside6-rcc pyside6-rcc-${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR} pyrcc5 HINTS ${PYSIDE_BIN_DIR})
   set(UICOPTIONS "")
   set(RCCOPTIONS "")
 ELSE(Qt5Core_VERSION VERSION_LESS 5.14)
   # New (>= 5.14)
-  FIND_PROGRAM(PYSIDE2UICBINARY NAMES uic-qt5 uic pyside2-uic)
+  FIND_PROGRAM(PYSIDE2UICBINARY NAMES uic-qt5 uic pyside6-uic)
   set(UICOPTIONS "--generator=python")
-  FIND_PROGRAM(PYSIDE2RCCBINARY NAMES rcc-qt5 rcc pyside2-rcc)
+  FIND_PROGRAM(PYSIDE2RCCBINARY NAMES rcc-qt5 rcc pyside6-rcc)
   set(RCCOPTIONS "--generator=python" "--compress-algo=zlib" "--compress=1")
 ENDIF(Qt5Core_VERSION VERSION_LESS 5.14)
 
@@ -54,7 +54,7 @@ MACRO(PYSIDE_WRAP_UI outfiles)
         )
     else()
         # Especially on Open Build Service we don't want changing date like
-        # pyside2-uic generates in comments at beginning., which is why
+        # pyside6-uic generates in comments at beginning., which is why
         # we follow the tool command with a POSIX-friendly sed.
         ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
           COMMAND "${PYSIDE2UICBINARY}" ${UICOPTIONS} "${infile}" -o "${outfile}"
@@ -98,15 +98,15 @@ IF(EXISTS ${PYSIDE2UICBINARY} AND EXISTS ${PYSIDE2RCCBINARY})
 ENDIF(EXISTS ${PYSIDE2UICBINARY} AND EXISTS ${PYSIDE2RCCBINARY})
 
 if(PYSIDE2RCCBINARY AND PYSIDE2UICBINARY)
-    if (NOT PySide2Tools_FIND_QUIETLY)
-        message(STATUS "Found PySide2 tools: ${PYSIDE2UICBINARY}, ${PYSIDE2RCCBINARY}")
-    endif (NOT PySide2Tools_FIND_QUIETLY)
+    if (NOT PySide6Tools_FIND_QUIETLY)
+        message(STATUS "Found PySide6 tools: ${PYSIDE2UICBINARY}, ${PYSIDE2RCCBINARY}")
+    endif (NOT PySide6Tools_FIND_QUIETLY)
 else(PYSIDE2RCCBINARY AND PYSIDE2UICBINARY)
-    if(PySide2Tools_FIND_REQUIRED)
-        message(FATAL_ERROR "PySide2 tools could not be found, but are required.")
-    else(PySide2Tools_FIND_REQUIRED)
-        if (NOT PySide2Tools_FIND_QUIETLY)
-                message(STATUS "PySide2 tools: not found.")
-        endif (NOT PySide2Tools_FIND_QUIETLY)
-    endif(PySide2Tools_FIND_REQUIRED)
+    if(PySide6Tools_FIND_REQUIRED)
+        message(FATAL_ERROR "PySide6 tools could not be found, but are required.")
+    else(PySide6Tools_FIND_REQUIRED)
+        if (NOT PySide6Tools_FIND_QUIETLY)
+                message(STATUS "PySide6 tools: not found.")
+        endif (NOT PySide6Tools_FIND_QUIETLY)
+    endif(PySide6Tools_FIND_REQUIRED)
 endif(PYSIDE2RCCBINARY AND PYSIDE2UICBINARY)

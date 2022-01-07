@@ -60,7 +60,7 @@ RUN apt-get install -y				\
 	libocct-visualization-dev		\
 	libopencv-dev				\
 	libproj-dev				\
-	libpyside2-dev				\
+	libpyside6-dev				\
 	libqt5opengl5				\
 	libqt5opengl5-dev			\
 	libqt5svg5-dev				\
@@ -83,19 +83,19 @@ RUN apt-get install -y				\
 	occt-draw				\
 	pybind11-dev				\
 	pyqt5-dev-tools				\
-	pyside2-tools				\
+	pyside6-tools				\
 	python3-dev				\
 	python3-matplotlib			\
 	python3-pivy				\
 	python3-ply				\
 	python3-pyqt5				\
-	python3-pyside2.*			\
-	python3-pyside2.qtcore			\
-	python3-pyside2.qtgui			\
-	python3-pyside2.qtsvg			\
-	python3-pyside2.qtuitools		\
-	python3-pyside2.qtwidgets		\
-	python3-pyside2.qtxml			\
+	python3-pyside6.*			\
+	python3-pyside6.qtcore			\
+	python3-pyside6.qtgui			\
+	python3-pyside6.qtsvg			\
+	python3-pyside6.qtuitools		\
+	python3-pyside6.qtwidgets		\
+	python3-pyside6.qtxml			\
 	python3-requests			\
 	python3-yaml				\
 	qt5-default				\

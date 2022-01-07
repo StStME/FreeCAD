@@ -28,7 +28,7 @@ dependencies:
   - six
   - ply
   - tbb-devel
-  - pyside2
+  - pyside6
   - numpy
   - six
   - pyyaml

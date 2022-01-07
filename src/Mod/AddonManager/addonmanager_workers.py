@@ -35,7 +35,7 @@ import time
 from datetime import datetime
 from typing import Union, List
 
-from PySide2 import QtCore, QtNetwork
+from PySide6 import QtCore, QtNetwork
 
 import FreeCAD
 
