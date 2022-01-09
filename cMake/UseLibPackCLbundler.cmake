@@ -50,6 +50,43 @@ set (Qt5XmlPatterns_DIR ${Qt5_ROOT_DIR}/lib/cmake/Qt5XmlPatterns CACHE PATH "")
 
 endif (BUILD_QT5)
 
+if (BUILD_QT6)
+
+# default Qt6 stuff
+# Set paths to cmake config files for each Qt module
+set(Qt6_ROOT_DIR ${FREECAD_LIBPACK_DIR} CACHE PATH "")
+
+set (Qt6_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6 CACHE PATH "")
+set (Qt6AxBase_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6AxBase CACHE PATH "")
+set (Qt6AxContainer_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6AxContainer CACHE PATH "")
+set (Qt6AxServer_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6AxServer CACHE PATH "")
+set (Qt6Concurrent_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Concurrent CACHE PATH "")
+set (Qt6Core_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Core CACHE PATH "")
+set (Qt6DBus_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6DBus CACHE PATH "")
+set (Qt6Designer_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Designer CACHE PATH "")
+set (Qt6Gui_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Gui CACHE PATH "")
+set (Qt6Help_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Help CACHE PATH "")
+set (Qt6LinguistTools_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6LinguistTools CACHE PATH "")
+set (Qt6Multimedia_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Multimedia CACHE PATH "")
+set (Qt6MultimediaWidgets_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6MultimediaWidgets CACHE PATH "")
+set (Qt6Network_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Network CACHE PATH "")
+set (Qt6OpenGL_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6OpenGL CACHE PATH "")
+set (Qt6OpenGLExtensions_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6OpenGLExtensions CACHE PATH "")
+set (Qt6PrintSupport_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6PrintSupport CACHE PATH "")
+set (Qt6Qml_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Qml CACHE PATH "")
+set (Qt6Quick_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Quick CACHE PATH "")
+set (Qt6QuickTest_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6QuickTest CACHE PATH "")
+set (Qt6QuickWidgets_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6QuickWidgets CACHE PATH "")
+set (Qt6Sql_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Sql CACHE PATH "")
+set (Qt6Svg_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Svg CACHE PATH "")
+set (Qt6Test_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Test CACHE PATH "")
+set (Qt6UiPlugin_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6UiPlugin CACHE PATH "")
+set (Qt6UiTools_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6UiTools CACHE PATH "")
+set (Qt6Widgets_DIR ${Qt6_ROOT_DIR}/lib/cmake/Qt6Widgets CACHE PATH "")
+
+
+endif (BUILD_QT6)
+
 find_library(XercesC_LIBRARY_RELEASE xerces-c_3 "${FREECAD_LIBPACK_DIR}/lib")
 find_library(XercesC_LIBRARY_DEBUG xerces-c_3D "${FREECAD_LIBPACK_DIR}/lib")
 set (XercesC_LIBRARIES debug ${XercesC_LIBRARY_DEBUG} optimized ${XercesC_LIBRARY_RELEASE})

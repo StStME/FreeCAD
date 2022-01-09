@@ -2,9 +2,13 @@ project(MyPlugin)
 cmake_minimum_required(VERSION 3.5)
 
 # Qt5
+if(BUILD_QT5)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
-
+elseif(BUILD_QT6)
+find_package(Qt6Widgets REQUIRED)
+find_package(Qt6Gui REQUIRED)
+endif()
 # Boost
 find_package(Boost COMPONENTS signals REQUIRED)
 
@@ -29,6 +33,7 @@ set(FREECAD_LIBPACK_DIR ${CMAKE_SOURCE_DIR} CACHE PATH  "Directory of the FreeCA
 
 add_definitions(-DBOOST_ALL_DYN_LINK)
 
+if(BUILD_QT5)
 include_directories(
     ${Boost_INCLUDE_DIRS}
     #${COIN3D_INCLUDE_DIRS}
@@ -39,7 +44,18 @@ include_directories(
     ${FREECAD_SRC_DIR}
     "${FREECAD_LIBPACK_DIR}/include"
 )
-
+elseif(BUILD_QT6)
+include_directories(
+    ${Boost_INCLUDE_DIRS}
+    #${COIN3D_INCLUDE_DIRS}
+    ${PYTHON_INCLUDE_DIRS}
+    ${Qt6Core_INCLUDE_DIRS}
+    ${Qt6Gui_INCLUDE_DIRS}
+    ${Qt6Widgets_INCLUDE_DIRS}
+    ${FREECAD_SRC_DIR}
+    "${FREECAD_LIBPACK_DIR}/include"
+)
+endi()
 link_directories(${FREECAD_LIBPACK_DIR}/lib)
 link_directories(${FREECAD_BIN_DIR})
 
@@ -48,7 +64,7 @@ link_directories(${FREECAD_BIN_DIR})
 set(MyPlugin_SRCS
     main.cpp
 )
-
+if(BUILD_QT5)
 set(MyPlugin_LIBS
     ${Boost_LIBRARIES}
     #${COIN3D_LIBRARIES}
@@ -57,7 +73,16 @@ set(MyPlugin_LIBS
     ${Qt5Gui_LIBRARIES}
     ${Qt5Widgets_LIBRARIES}
 )
-
+elseif(BUILD_QT6)
+set(MyPlugin_LIBS
+    ${Boost_LIBRARIES}
+    #${COIN3D_LIBRARIES}
+    ${PYTHON_LIBRARIES}
+    ${Qt6Core_LIBRARIES}
+    ${Qt6Gui_LIBRARIES}
+    ${Qt6Widgets_LIBRARIES}
+)
+endif()
 add_executable(MyPlugin WIN32 ${MyPlugin_SRCS})
 target_link_libraries(MyPlugin ${MyPlugin_LIBS})
 
@@ -66,7 +91,7 @@ target_link_libraries(MyPlugin ${MyPlugin_LIBS})
 set(FreeCADPlugin_SRCS
     plugin.cpp
 )
-
+if(BUILD_QT5)
 set(FreeCADPlugin_LIBS
     ${Boost_LIBRARIES}
     #${COIN3D_LIBRARIES}
@@ -75,6 +100,16 @@ set(FreeCADPlugin_LIBS
     ${Qt5Gui_LIBRARIES}
     ${Qt5Widgets_LIBRARIES}
 )
+elseif(BUILD_QT6)
+set(FreeCADPlugin_LIBS
+    ${Boost_LIBRARIES}
+    #${COIN3D_LIBRARIES}
+    ${PYTHON_LIBRARIES}
+    ${Qt6Core_LIBRARIES}
+    ${Qt6Gui_LIBRARIES}
+    ${Qt6Widgets_LIBRARIES}
+)
+endif()
 
 if (MSVC)
     set(FreeCADPlugin_LIBS

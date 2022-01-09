@@ -31,6 +31,8 @@ set(PartDesignGui_LIBS
 
 if(BUILD_QT5)
     qt5_add_resources(PartDesignGui_SRCS Resources/PartDesign.qrc)
+elseif(BUILD_QT6)
+    qt6_add_resources(PartDesignGui_SRCS Resources/PartDesign.qrc)
 else()
     qt4_add_resources(PartDesignGui_SRCS Resources/PartDesign.qrc)
 endif()
@@ -64,6 +66,8 @@ set(PartDesignGui_UIC_SRCS
 
 if(BUILD_QT5)
     qt5_wrap_ui(PartDesignGui_UIC_HDRS ${PartDesignGui_UIC_SRCS})
+elseif(BUILD_QT6)
+    qt6_wrap_ui(PartDesignGui_UIC_HDRS ${PartDesignGui_UIC_SRCS})
 else()
     qt4_wrap_ui(PartDesignGui_UIC_HDRS ${PartDesignGui_UIC_SRCS})
 endif()

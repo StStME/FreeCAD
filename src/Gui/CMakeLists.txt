@@ -110,6 +110,25 @@ if (BUILD_QT5)
         ${Qt5WinExtras_LIBRARIES}
       )
     endif()
+elseif(BUILD_QT6)
+include_directories(
+        ${Qt6Core_INCLUDE_DIRS}
+        ${Qt6Widgets_INCLUDE_DIRS}
+        ${Qt6OpenGL_INCLUDE_DIRS}
+        ${Qt6PrintSupport_INCLUDE_DIRS}
+        ${Qt6Svg_INCLUDE_DIRS}
+        ${Qt6Network_INCLUDE_DIRS}
+        ${Qt6UiTools_INCLUDE_DIRS}
+    )
+    list(APPEND FreeCADGui_LIBS
+        ${Qt6Core_LIBRARIES}
+        ${Qt6Widgets_LIBRARIES}
+        ${Qt6OpenGL_LIBRARIES}
+        ${Qt6PrintSupport_LIBRARIES}
+        ${Qt6Svg_LIBRARIES}
+        ${Qt6Network_LIBRARIES}
+        ${Qt6UiTools_LIBRARIES}
+    )
 else()
     include_directories(
         ${QT_INCLUDE_DIR}
@@ -371,6 +390,9 @@ SET(Gui_RES_SRCS
 if (BUILD_QT5)
     QT5_ADD_RESOURCES(Gui_QRC_SRCS ${Gui_RES_SRCS})
     QT5_WRAP_UI(Gui_UIC_HDRS ${Gui_UIC_SRCS})
+elseif (BUILD_QT6)
+    QT6_ADD_RESOURCES(Gui_QRC_SRCS ${Gui_RES_SRCS})
+    QT6_WRAP_UI(Gui_UIC_HDRS ${Gui_UIC_SRCS})
 else()
     QT4_ADD_RESOURCES(Gui_QRC_SRCS ${Gui_RES_SRCS})
     QT4_WRAP_UI(Gui_UIC_HDRS ${Gui_UIC_SRCS})
@@ -771,6 +793,8 @@ set(iis_MOC_HDRS
 
 if (BUILD_QT5)
     qt5_wrap_cpp(iis_MOC_SRCS ${iis_MOC_HDRS})
+elseif (BUILD_QT6)
+    qt6_wrap_cpp(iis_MOC_SRCS ${iis_MOC_HDRS})    
 else()
     qt4_wrap_cpp(iis_MOC_SRCS ${iis_MOC_HDRS})
 endif()
@@ -813,6 +837,8 @@ set(qsint_MOC_HDRS
 
 if(BUILD_QT5)
     qt5_wrap_cpp(qsint_MOC_SRCS ${qsint_MOC_HDRS})
+elseif (BUILD_QT6)
+    qt6_wrap_cpp(qsint_MOC_SRCS ${qsint_MOC_HDRS})
 else()
     qt4_wrap_cpp(qsint_MOC_SRCS ${qsint_MOC_HDRS})
 endif()
@@ -894,6 +920,8 @@ SET(Quarter_MOC_HDR
 )
 if(BUILD_QT5)
     qt5_wrap_cpp(Quarter_MOC_SRCS ${Quarter_MOC_HDR})
+elseif (BUILD_QT6)
+    qt6_wrap_cpp(Quarter_MOC_SRCS ${Quarter_MOC_HDR})
 else()
     qt4_wrap_cpp(Quarter_MOC_SRCS ${Quarter_MOC_HDR})
 endif()

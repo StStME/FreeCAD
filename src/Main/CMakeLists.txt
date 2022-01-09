@@ -91,11 +91,17 @@ if (BUILD_QT5)
         ${Qt5Core_LIBRARIES}
         ${Qt5Xml_LIBRARIES}
     )
+elseif (BUILD_QT6)
+    list(APPEND FreeCADMainCmd_LIBS
+        ${Qt6Core_LIBRARIES}
+        #${Qt5Xml_LIBRARIES}
+    )
 else()
     list(APPEND FreeCADMainCmd_LIBS
         ${QT_QTCORE_LIBRARY}
         ${QT_QTXML_LIBRARY}
     )
+
 endif()
 
 if(NOT BUILD_DYNAMIC_LINK_PYTHON)

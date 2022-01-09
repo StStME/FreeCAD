@@ -20,7 +20,7 @@ set(SpreadsheetGui_LIBS
     FreeCADGui
 )
 
-if(BUILD_QT5)
+if(BUILD_QT5 OR BUILD_QT6)
     set_property(SOURCE qtcolorpicker.h qtcolorpicker.cpp PROPERTY SKIP_AUTOMOC ON)
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp
         COMMAND ${Qt5Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.cpp
@@ -44,6 +44,8 @@ SET(SpreadsheetGui_RES_SRCS
 
 if(BUILD_QT5)
     qt5_add_resources(SpreadsheetGui_QRC_SRCS ${SpreadsheetGui_RES_SRCS})
+elseif(BUILD_QT6)
+    qt6_add_resources(SpreadsheetGui_QRC_SRCS ${SpreadsheetGui_RES_SRCS})
 else()
     qt4_add_resources(SpreadsheetGui_QRC_SRCS ${SpreadsheetGui_RES_SRCS})
 endif()
@@ -57,6 +59,8 @@ set(SpreadsheetGui_UIC_SRCS
 
 if(BUILD_QT5)
     qt5_wrap_ui(SpreadsheetGui_UIC_HDRS ${SpreadsheetGui_UIC_SRCS})
+elseif(BUILD_QT6)
+    qt6_wrap_ui(SpreadsheetGui_UIC_HDRS ${SpreadsheetGui_UIC_SRCS})
 else()
     qt4_wrap_ui(SpreadsheetGui_UIC_HDRS ${SpreadsheetGui_UIC_SRCS})
 endif()
@@ -120,6 +124,8 @@ set(SpreadsheetGui_UIC_SRCS
 
 if (BUILD_QT5)
     qt5_wrap_ui(SpreadsheetGui_UIC_HDRS ${SpreadsheetGui_UIC_SRCS})
+elseif (BUILD_QT6)
+    qt6_wrap_ui(SpreadsheetGui_UIC_HDRS ${SpreadsheetGui_UIC_SRCS})
 endif()
 
 add_library(SpreadsheetGui SHARED ${SpreadsheetGui_SRCS} ${SpreadsheetGuiIcon_SVG})

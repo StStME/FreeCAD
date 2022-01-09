@@ -27,6 +27,8 @@ set(PathGui_LIBS
 
 if(BUILD_QT5)
     qt5_add_resources(PathResource_SRCS Resources/Path.qrc)
+elseif(BUILD_QT6)
+    qt6_add_resources(PathResource_SRCS Resources/Path.qrc)
 else()
     qt4_add_resources(PathResource_SRCS Resources/Path.qrc)
 endif()
@@ -41,6 +43,8 @@ set(PathGui_UIC_SRCS
 
 if(BUILD_QT5)
     qt5_wrap_ui(PathGui_UIC_HDRS ${PathGui_UIC_SRCS})
+elseif(BUILD_QT6)
+    qt6_wrap_ui(PathGui_UIC_HDRS ${PathGui_UIC_SRCS})
 else()
     qt4_wrap_ui(PathGui_UIC_HDRS ${PathGui_UIC_SRCS})
 endif()

@@ -40,6 +40,8 @@ endif()
 
 if (BUILD_QT5)
     qt5_add_resources(PartGui_QRC_SRCS Resources/Part.qrc)
+elseif (BUILD_QT6)
+    qt_add_resources(PartGui_QRC_SRCS Resources/Part.qrc)
 else()
     qt4_add_resources(PartGui_QRC_SRCS Resources/Part.qrc)
 endif()
@@ -74,6 +76,8 @@ set(PartGui_UIC_SRCS
 
 if (BUILD_QT5)
     qt5_wrap_ui(PartGui_UIC_HDRS ${PartGui_UIC_SRCS})
+elseif (BUILD_QT6)
+    qt6_wrap_ui(PartGui_UIC_HDRS ${PartGui_UIC_SRCS})
 else()
     qt4_wrap_ui(PartGui_UIC_HDRS ${PartGui_UIC_SRCS})
 endif()

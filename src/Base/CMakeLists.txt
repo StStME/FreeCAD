@@ -61,6 +61,12 @@ if (BUILD_QT5)
         ${Qt5Core_INCLUDE_DIRS}
     )
     list(APPEND FreeCADBase_LIBS ${Qt5Core_LIBRARIES})
+elseif(BUILD_QT6)
+include_directories(
+    ${Qt6Core_INCLUDE_DIRS}
+)
+list(APPEND FreeCADBase_LIBS ${Qt6Core_LIBRARIES})
+
 else()
     include_directories(
         ${QT_QTCORE_INCLUDE_DIR}

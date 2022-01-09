@@ -23,7 +23,7 @@ endif(WIN32 OR ${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 # Since Qt v5.14, pyside6-uic and pyside6-rcc are directly provided by Qt5Core uic and rcc, with '-g python' option
 # We test Qt5Core version to act accordingly
 
-FIND_PACKAGE(Qt5Core)
+FIND_PACKAGE(Qt6Core)
 
 IF(Qt5Core_VERSION VERSION_LESS 5.14)
   # Legacy (< 5.14)

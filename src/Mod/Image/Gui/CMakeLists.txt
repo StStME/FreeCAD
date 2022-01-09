@@ -38,6 +38,10 @@ set(ImageGui_UIC_SRCS
 if(BUILD_QT5)
     qt5_add_resources(ImageGui_QRC_SRCS ${ImageGui_RES_SRCS})
     qt5_wrap_ui(ImageGui_UIC_HDRS ${ImageGui_UIC_SRCS})
+elseif(BUILD_QT6)
+    qt6_add_resources(ImageGui_QRC_SRCS ${ImageGui_RES_SRCS})
+    qt6_wrap_ui(ImageGui_UIC_HDRS ${ImageGui_UIC_SRCS})
+
 else()
     qt4_add_resources(ImageGui_QRC_SRCS ${ImageGui_RES_SRCS})
     qt4_wrap_ui(ImageGui_UIC_HDRS ${ImageGui_UIC_SRCS})

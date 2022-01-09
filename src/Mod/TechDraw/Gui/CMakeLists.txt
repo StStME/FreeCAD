@@ -30,6 +30,8 @@ if(BUILD_QT5)
     include_directories(
         ${Qt5XmlPatterns_INCLUDE_DIRS}
     )
+elseif(BUILD_QT6)
+    message(WARNING "No QTXML fpr QT6!")
 else(BUILD_QT5)
     include_directories(
         ${QT_QTXMLPATTERNS_INCLUDE_DIR}
@@ -49,6 +51,8 @@ set(TechDrawGui_LIBS
 
 if(BUILD_QT5)
     qt5_add_resources(TechDrawGui_SRCS Resources/TechDraw.qrc)
+elseif(BUILD_QT6)
+    qt6_add_resources(TechDrawGui_SRCS Resources/TechDraw.qrc)
 else()
     qt4_add_resources(TechDrawGui_SRCS Resources/TechDraw.qrc)
 endif()
@@ -86,6 +90,8 @@ set(TechDrawGui_UIC_SRCS
 
 if(BUILD_QT5)
     qt5_wrap_ui(TechDrawGui_UIC_HDRS ${TechDrawGui_UIC_SRCS})
+elseif(BUILD_QT6)
+    qt6_wrap_ui(TechDrawGui_UIC_HDRS ${TechDrawGui_UIC_SRCS})
 else()
     qt4_wrap_ui(TechDrawGui_UIC_HDRS ${TechDrawGui_UIC_SRCS})
 endif()
