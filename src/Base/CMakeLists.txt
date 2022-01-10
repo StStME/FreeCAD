@@ -62,10 +62,14 @@ if (BUILD_QT5)
     )
     list(APPEND FreeCADBase_LIBS ${Qt5Core_LIBRARIES})
 elseif(BUILD_QT6)
+find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
 include_directories(
     ${Qt6Core_INCLUDE_DIRS}
+    ${Qt5Combat_INCLUDE_DIRS}
+    #$<TARGET_PROPERTY:Qt6::Core5Compat,INTERFACE_INCLUDE_DIRECTORIES>
 )
-list(APPEND FreeCADBase_LIBS ${Qt6Core_LIBRARIES})
+
+list(APPEND FreeCADBase_LIBS ${Qt6Core_LIBRARIES} $<TARGET_PROPERTY:Qt6::Core5Compat,INTERFACE_LINK_LIBRARIES> Qt6::Core5Compat)
 
 else()
     include_directories(

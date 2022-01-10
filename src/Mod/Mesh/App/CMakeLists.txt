@@ -26,6 +26,11 @@ if (BUILD_QT5)
     list(APPEND Mesh_LIBS
         ${Qt5Concurrent_LIBRARIES}
     )
+elseif(BUILD_QT6)
+    find_package(Qt6 COMPONENTS Concurrent REQUIRED)
+    list(APPEND Mesh_LIBS
+            Qt6::Concurrent
+        )
 endif()
 
 generate_from_xml(EdgePy)

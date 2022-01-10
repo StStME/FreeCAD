@@ -33,6 +33,10 @@ include(cMake/FreeCadMacros.cmake)
 # include helper functions/macros
 add_subdirectory(cMake/FreeCAD_Helpers)
 
+## hacky hack:
+#/opt/homebrew/Cellar/qt/6.2.2/share/qt/libexec/moc
+set(Qt6Core_MOC_EXECUTABLE /opt/homebrew/Cellar/qt/6.2.2/share/qt/libexec/moc)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cMake")
 
 CompilerChecksAndSetups()

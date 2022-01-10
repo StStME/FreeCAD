@@ -73,12 +73,17 @@ if (BUILD_QT5)
          ${Qt5Xml_LIBRARIES}
     )
 elseif(BUILD_QT6)
+    find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
+    find_package(Qt6 COMPONENTS Xml REQUIRED)
+
     include_directories(
         ${Qt6Core_INCLUDE_DIRS}
         #${Qt5Xml_INCLUDE_DIRS}
     )
     list(APPEND FreeCADApp_LIBS
          ${Qt6Core_LIBRARIES}
+         Qt6::Core5Compat
+         Qt6::Xml
          #${Qt5Xml_LIBRARIES}
     )
 else()

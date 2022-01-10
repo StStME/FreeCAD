@@ -24,6 +24,9 @@ if(BUILD_QT5)
         ${Qt5XmlPatterns_INCLUDE_DIRS}
     )
     set(QtXmlPatternsLib ${Qt5XmlPatterns_LIBRARIES})
+elseif(BUILD_QT6)
+find_package(Qt6 COMPONENTS Xml REQUIRED)
+
 else(BUILD_QT5)
     include_directories(
         ${QT_QTXMLPATTERNS_INCLUDE_DIR}

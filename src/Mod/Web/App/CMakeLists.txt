@@ -16,6 +16,12 @@ if(BUILD_QT5)
          FreeCADApp
          ${Qt5Network_LIBRARIES}
     )
+elseif(BUILD_QT6)
+find_package(Qt6 COMPONENTS Network REQUIRED)
+set(Web_LIBS
+    FreeCADApp
+    Qt6::Network
+    )
 else()
     set(Web_LIBS
          FreeCADApp

@@ -43,6 +43,23 @@ typedef QOpenGLWidget QtGLWidget;
 typedef QOpenGLFramebufferObject QtGLFramebufferObject;
 typedef QOpenGLFramebufferObjectFormat QtGLFramebufferObjectFormat;
 
+#else
+
+
+#include <QOpenGLContext>
+#include <QSurfaceFormat>
+#include <QOpenGLWidget>
+#include <QOpenGLFramebufferObject>
+#include <QOpenGLVersionProfile>
+#include <QOpenGLFunctions>
+
+typedef QOpenGLContext QtGLContext;
+typedef QSurfaceFormat QtGLFormat;
+typedef QOpenGLWidget QtGLWidget;
+typedef QOpenGLFramebufferObject QtGLFramebufferObject;
+typedef QOpenGLFramebufferObjectFormat QtGLFramebufferObjectFormat;
+
+/*
 #else // HAVE_QT5_OPENGL
 
 #include <QGLContext>
@@ -57,7 +74,7 @@ typedef QGLWidget QtGLWidget;
 typedef QGLPixelBuffer QtGLPixelBuffer;
 typedef QGLFramebufferObject QtGLFramebufferObject;
 typedef QGLFramebufferObjectFormat QtGLFramebufferObjectFormat;
-
+*/
 #endif // HAVE_QT5_OPENGL
 
 #endif //QUARTER_QTOPENGL_H

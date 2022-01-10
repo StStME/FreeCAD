@@ -1521,7 +1521,7 @@ void TreeWidget::startDrag(Qt::DropActions supportedActions)
     }
 }
 
-QMimeData* TreeWidget::mimeData(const QList<QTreeWidgetItem*> items) const
+QMimeData* TreeWidget::mimeData(const QList<QTreeWidgetItem*> &items) const
 {
 #if 0
     // all selected items must reference an object from the same document

@@ -20,7 +20,7 @@ set(SpreadsheetGui_LIBS
     FreeCADGui
 )
 
-if(BUILD_QT5 OR BUILD_QT6)
+if(BUILD_QT5)
     set_property(SOURCE qtcolorpicker.h qtcolorpicker.cpp PROPERTY SKIP_AUTOMOC ON)
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp
         COMMAND ${Qt5Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.cpp
@@ -28,6 +28,15 @@ if(BUILD_QT5 OR BUILD_QT6)
 
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker.cpp
         COMMAND ${Qt5Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker.cpp ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.h)
+elseif(BUILD_QT6)
+    set_property(SOURCE qtcolorpicker.h qtcolorpicker.cpp PROPERTY SKIP_AUTOMOC ON)
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp
+        COMMAND ${Qt6Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.cpp
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.cpp)
+
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker.cpp
+        COMMAND ${Qt6Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker.cpp ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/qtcolorpicker.h)
 else()
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_qtcolorpicker-internal.cpp

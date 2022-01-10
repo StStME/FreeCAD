@@ -25,6 +25,11 @@ if (BUILD_QT5)
     list(APPEND Points_LIBS
         ${Qt5Concurrent_LIBRARIES}
     )
+elseif(BUILD_QT6)
+find_package(Qt6 COMPONENTS Concurrent REQUIRED)
+list(APPEND Points_LIBS
+        Qt6::Concurrent
+    )
 else()
     include_directories(
         ${QT_QTCORE_INCLUDE_DIR}

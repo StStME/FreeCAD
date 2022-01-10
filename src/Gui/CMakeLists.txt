@@ -111,6 +111,9 @@ if (BUILD_QT5)
       )
     endif()
 elseif(BUILD_QT6)
+find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
+find_package(Qt6 COMPONENTS OpenGL REQUIRED)
+add_definitions(-DHAVE_QT6_OPENGL=1)
 include_directories(
         ${Qt6Core_INCLUDE_DIRS}
         ${Qt6Widgets_INCLUDE_DIRS}
@@ -128,6 +131,8 @@ include_directories(
         ${Qt6Svg_LIBRARIES}
         ${Qt6Network_LIBRARIES}
         ${Qt6UiTools_LIBRARIES}
+        Qt6::Core5Compat
+        Qt6::OpenGL
     )
 else()
     include_directories(
@@ -234,8 +239,13 @@ if(FREECAD_USE_PYSIDE)
     if (BUILD_QT5)
         include_directories(
             ${PYSIDE_INCLUDE_DIR}/QtWidgets
+            )
+            add_definitions(-DHAVE_PYSIDE2)
+    elseif (BUILD_QT6)
+        include_directories(
+            ${PYSIDE_INCLUDE_DIR}/QtWidgets
         )
-        add_definitions(-DHAVE_PYSIDE2)
+        add_definitions(-DHAVE_PYSIDE6)
     else()
         add_definitions(-DHAVE_PYSIDE)
     endif()
@@ -308,6 +318,15 @@ if (BUILD_QT5)
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView.cpp
         COMMAND ${Qt5Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView.cpp ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.h)
+elseif (BUILD_QT6)
+    set_property(SOURCE GraphvizView.h GraphvizView.cpp PROPERTY SKIP_AUTOMOC ON)
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView-internal.cpp
+            COMMAND ${Qt6Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView-internal.cpp ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.cpp
+            DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.cpp)
+    
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView.cpp
+            COMMAND ${Qt6Core_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView.cpp ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.h
+            DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.h)
 else()
     add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView-internal.cpp
         COMMAND ${QT_MOC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/moc_GraphvizView-internal.cpp ${CMAKE_CURRENT_SOURCE_DIR}/GraphvizView.cpp
