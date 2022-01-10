@@ -29,6 +29,7 @@
 #include <QFileSystemModel>
 #include <QCompleter>
 #include <QPointer>
+#include <QRegExp>
 #include <FCGlobal.h>
 
 class QButtonGroup;

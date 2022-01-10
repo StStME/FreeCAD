@@ -28,6 +28,7 @@
 #include <Inventor/SbMatrix.h>
 
 #include <QWidget>
+#include <QRegExp>
 #include <memory>
 
 namespace Gui {

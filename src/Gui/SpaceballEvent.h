@@ -35,7 +35,7 @@ namespace Spaceball
         void setHandled(bool sig){handled = sig;}
 
     protected:
-        EventBase(QEvent::Type event);
+        EventBase(QInputEvent event);
         bool handled;
     };
 

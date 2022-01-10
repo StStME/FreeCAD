@@ -81,6 +81,17 @@ macro(InitializeFreeCADBuildOptions)
                    "Qt Webkit"
                    "Qt WebEngine"
       )
+    elseif (BUILD_QT6)
+      option(FREECAD_USE_QTOPENGL_WIDGET "Replace QGLWidget with QOpenGLWidget." ON)
+      if (FREECAD_USE_QTOPENGL_WIDGET)
+          set(HAVE_QT6_OPENGL 1 )
+      endif()
+      set(FREECAD_USE_QTWEBMODULE "Automatic"  CACHE STRING  "Qt Webkit or Qt WebEngine")
+      set_property(CACHE FREECAD_USE_QTWEBMODULE PROPERTY STRINGS
+                   "Automatic"
+                   "Qt Webkit"
+                   "Qt WebEngine"
+      )
     endif()
     configure_file(${CMAKE_SOURCE_DIR}/src/QtOpenGL.h.cmake ${CMAKE_BINARY_DIR}/src/QtOpenGL.h)
 

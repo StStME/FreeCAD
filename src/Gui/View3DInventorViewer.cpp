@@ -1635,7 +1635,7 @@ void View3DInventorViewer::savePicture(int w, int h, int s, const QColor& bg, QI
     root->addChild(gl);
     root->addChild(pcViewProviderRoot);
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     if (useBackground)
         root->addChild(cb);
 #endif
@@ -1981,7 +1981,7 @@ int View3DInventorViewer::getNumSamples()
 
 GLenum View3DInventorViewer::getInternalTextureFormat() const
 {
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath
         ("User parameter:BaseApp/Preferences/View");
     std::string format = hGrp->GetASCII("InternalTextureFormat", "Default");
@@ -2048,7 +2048,7 @@ void View3DInventorViewer::setRenderType(const RenderType type)
 
             QtGLWidget* gl = static_cast<QtGLWidget*>(this->viewport());
             gl->makeCurrent();
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
             framebuffer = new QtGLFramebufferObject(width, height, QtGLFramebufferObject::Depth);
             renderToFramebuffer(framebuffer);
 #else
@@ -2089,7 +2089,7 @@ QImage View3DInventorViewer::grabFramebuffer()
     gl->makeCurrent();
 
     QImage res;
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     int w = gl->width();
     int h = gl->height();
     QImage img(QSize(w,h), QImage::Format_RGB32);
@@ -2320,7 +2320,7 @@ void View3DInventorViewer::renderGLImage()
     glClear(GL_COLOR_BUFFER_BIT);
 
     glRasterPos2f(0,0);
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     glDrawPixels(glImage.width(),glImage.height(),GL_RGBA,GL_UNSIGNED_BYTE,glImage.bits());
 #else
     glDrawPixels(glImage.width(),glImage.height(),GL_BGRA,GL_UNSIGNED_BYTE,glImage.bits());

@@ -20,7 +20,7 @@
 
 #include <Gui/MDIView.h>
 #include <QtOpenGL.h>
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
 #include "OpenGLImageBox.h"
 #else
 #include "GLImageBox.h"

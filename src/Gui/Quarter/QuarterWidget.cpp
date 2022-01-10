@@ -66,7 +66,7 @@
 #include <QPaintEvent>
 #include <QResizeEvent>
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
 #include <QOpenGLDebugMessage>
 #include <QOpenGLDebugLogger>
 #endif
@@ -147,7 +147,7 @@ using namespace SIM::Coin3D::Quarter;
 #endif
 
 //We need to avoid buffer swapping when initializing a QPainter on this widget
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
 class CustomGLWidget : public QOpenGLWidget {
 public:
     QSurfaceFormat myFormat;
@@ -340,7 +340,7 @@ QuarterWidget::constructor(const QtGLFormat & format, const QtGLWidget * sharewi
 void
 QuarterWidget::replaceViewport()
 {
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
   CustomGLWidget* oldvp = static_cast<CustomGLWidget*>(viewport());
   CustomGLWidget* newvp = new CustomGLWidget(oldvp->myFormat, this);
   PRIVATE(this)->replaceGLWidget(newvp);
@@ -884,7 +884,7 @@ void QuarterWidget::paintEvent(QPaintEvent* event)
     }
 
     if(!initialized) {
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
         glEnable(GL_DEPTH_TEST);
 #endif
         this->getSoRenderManager()->reinitialize();
@@ -893,7 +893,7 @@ void QuarterWidget::paintEvent(QPaintEvent* event)
 
     getSoRenderManager()->activate();
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     glEnable(GL_DEPTH_TEST);
 #endif
     glMatrixMode(GL_PROJECTION);
@@ -928,7 +928,7 @@ void QuarterWidget::paintEvent(QPaintEvent* event)
 
     assert(w->isValid() && "No valid GL context found!");
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     // Causes an OpenGL error on resize
     //glDrawBuffer(w->format().swapBehavior() == QSurfaceFormat::DoubleBuffer ? GL_BACK : GL_FRONT);
 #else
@@ -945,7 +945,7 @@ void QuarterWidget::paintEvent(QPaintEvent* event)
     inherited::paintEvent(event);
     glPopAttrib();
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     // Causes an OpenGL error on resize
     //if (w->format().swapBehavior() == QSurfaceFormat::DoubleBuffer)
     //    w->context()->swapBuffers(w->context()->surface());

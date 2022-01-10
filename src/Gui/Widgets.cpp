@@ -25,7 +25,7 @@
 #ifndef _PreComp_
 # include <QAction>
 # include <QColorDialog>
-# include <QDesktopWidget>
+//# include <QDesktopWidget>
 # include <QDesktopServices>
 # include <QDialogButtonBox>
 # include <QDrag>
@@ -1043,7 +1043,7 @@ LabelButton::LabelButton (QWidget * parent)
   : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setMargin(0);
+    layout->setContentsMargins(0);
     layout->setSpacing(1);
 
     label = new QLabel(this);
@@ -1200,7 +1200,7 @@ StatusWidget::StatusWidget(QWidget* parent)
 
     QGridLayout* gridLayout = new QGridLayout(this);
     gridLayout->setSpacing(6);
-    gridLayout->setMargin(9);
+    gridLayout->setContentsMargins(9);
     gridLayout->addWidget(label, 0, 0, 1, 1);
 }
 
@@ -1409,7 +1409,7 @@ LabelEditor::LabelEditor (QWidget * parent)
 {
     type = String;
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setMargin(0);
+    layout->setContentsMargins(0);
     layout->setSpacing(2);
 
     lineEdit = new QLineEdit(this);

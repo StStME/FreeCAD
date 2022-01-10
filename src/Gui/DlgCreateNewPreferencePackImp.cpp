@@ -30,6 +30,7 @@
 
 #include <QPushButton>
 #include <QMessageBox>
+#include <QRegExp>
 
 using namespace Gui::Dialog;
 
@@ -47,7 +48,7 @@ DlgCreateNewPreferencePackImp::DlgCreateNewPreferencePackImp(QWidget* parent)
     ui->setupUi(this);
 
     QRegExp validNames(QString::fromUtf8("[^/\\\\?%*:|\"<>]+"));
-    _nameValidator.setRegExp(validNames);
+    _nameValidator.setRegularExpression(validNames);
     ui->lineEdit->setValidator(&_nameValidator);
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     connect(ui->treeWidget, &QTreeWidget::itemChanged, this, &DlgCreateNewPreferencePackImp::onItemChanged);

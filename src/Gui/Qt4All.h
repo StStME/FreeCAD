@@ -68,7 +68,7 @@
 #include <qcombobox.h>
 #include <qcursor.h>
 #include <QDesktopServices>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
 #include <QDialogButtonBox>
 #include <QDockWidget>
 #include <QDrag>

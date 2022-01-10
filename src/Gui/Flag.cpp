@@ -45,7 +45,7 @@ Flag::Flag(QWidget* parent)
   : QtGLWidget(parent), coord(0.0f, 0.0f, 0.0f)
 {
     this->setFixedHeight(20);
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     setAutoFillBackground(true);
 #endif
 }

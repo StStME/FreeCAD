@@ -33,6 +33,7 @@
 # include <QStatusBar>
 # include <QTimer>
 # include <QVBoxLayout>
+#include <QOpenGLFunctions>
 # include <Inventor/SoPickedPoint.h>
 # include <Inventor/actions/SoSearchAction.h>
 # include <Inventor/events/SoMouseButtonEvent.h>
@@ -380,7 +381,7 @@ public:
 
         if (samples > 1) {
             glformat = true;
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
             f.setSampleBuffers(true);
 #endif
             f.setSamples(samples);
@@ -406,7 +407,7 @@ public:
 
         QFrame* vbox = new QFrame(this);
         QVBoxLayout* layout = new QVBoxLayout();
-        layout->setMargin(0);
+        layout->setContentsMargins(QMargins(0));
         layout->setSpacing(0);
         vbox->setLayout(layout);
 

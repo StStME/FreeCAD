@@ -27,7 +27,7 @@
 # include <algorithm>
 # include <QApplication>
 # include <QDebug>
-# include <QDesktopWidget>
+//# include <QDesktopWidget> --> deprecated. lets see what crashes
 # include <QGenericReturnArgument>
 # include <QMessageBox>
 # include <QScrollArea>

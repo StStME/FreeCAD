@@ -271,8 +271,8 @@ namespace Gui {
             Document* doc = Application::Instance->activeDocument();
             QFont font;
             font.setBold(doc==&d);
-            QVariant variant;
-            variant.setValue<QFont>(font);
+            QVariant variant = font;
+            //variant.setValue<QFont>(font);
             return variant;
         }
 

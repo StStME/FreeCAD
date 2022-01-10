@@ -60,11 +60,14 @@ ENDIF(MSVC_IDE)
 
 # Create the library
 # FIXME: Support building as a framework on Mac OS X. kintel 20080707.
+if(BUILD_QT6)
+find_package(Qt6 COMPONENTS Gui REQUIRED)
+endif()
 IF(Quarter_BUILD_STATIC_LIBRARY)
   ADD_LIBRARY(${Library} STATIC ${AllSources})
 ELSE(Quarter_BUILD_STATIC_LIBRARY)
   ADD_LIBRARY(${Library} SHARED ${AllSources})
-  TARGET_LINK_LIBRARIES(${Library} ${AllLibs})
+  TARGET_LINK_LIBRARIES(${Library} ${AllLibs} Qt6::Gui)
 ENDIF(Quarter_BUILD_STATIC_LIBRARY)
 
 #  Install configuration

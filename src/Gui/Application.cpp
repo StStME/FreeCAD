@@ -46,7 +46,7 @@
 #include <boost/interprocess/sync/file_lock.hpp>
 #include <boost/filesystem.hpp>
 #include <QtOpenGL.h>
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
 #include <QWindow>
 #endif
 
@@ -2109,7 +2109,7 @@ void Application::runApplication(void)
         mainApp.installEventFilter(filter);
     }
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     {
         QWindow window;
         window.setSurfaceType(QWindow::OpenGLSurface);

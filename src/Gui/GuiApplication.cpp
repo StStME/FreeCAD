@@ -67,7 +67,6 @@ GUIApplication::GUIApplication(int & argc, char ** argv)
 {
     connect(this, SIGNAL(commitDataRequest(QSessionManager &)),
             SLOT(commitData(QSessionManager &)), Qt::DirectConnection);
-    setFallbackSessionManagementEnabled(false);
 }
 
 GUIApplication::~GUIApplication()

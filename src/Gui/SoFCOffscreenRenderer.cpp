@@ -53,7 +53,7 @@
 #include "SoFCOffscreenRenderer.h"
 #include "BitmapFactory.h"
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
 # include <QOffscreenSurface>
 # include <QOpenGLContext>
 #endif
@@ -412,12 +412,12 @@ void SoQtOffscreenRenderer::init(const SbViewportRegion & vpr,
     this->didallocation = glrenderaction ? false : true;
     this->viewport = vpr;
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     this->pixelbuffer = NULL;                // constructed later
 #endif
     this->framebuffer = NULL;
     this->numSamples = -1;
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     //this->texFormat = GL_RGBA32F_ARB;
     this->texFormat = GL_RGB32F_ARB;
 #else
@@ -452,7 +452,7 @@ SoQtOffscreenRenderer::SoQtOffscreenRenderer(SoGLRenderAction * action)
 */
 SoQtOffscreenRenderer::~SoQtOffscreenRenderer()
 {
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     delete pixelbuffer;
 #endif
     delete framebuffer;
@@ -573,7 +573,7 @@ SoQtOffscreenRenderer::pre_render_cb(void * /*userdata*/, SoGLRenderAction * act
     action->setRenderingIsRemote(false);
 }
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
 void
 SoQtOffscreenRenderer::makePixelBuffer(int width, int height, int samples)
 {
@@ -633,7 +633,7 @@ SoQtOffscreenRenderer::renderFromBase(SoBase * base)
 {
     const SbVec2s fullsize = this->viewport.getViewportSizePixels();
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     QSurfaceFormat format;
     format.setSamples(PRIVATE(this)->numSamples);
     QOpenGLContext context;
@@ -646,7 +646,7 @@ SoQtOffscreenRenderer::renderFromBase(SoBase * base)
     context.makeCurrent(&offscreen);
 #endif
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     if (PRIVATE(this)->pbuffer) {
         if (!pixelbuffer) {
             makePixelBuffer(fullsize[0], fullsize[1], PRIVATE(this)->numSamples);
@@ -698,7 +698,7 @@ SoQtOffscreenRenderer::renderFromBase(SoBase * base)
 
     this->renderaction->removePreRenderCallback(pre_render_cb, NULL);
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     if (pixelbuffer) {
         pixelbuffer->doneCurrent();
     }
@@ -710,7 +710,7 @@ SoQtOffscreenRenderer::renderFromBase(SoBase * base)
 
     this->renderaction->setCacheContext(oldcontext); // restore old
 
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     glImage = framebuffer->toImage();
     context.doneCurrent();
 #endif
@@ -780,7 +780,7 @@ SoQtOffscreenRenderer::render(SoPath * scene)
 void
 SoQtOffscreenRenderer::writeToImage (QImage& img) const
 {
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     if (pixelbuffer)
         img = pixelbuffer->toImage();
     else if (framebuffer)

@@ -29,6 +29,7 @@
 # include <QWhatsThis>
 # include <QDesktopServices>
 # include <QUrl>
+# include <QRegExp>
 # include <boost_bind_bind.hpp>
 #endif
 

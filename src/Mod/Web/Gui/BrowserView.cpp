@@ -44,7 +44,7 @@
 # include <QFileInfo>
 # include <QDesktopServices>
 # include <QMenu>
-# include <QDesktopWidget>
+//# include <QDesktopWidget>
 # include <QSignalMapper>
 # include <QPointer>
 # include <QDir>

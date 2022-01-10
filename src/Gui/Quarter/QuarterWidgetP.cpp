@@ -42,6 +42,7 @@
 #include <QtGui/QCursor>
 #include <QMenu>
 #include <QtCore/QMap>
+#include <QAction>
 
 #include <Inventor/nodes/SoCamera.h>
 #include <Inventor/nodes/SoNode.h>

@@ -76,7 +76,7 @@ PyTypeObject** SbkPySide_QtGuiTypes=nullptr;
 # endif
 #endif
 
-#ifdef HAVE_SHIBOKEN2
+#ifdef HAVE_SHIBOKEN2 || HAVE_SHIBOKEN6
 # define HAVE_SHIBOKEN
 # undef _POSIX_C_SOURCE
 # undef _XOPEN_SOURCE
@@ -84,7 +84,7 @@ PyTypeObject** SbkPySide_QtGuiTypes=nullptr;
 # include <sbkconverter.h>
 # include <sbkmodule.h>
 # include <shiboken.h>
-# ifdef HAVE_PYSIDE2
+# ifdef HAVE_PYSIDE2 || HAVE_PYSIDE6
 # define HAVE_PYSIDE
 
 // Since version 5.12 shiboken offers a method to get wrapper by class name (typeForTypeName)

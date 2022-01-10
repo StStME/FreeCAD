@@ -34,7 +34,7 @@
 # include <QCloseEvent>
 # include <QContextMenuEvent>
 # include <QDesktopServices>
-# include <QDesktopWidget>
+//# include <QDesktopWidget> --> Deprecated. Lets see where it fails.
 # include <QDockWidget>
 # include <QFontMetrics>
 # include <QKeySequence>

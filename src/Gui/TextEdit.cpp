@@ -28,6 +28,7 @@
 # include <QPainter>
 # include <QShortcut>
 # include <QTextCursor>
+# include <QRegExp>
 #endif
 
 #include "TextEdit.h"

@@ -26,7 +26,7 @@
 # include <cstdlib>
 # include <QApplication>
 # include <QClipboard>
-# include <QDesktopWidget>
+//# include <QDesktopWidget> --> deprecated. Lets see what fails.
 # include <QDesktopServices>
 # include <QDialogButtonBox>
 # include <QLocale>

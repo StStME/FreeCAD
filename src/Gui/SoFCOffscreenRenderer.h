@@ -30,6 +30,8 @@
 #include <QImage>
 #include <QStringList>
 #include <QtOpenGL.h>
+#include <QOpenGLFramebufferObject>
+
 
 namespace Gui {
 
@@ -133,12 +135,12 @@ private:
     void init(const SbViewportRegion & vpr, SoGLRenderAction * glrenderaction = NULL);
     static void pre_render_cb(void * userdata, SoGLRenderAction * action);
     SbBool renderFromBase(SoBase * base);
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     void makePixelBuffer(int width, int height, int samples);
 #endif
     void makeFrameBuffer(int width, int height, int samples);
 
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL || HAVE_QT6_OPENGL)
     QGLPixelBuffer*         pixelbuffer; // the offscreen rendering supported by Qt
 #endif
     QtGLFramebufferObject*  framebuffer;
@@ -152,7 +154,7 @@ private:
     SbBool pbuffer;
     int numSamples;
     GLenum texFormat;
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
     QImage glImage;
 #endif
 };

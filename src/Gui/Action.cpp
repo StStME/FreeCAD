@@ -29,7 +29,7 @@
 # include <QAbstractItemView>
 # include <QActionEvent>
 # include <QApplication>
-# include <QDesktopWidget>
+//# include <QDesktopWidget>
 # include <QEvent>
 # include <QMessageBox>
 # include <QTimer>

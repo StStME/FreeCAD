@@ -30,6 +30,7 @@
 # include <QTextCursor>
 # include <QPlainTextEdit>
 # include <QToolTip>
+# include <QRegExp>
 #endif
 
 #include <CXX/Objects.hxx>

@@ -113,6 +113,7 @@ if (BUILD_QT5)
 elseif(BUILD_QT6)
 find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
 find_package(Qt6 COMPONENTS OpenGL REQUIRED)
+find_package(Qt6 COMPONENTS Gui REQUIRED)
 add_definitions(-DHAVE_QT6_OPENGL=1)
 include_directories(
         ${Qt6Core_INCLUDE_DIRS}
@@ -133,6 +134,7 @@ include_directories(
         ${Qt6UiTools_LIBRARIES}
         Qt6::Core5Compat
         Qt6::OpenGL
+        Qt6::Gui
     )
 else()
     include_directories(
@@ -200,6 +202,9 @@ ENDIF(OCULUS_FOUND)
 if(FREECAD_USE_SHIBOKEN)
     if (BUILD_QT5)
         add_definitions(-DHAVE_SHIBOKEN2)
+    elseif(BUILD_QT6)
+        add_definitions(-DHAVE_SHIBOKEN6)
+
     else()
         add_definitions(-DHAVE_SHIBOKEN)
     endif()
