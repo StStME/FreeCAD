@@ -63,19 +63,31 @@ if (BUILD_QT5)
     list(APPEND FreeCADBase_LIBS ${Qt5Core_LIBRARIES})
 elseif(BUILD_QT6)
 find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
+find_package(Qt6 COMPONENTS Core REQUIRED)
 include_directories(
     ${Qt6Core_INCLUDE_DIRS}
     ${Qt5Combat_INCLUDE_DIRS}
     #$<TARGET_PROPERTY:Qt6::Core5Compat,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
-list(APPEND FreeCADBase_LIBS ${Qt6Core_LIBRARIES} $<TARGET_PROPERTY:Qt6::Core5Compat,INTERFACE_LINK_LIBRARIES> Qt6::Core5Compat)
+list(APPEND FreeCADBase_LIBS 
+    ${Qt6Core_LIBRARIES} 
+    $<TARGET_PROPERTY:Qt6::Core5Compat,INTERFACE_LINK_LIBRARIES> 
+    Qt6::Core5Compat
+    Qt6::Core
+    )
 
 else()
+find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
     include_directories(
         ${QT_QTCORE_INCLUDE_DIR}
     )
-    list(APPEND FreeCADBase_LIBS ${QT_QTCORE_LIBRARY})
+    list(APPEND FreeCADBase_LIBS 
+    ${QT_QTCORE_LIBRARY}
+    Qt6::Core
+    Qt6::Core5Compat
+    )
 endif()
 
 if (BUILD_DYNAMIC_LINK_PYTHON)
