@@ -59,7 +59,7 @@
 # include <QStackedWidget>
 #include <QtOpenGL.h>
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
 # include <QWindow>
 #endif
 
@@ -131,7 +131,7 @@ View3DInventor::View3DInventor(Gui::Document* pcDocument, QWidget* parent,
 
     if (samples > 1) {
         glformat = true;
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
         f.setSampleBuffers(true);
 #endif
         f.setSamples(samples);
@@ -951,7 +951,7 @@ void View3DInventor::setCurrentViewMode(ViewMode newmode)
     if (oldmode == newmode)
         return;
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
     if (newmode == Child) {
         // Fix in two steps:
         // The mdi view got a QWindow when it became a top-level widget and when resetting it to a child widget
@@ -967,7 +967,7 @@ void View3DInventor::setCurrentViewMode(ViewMode newmode)
 
     MDIView::setCurrentViewMode(newmode);
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
     // Internally the QOpenGLWidget switches of the multi-sampling and there is no
     // way to switch it on again. So as a workaround we just re-create a new viewport
     // The method is private but defined as slot to avoid to call it by accident.
@@ -1003,7 +1003,7 @@ void View3DInventor::setCurrentViewMode(ViewMode newmode)
         for (QList<QAction*>::Iterator it = acts.begin(); it != acts.end(); ++it)
             this->removeAction(*it);
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
         // Step two
         QMdiSubWindow* mdi = qobject_cast<QMdiSubWindow*>(parentWidget());
         if (mdi && mdi->layout())

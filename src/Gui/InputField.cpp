@@ -596,10 +596,10 @@ void InputField::selectNumber(void)
     QString str = text();
     unsigned int i = 0;
 
-    QChar d = locale().decimalPoint();
-    QChar g = locale().groupSeparator();
-    QChar n = locale().negativeSign();
-    QChar e = locale().exponential();
+    QChar d = locale().decimalPoint().at(0);
+    QChar g = locale().groupSeparator().at(0);
+    QChar n = locale().negativeSign().at(0);
+    QChar e = locale().exponential().at(0);
 
     for (QString::iterator it = str.begin(); it != str.end(); ++it) {
         if (it->isDigit())
@@ -712,10 +712,10 @@ void InputField::wheelEvent (QWheelEvent * event)
 void InputField::fixup(QString& input) const
 {
     input.remove(locale().groupSeparator());
-    if (locale().negativeSign() != QLatin1Char('-'))
-        input.replace(locale().negativeSign(), QLatin1Char('-'));
-    if (locale().positiveSign() != QLatin1Char('+'))
-        input.replace(locale().positiveSign(), QLatin1Char('+'));
+    if (locale().negativeSign().at(0) != QLatin1Char('-'))
+        input.replace(locale().negativeSign().at(0), QLatin1Char('-'));
+    if (locale().positiveSign().at(0) != QLatin1Char('+'))
+        input.replace(locale().positiveSign().at(0), QLatin1Char('+'));
 }
 
 QValidator::State InputField::validate(QString& input, int& pos) const

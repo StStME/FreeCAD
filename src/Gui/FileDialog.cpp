@@ -633,7 +633,7 @@ FileChooser::FileChooser ( QWidget * parent )
   , _filter( QString() )
 {
     QHBoxLayout *layout = new QHBoxLayout( this );
-    layout->setContentsMargins( 0 );
+    layout->setContentsMargins(QMargins());
     layout->setSpacing( 2 );
 
     lineEdit = new QLineEdit ( this );
@@ -815,11 +815,11 @@ SelectModule::SelectModule (const QString& type, const SelectModule::Dict& types
     group = new QButtonGroup(this);
     gridLayout = new QGridLayout(this);
     gridLayout->setSpacing(6);
-    gridLayout->setContentsMargins(9);
+    gridLayout->setContentsMargins(QMargins(9,9,9,9));
 
     gridLayout1 = new QGridLayout(groupBox);
     gridLayout1->setSpacing(6);
-    gridLayout1->setContentsMargins(9);
+    gridLayout1->setContentsMargins(QMargins(9,9,9,9));
 
     int index = 0;
     for (SelectModule::Dict::const_iterator it = types.begin(); it != types.end(); ++it) {
@@ -856,7 +856,7 @@ SelectModule::SelectModule (const QString& type, const SelectModule::Dict& types
 
     hboxLayout = new QHBoxLayout();
     hboxLayout->setSpacing(6);
-    hboxLayout->setContentsMargins(0);
+    hboxLayout->setContentsMargins(QMargins());
     spacerItem1 = new QSpacerItem(131, 31, QSizePolicy::Expanding, QSizePolicy::Minimum);
     hboxLayout->addItem(spacerItem1);
 

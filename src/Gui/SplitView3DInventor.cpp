@@ -29,6 +29,7 @@
 # include <Inventor/nodes/SoOrthographicCamera.h>
 # include <Inventor/nodes/SoPerspectiveCamera.h>
 # include <Inventor/nodes/SoDirectionalLight.h>
+# include <QRegExp>
 #endif
 
 #include "SplitView3DInventor.h"
@@ -767,7 +768,7 @@ SplitView3DInventor::SplitView3DInventor(int views, Gui::Document* pcDocument, Q
 
     if (samples > 1) {
         glformat = true;
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
         f.setSampleBuffers(true);
 #endif
         f.setSamples(samples);

@@ -114,6 +114,9 @@ elseif(BUILD_QT6)
 find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
 find_package(Qt6 COMPONENTS OpenGL REQUIRED)
 find_package(Qt6 COMPONENTS Gui REQUIRED)
+find_package(Qt6 COMPONENTS SvgWidgets REQUIRED)
+find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
+
 add_definitions(-DHAVE_QT6_OPENGL=1)
 include_directories(
         ${Qt6Core_INCLUDE_DIRS}
@@ -135,6 +138,8 @@ include_directories(
         Qt6::Core5Compat
         Qt6::OpenGL
         Qt6::Gui
+        Qt6::SvgWidgets
+        Qt6::OpenGLWidgets
     )
 else()
     include_directories(

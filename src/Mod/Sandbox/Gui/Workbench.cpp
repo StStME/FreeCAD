@@ -156,7 +156,7 @@ SoWidgetShape::SoWidgetShape()
 
 void SoWidgetShape::GLRender(SoGLRenderAction * /*action*/)
 {
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
     this->image = QPixmap::grabWidget(w, w->rect()).toImage();
 #else
     this->image = QPixmap::grabWidget(w, w->rect()).toImage();
@@ -282,7 +282,7 @@ void SoWidgetShape::setWidget(QWidget* w)
     this->w->render(&img);
     this->image = img.toImage();
 
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
     this->image = QPixmap::grabWidget(w, w->rect()).toImage();
     this->image = QtGLWidget::convertToGLFormat(this->image);
 #endif

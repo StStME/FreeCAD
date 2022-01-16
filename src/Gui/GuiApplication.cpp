@@ -337,8 +337,8 @@ bool KeyboardFilter::eventFilter(QObject* obj, QEvent* ev)
         int key = kev->key();
         if ((mod & Qt::KeypadModifier) && (key == Qt::Key_Period || key == Qt::Key_Comma))
         {
-            QChar dp = QLocale().decimalPoint();
-            if (key != dp) {
+            QChar dp = QLocale().decimalPoint().at(0);
+            if (QChar(key) != dp) {
                 QKeyEvent modifiedKeyEvent(kev->type(), dp.digitValue(), mod, QString(dp), kev->isAutoRepeat(), kev->count());
                 qApp->sendEvent(obj, &modifiedKeyEvent);
                 return true;

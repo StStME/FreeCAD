@@ -35,6 +35,7 @@
 # include <QTimer>
 # include <QToolBar>
 # include <QToolButton>
+#include <QActionGroup>
 #endif
 
 #include <QScreen>

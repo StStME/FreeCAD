@@ -3071,7 +3071,7 @@ TreePanel::TreePanel(const char* name, QWidget* parent)
 
     QVBoxLayout* pLayout = new QVBoxLayout(this);
     pLayout->setSpacing(0);
-    pLayout->setContentsMargins(0);
+    pLayout->setContentsMargins(0,0,0,0);
     pLayout->addWidget(this->treeWidget);
     connect(this->treeWidget, SIGNAL(emitSearchObjects()),
         this, SLOT(showEditor()));
@@ -3159,7 +3159,7 @@ TreeDockWidget::TreeDockWidget(Gui::Document* pcDocument, QWidget* parent)
     auto panel = new TreePanel("TreeView", this);
     QGridLayout* pLayout = new QGridLayout(this);
     pLayout->setSpacing(0);
-    pLayout->setContentsMargins(0);
+    pLayout->setContentsMargins(0,0,0,0);
     pLayout->addWidget(panel, 0, 0);
 }
 
@@ -4846,7 +4846,7 @@ void DocumentObjectItem::testStatus(bool resetStatus, QIcon& icon1, QIcon& icon2
         // get the original icon set
         QIcon icon_org = object()->getIcon();
 
-        int w = getTree()->viewOptions().decorationSize.width();
+        int w = getTree()->iconSize().width(); // TODO: now it should at least compile. but thats not the soultion.
 
         QPixmap pxOn, pxOff;
 

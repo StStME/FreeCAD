@@ -572,8 +572,7 @@ IconFolders::IconFolders(const QStringList& paths, QWidget* parent)
             edit->hide();
             removeButton->hide();
         }
-
-        buttonMap.append(qMakePair<QLineEdit*, QPushButton*>(edit, removeButton));
+        buttonMap.append(qMakePair<decltype(edit), decltype(removeButton)>(std::move(edit), std::move(removeButton)));
         connect(removeButton, SIGNAL(clicked()), this, SLOT(removeFolder()));
     }
 

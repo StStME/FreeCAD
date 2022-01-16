@@ -377,7 +377,7 @@ void SoStringLabel::GLRender(SoGLRenderAction *action)
     QStringList list;
     for (int i=0; i<this->string.getNum(); i++)
         list << QLatin1String(this->string[i].getString());
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
     window->renderText(nil[0],nil[1],nil[2],list.join(QLatin1String("\n")),font);
 #else
     //FIXME: HAVE_QT5_OPENGL
@@ -439,7 +439,7 @@ void SoFrameLabel::drawImage()
         return;
     }
 
-    QFont font(QString::fromLatin1(name.getValue()), size.getValue());
+    QFont font(QString::fromLatin1(name.getValue(), name.getValue().getLength()), size.getValue());
     QFontMetrics fm(font);
     int w = 0;
     int h = fm.height() * num;
@@ -452,7 +452,7 @@ void SoFrameLabel::drawImage()
 
     QStringList lines;
     for (int i=0; i<num; i++) {
-        QString line = QString::fromUtf8(s[i].getString());
+        QString line = QString::fromUtf8(s[i].getString(), s[i].getLength());
         w = std::max<int>(w, QtTools::horizontalAdvance(fm, line));
         lines << line;
     }

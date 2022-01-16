@@ -1705,7 +1705,7 @@ void StdViewDockUndockFullscreen::activated(int iMsg)
     MDIView* view = getMainWindow()->activeWindow();
     if (!view) return; // no active view
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
     // nothing to do when the view is docked and 'Docked' is pressed
     if (iMsg == 0 && view->currentViewMode() == MDIView::Child)
         return;

@@ -328,8 +328,8 @@ namespace Gui {
             App::DocumentObject* act = obj->getDocument()->getActiveObject();
             QFont font;
             font.setBold(obj==act);
-            QVariant variant;
-            variant.setValue<QFont>(font);
+            QVariant variant = font;
+            //variant.setValue<QFont>(font);
             return variant;
         }
 

@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
 if (POLICY CMP0072)
     cmake_policy(SET CMP0072 OLD)
 endif(POLICY CMP0072)
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_program(CCACHE_PROGRAM ccache)  #This check should occur before project()
 if(CCACHE_PROGRAM)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")

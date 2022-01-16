@@ -47,7 +47,7 @@ DlgCreateNewPreferencePackImp::DlgCreateNewPreferencePackImp(QWidget* parent)
 {
     ui->setupUi(this);
 
-    QRegExp validNames(QString::fromUtf8("[^/\\\\?%*:|\"<>]+"));
+    QRegularExpression validNames(QString::fromUtf8("[^/\\\\?%*:|\"<>]+"));
     _nameValidator.setRegularExpression(validNames);
     ui->lineEdit->setValidator(&_nameValidator);
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);

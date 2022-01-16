@@ -38,6 +38,8 @@
 # include <QTextStream>
 # include <QWaitCondition>
 # include <Inventor/C/basic.h>
+#include <QRegExp>
+#include <QFile>
 #endif
 
 #include <QScreen>
@@ -410,7 +412,7 @@ void AboutDialog::showCredits()
     creditsHTML += QString::fromLatin1("</h2><ul>");
 
     QTextStream stream(&creditsFile);
-    stream.setCodec("UTF-8");
+//    stream.setCodec("UTF-8"); --> utf-8 is default.
     QString line;
     while (stream.readLineInto(&line)) {
         if (!line.isEmpty()) {

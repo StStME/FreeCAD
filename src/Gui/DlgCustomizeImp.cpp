@@ -58,11 +58,11 @@ DlgCustomizeImp::DlgCustomizeImp(QWidget* parent, Qt::WindowFlags fl)
 
     customLayout = new QGridLayout( this );
     customLayout->setSpacing( 6 );
-    customLayout->setContentsMargins( QMargin(11) );
+    customLayout->setContentsMargins( QMargins(11,11,11,11) );
 
     layout = new QHBoxLayout;
     layout->setSpacing( 6 );
-    layout->setContentsMargins( QMargin(0) );
+    layout->setContentsMargins( QMargins() );
 
     buttonHelp = new QPushButton( this );
     buttonHelp->setText(tr("&Help"));

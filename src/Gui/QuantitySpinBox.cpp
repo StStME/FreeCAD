@@ -202,14 +202,14 @@ public:
             bool ok = false;
             double value = min;
 
-            if (locale.negativeSign() != QLatin1Char('-'))
-                copy.replace(locale.negativeSign(), QLatin1Char('-'));
-            if (locale.positiveSign() != QLatin1Char('+'))
-                copy.replace(locale.positiveSign(), QLatin1Char('+'));
+            if (locale.negativeSign().at(0) != QLatin1Char('-'))
+                copy.replace(locale.negativeSign().at(0), QLatin1Char('-'));
+            if (locale.positiveSign().at(0) != QLatin1Char('+'))
+                copy.replace(locale.positiveSign().at(0), QLatin1Char('+'));
 
             try {
                 QString copy2 = copy;
-                copy2.remove(locale.groupSeparator());
+                copy2.remove(locale.groupSeparator().at(0));
 
                 res = Base::Quantity::parse(copy2);
                 value = res.getValue();
@@ -788,8 +788,7 @@ QSize QuantitySpinBox::sizeHint() const
     QStyleOptionSpinBox opt;
     initStyleOption(&opt);
     QSize hint(w, h);
-    QSize size = style()->sizeFromContents(QStyle::CT_SpinBox, &opt, hint, this)
-                        .expandedTo(QApplication::globalStrut());
+    QSize size = style()->sizeFromContents(QStyle::CT_SpinBox, &opt, hint, this);
     return size;
 }
 
@@ -819,8 +818,7 @@ QSize QuantitySpinBox::minimumSizeHint() const
     initStyleOption(&opt);
     QSize hint(w, h);
 
-    QSize size = style()->sizeFromContents(QStyle::CT_SpinBox, &opt, hint, this)
-                               .expandedTo(QApplication::globalStrut());
+    QSize size = style()->sizeFromContents(QStyle::CT_SpinBox, &opt, hint, this);
     return size;
 }
 
@@ -913,9 +911,9 @@ void QuantitySpinBox::selectNumber()
     QString str = lineEdit()->text();
     unsigned int i = 0;
 
-    QChar d = locale().decimalPoint();
-    QChar g = locale().groupSeparator();
-    QChar n = locale().negativeSign();
+    QChar d = locale().decimalPoint().at(0);
+    QChar g = locale().groupSeparator().at(0);
+    QChar n = locale().negativeSign().at(0);
 
     for (QString::iterator it = str.begin(); it != str.end(); ++it) {
         if (it->isDigit())

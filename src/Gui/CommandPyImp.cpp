@@ -23,6 +23,7 @@
 #include "PreCompiled.h"
 #ifndef _PreComp_
 # include <sstream>
+#include <QRegExp>
 #endif
 
 #include "Command.h"

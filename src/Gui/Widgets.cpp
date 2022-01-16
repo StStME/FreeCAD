@@ -1043,7 +1043,7 @@ LabelButton::LabelButton (QWidget * parent)
   : QWidget(parent)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0);
+    layout->setContentsMargins(QMargins());
     layout->setSpacing(1);
 
     label = new QLabel(this);
@@ -1200,7 +1200,7 @@ StatusWidget::StatusWidget(QWidget* parent)
 
     QGridLayout* gridLayout = new QGridLayout(this);
     gridLayout->setSpacing(6);
-    gridLayout->setContentsMargins(9);
+    gridLayout->setContentsMargins(QMargins(9,9,9,9));
     gridLayout->addWidget(label, 0, 0, 1, 1);
 }
 
@@ -1409,7 +1409,7 @@ LabelEditor::LabelEditor (QWidget * parent)
 {
     type = String;
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0);
+    layout->setContentsMargins(QMargins());
     layout->setSpacing(2);
 
     lineEdit = new QLineEdit(this);

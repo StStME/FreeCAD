@@ -66,7 +66,7 @@ ImageView::ImageView(QWidget* parent)
     // Since Qt5 the class QGLWidget is marked as deprecated and should be
     // replaced by QOpenGLWidget.
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
   _pGLImageBox = new GLImageBox(this);
 #else
   _pGLImageBox = new GLImageBox(parent);

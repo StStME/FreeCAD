@@ -71,12 +71,12 @@
 # ifdef HAVE_PYSIDE
 # include <pyside_qtcore_python.h>
 # include <pyside_qtgui_python.h>
-PyTypeObject** SbkPySide_QtCoreTypes=nullptr;
-PyTypeObject** SbkPySide_QtGuiTypes=nullptr;
+PyTypeObject** SbkPySide6_QtCoreTypes=nullptr;
+PyTypeObject** SbkPySide6_QtGuiTypes=nullptr;
 # endif
 #endif
 
-#ifdef HAVE_SHIBOKEN2 || HAVE_SHIBOKEN6
+#if defined(HAVE_SHIBOKEN2) || defined(HAVE_SHIBOKEN6)
 # define HAVE_SHIBOKEN
 # undef _POSIX_C_SOURCE
 # undef _XOPEN_SOURCE
@@ -84,7 +84,7 @@ PyTypeObject** SbkPySide_QtGuiTypes=nullptr;
 # include <sbkconverter.h>
 # include <sbkmodule.h>
 # include <shiboken.h>
-# ifdef HAVE_PYSIDE2 || HAVE_PYSIDE6
+# if defined(HAVE_PYSIDE2) || defined(HAVE_PYSIDE6)
 # define HAVE_PYSIDE
 
 // Since version 5.12 shiboken offers a method to get wrapper by class name (typeForTypeName)
@@ -292,13 +292,13 @@ template<typename qttype>
 PyTypeObject *getPyTypeObjectForTypeName()
 {
 #if defined (HAVE_SHIBOKEN) && defined(HAVE_PYSIDE)
-#if defined (HAVE_SHIBOKEN_TYPE_FOR_TYPENAME)
+/* #if defined (HAVE_SHIBOKEN_TYPE_FOR_TYPENAME)
     SbkObjectType* sbkType = Shiboken::ObjectType::typeForTypeName(typeid(qttype).name());
     if (sbkType)
         return &(sbkType->type);
-#else
+#else */
     return Shiboken::SbkType<qttype>();
-#endif
+//#endif
 #endif
     return nullptr;
 }
@@ -547,11 +547,11 @@ bool PythonWrapper::loadCoreModule()
     }
 #elif defined (HAVE_SHIBOKEN) && defined(HAVE_PYSIDE)
     // QtCore
-    if (!SbkPySide_QtCoreTypes) {
+    if (!SbkPySide6_QtCoreTypes) {
         Shiboken::AutoDecRef requiredModule(Shiboken::Module::import("PySide.QtCore"));
         if (requiredModule.isNull())
             return false;
-        SbkPySide_QtCoreTypes = Shiboken::Module::getTypes(requiredModule);
+        SbkPySide6_QtCoreTypes = Shiboken::Module::getTypes(requiredModule);
     }
 #endif
     return true;
@@ -569,11 +569,11 @@ bool PythonWrapper::loadGuiModule()
     }
 #elif defined (HAVE_SHIBOKEN) && defined(HAVE_PYSIDE)
     // QtGui
-    if (!SbkPySide_QtGuiTypes) {
+    if (!SbkPySide6_QtGuiTypes) {
         Shiboken::AutoDecRef requiredModule(Shiboken::Module::import("PySide.QtGui"));
         if (requiredModule.isNull())
             return false;
-        SbkPySide_QtGuiTypes = Shiboken::Module::getTypes(requiredModule);
+        SbkPySide6_QtGuiTypes = Shiboken::Module::getTypes(requiredModule);
     }
 #endif
     return true;

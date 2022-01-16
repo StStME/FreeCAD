@@ -28,14 +28,14 @@ namespace Spaceball
 {
     enum ButtonStateType {BUTTON_NONE = 0, BUTTON_PRESSED, BUTTON_RELEASED};
 
-    class EventBase : public QInputEvent
+    class EventBase : public QEvent
     {
     public:
         bool isHandled(){return handled;}
         void setHandled(bool sig){handled = sig;}
 
     protected:
-        EventBase(QInputEvent event);
+        EventBase(QEvent::Type event);
         bool handled;
     };
 

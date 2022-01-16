@@ -552,10 +552,10 @@ QVariant PropertyItem::data(int column, int role) const
 {
     // property name
     if (column == 0) {
-        if (role == Qt::TextColorRole && linked)
+        if (role == Qt::ForegroundRole && linked)
             return QVariant::fromValue(QColor(0x20,0xaa,0x20));
 
-        if (role == Qt::BackgroundRole || role == Qt::TextColorRole) {
+        if (role == Qt::BackgroundRole || role == Qt::ForegroundRole) {
             if(PropertyView::showAll()
                 && propertyItems.size() == 1
                 && propertyItems.front()->testStatus(App::Property::PropDynamic)
@@ -1466,7 +1466,7 @@ VectorListWidget::VectorListWidget (int decimals, QWidget * parent)
   , decimals(decimals)
 {
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0);
+    layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(2);
 
     lineEdit = new QLineEdit(this);
@@ -2903,7 +2903,7 @@ void PropertyStringListItem::setValue(const QVariant& value)
     QStringList values = value.toStringList();
     QString data;
     QTextStream str(&data);
-    str.setCodec("UTF-8");
+    str.setEncoding(QStringConverter::Utf8);
 
     str << "[";
     for (QStringList::Iterator it = values.begin(); it != values.end(); ++it) {
@@ -4120,7 +4120,7 @@ LinkLabel::LinkLabel (QWidget * parent, const App::Property *prop)
     : QWidget(parent), objProp(prop), dlg(nullptr)
 {   
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(0);
+    layout->setContentsMargins(0,0,0,0);
     layout->setSpacing(1);
 
     label = new QLabel(this);

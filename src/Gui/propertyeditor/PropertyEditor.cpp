@@ -134,7 +134,7 @@ void PropertyEditor::setGroupTextColor(const QColor& c)
 
 QStyleOptionViewItem PropertyEditor::viewOptions() const
 {
-    QStyleOptionViewItem option = QTreeView::viewOptions();
+    QStyleOptionViewItem option = QStyleOptionViewItem(); //= QTreeView::viewOptions();
     option.showDecorationSelected = true;
     return option;
 }

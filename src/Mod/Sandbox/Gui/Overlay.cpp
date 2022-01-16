@@ -63,7 +63,7 @@ public:
             p.drawText(200,200,QString::fromLatin1("Render to QImage"));
         }
 
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
         img = QtGLWidget::convertToGLFormat(img);
 #endif
         fbo = new QtGLFramebufferObject(v->getGLWidget()->size());
@@ -71,7 +71,7 @@ public:
         //glClear(GL_COLOR_BUFFER_BIT);
         fbo->release();
         {
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
             QPainter p(fbo);
             p.setPen(Qt::white);
             p.drawText(200,200,QString::fromLatin1("Render to QtGLFramebufferObject"));
@@ -626,7 +626,7 @@ void DrawingPlane::drawLineTo(const QPoint &endPoint)
 {
     Q_UNUSED(endPoint);
     return;
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(!T6_OPENGL)
     QPainter painter(fbo);
   //QPainter painter(_pcView3D->getGLWidget());
     painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,

@@ -25,6 +25,7 @@
 #ifndef _PreComp_
 # include <QMenu>
 # include <QMouseEvent>
+#include <QOpenGLWidget>
 # include <Inventor/nodes/SoCamera.h>
 #endif
 #include <Inventor/SbVec2s.h>
@@ -45,7 +46,7 @@ Flag::Flag(QWidget* parent)
   : QtGLWidget(parent), coord(0.0f, 0.0f, 0.0f)
 {
     this->setFixedHeight(20);
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
     setAutoFillBackground(true);
 #endif
 }
@@ -57,7 +58,7 @@ Flag::~Flag()
 void Flag::initializeGL()
 {
     const QPalette& p = this->palette();
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
     qglClearColor(p.color(QPalette::Window));
 #else
     QColor c(p.color(QPalette::Window));
@@ -67,7 +68,7 @@ void Flag::initializeGL()
 
 void Flag::paintGL()
 {
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
     const QPalette& p = this->palette();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     qglColor(p.color(QPalette::Text));
@@ -79,7 +80,7 @@ void Flag::paintGL()
 
 void Flag::paintEvent(QPaintEvent* e)
 {
-#if !defined(HAVE_QT5_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
     QtGLWidget::paintEvent(e);
 #else
     const QPalette& p = this->palette();
@@ -153,7 +154,7 @@ void Flag::mouseMoveEvent(QMouseEvent *e)
     if (e->buttons() & Qt::LeftButton) {
         move(e->globalPos() - dragPosition);
         e->accept();
-#if defined(HAVE_QT5_OPENGL)
+#if defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
         View3DInventorViewer* viewer = dynamic_cast<View3DInventorViewer*>(parentWidget());
         if (viewer)
             viewer->getSoRenderManager()->scheduleRedraw();
@@ -204,7 +205,7 @@ QSize Flag::sizeHint() const
 FlagLayout::FlagLayout(QWidget *parent, int margin, int spacing)
     : QLayout(parent)
 {
-    setMargin(margin);
+    setContentsMargins(margin, margin, margin, margin);
     setSpacing(spacing);
 }
 

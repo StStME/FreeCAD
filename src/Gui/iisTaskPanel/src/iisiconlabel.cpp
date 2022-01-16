@@ -21,7 +21,7 @@ iisIconLabel::iisIconLabel(const QIcon &icon, const QString &title, QWidget *par
     setFocusPolicy(Qt::StrongFocus);
     setCursor(Qt::PointingHandCursor);
 
-    myFont.setWeight(0);
+    myFont.setWeight(static_cast<QFont::Weight>(0));
     myPen.setStyle(Qt::NoPen);
 
     myColor = myColorOver = myColorDisabled = QColor();

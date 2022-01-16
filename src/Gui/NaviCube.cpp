@@ -110,7 +110,7 @@
 #include <QPainterPath>
 #include <QApplication>
 
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
 # include <QOpenGLTexture>
 #endif
 
@@ -285,7 +285,7 @@ public:
 	map<int,GLuint> m_Textures;
 	vector<Face*> m_Faces;
 	vector<int> m_Buttons;
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
 	vector<QOpenGLTexture *> m_glTextures;
 #endif
 	static vector<string> m_commands;
@@ -350,7 +350,7 @@ NaviCubeImplementation::~NaviCubeImplementation() {
 		delete m_PickingFramebuffer;
 	for (vector<Face*>::iterator f = m_Faces.begin(); f != m_Faces.end(); f++)
 		delete *f;
-#if defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if defined(HAVE_QT5_OPENGL) || defined(HAVE_QT6_OPENGL)
 	for (vector<QOpenGLTexture *>::iterator t = m_glTextures.begin(); t != m_glTextures.end(); t++)
 		delete *t;
 #endif
@@ -429,7 +429,7 @@ GLuint NaviCubeImplementation::createCubeFaceTex(QtGLWidget* gl, float gap, cons
 		QString fontString = QString::fromUtf8((hGrp->GetASCII("FontString")).c_str());
 		if (fontString.isEmpty()) {
 			// Improving readability
-			sansFont.setWeight(hGrp->GetInt("FontWeight", 87));
+			sansFont.setWeight(static_cast<QFont::Weight>(hGrp->GetInt("FontWeight", 87)));
 			sansFont.setStretch(hGrp->GetInt("FontStretch", 62));
 		}
 		else {
@@ -437,7 +437,7 @@ GLuint NaviCubeImplementation::createCubeFaceTex(QtGLWidget* gl, float gap, cons
 		}
 		// Override fromString
 		if (hGrp->GetInt("FontWeight") > 0) {
-			sansFont.setWeight(hGrp->GetInt("FontWeight"));
+			sansFont.setWeight(static_cast<QFont::Weight>(hGrp->GetInt("FontWeight")));
 		}
 		if (hGrp->GetInt("FontStretch") > 0) {
 			sansFont.setStretch(hGrp->GetInt("FontStretch"));
@@ -473,7 +473,7 @@ GLuint NaviCubeImplementation::createCubeFaceTex(QtGLWidget* gl, float gap, cons
 	}
 
 	paint.end();
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
 	return gl->bindTexture(image);
 #else
     Q_UNUSED(gl);
@@ -581,7 +581,7 @@ GLuint NaviCubeImplementation::createButtonTex(QtGLWidget* gl, int button) {
 	painter.end();
 	//image.save(str(enum2str(button))+str(".png"));
 
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
 	return gl->bindTexture(image);
 #else
     Q_UNUSED(gl);
@@ -656,7 +656,7 @@ GLuint NaviCubeImplementation::createMenuTex(QtGLWidget* gl, bool forPicking) {
 		painter.fillPath(path5, QColor(64,64,64));
 		}
 	painter.end();
-#if !defined(HAVE_QT5_OPENGL || HAVE_QT6_OPENGL)
+#if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
 	return gl->bindTexture(image);
 #else
     Q_UNUSED(gl);
