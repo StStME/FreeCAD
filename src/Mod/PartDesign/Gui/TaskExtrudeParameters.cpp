@@ -25,18 +25,19 @@
 
 #ifndef _PreComp_
 # include <sstream>
-# include <QRegExp>
-# include <QTextStream>
 # include <Precision.hxx>
+# include <QRegExp>
 # include <QSignalBlocker>
+# include <QTextStream>
 #endif
 
-#include "ui_TaskPadParameters.h"
+#include "ui_TaskPadPocketParameters.h"
 #include "TaskExtrudeParameters.h"
 #include <Base/UnitsApi.h>
+#include <Gui/Command.h>
+#include <Gui/Widgets.h>
 #include <Mod/PartDesign/App/FeatureExtrude.h>
 #include "ReferenceSelection.h"
-#include <Gui/Widgets.h>
 
 using namespace PartDesignGui;
 using namespace Gui;
@@ -46,7 +47,7 @@ using namespace Gui;
 TaskExtrudeParameters::TaskExtrudeParameters(ViewProviderSketchBased *SketchBasedView, QWidget *parent,
                                              const std::string& pixmapname, const QString& parname)
     : TaskSketchBasedParameters(SketchBasedView, parent, pixmapname, parname)
-    , ui(new Ui_TaskPadParameters)
+    , ui(new Ui_TaskPadPocketParameters)
 {
     // we need a separate container widget to add all controls to
     proxy = new QWidget(this);
@@ -388,6 +389,82 @@ void TaskExtrudeParameters::addAxisToCombo(App::DocumentObject* linkObj, std::st
         lnk.setValue(linkObj, std::vector<std::string>(1, linkSubname));
 }
 
+void TaskExtrudeParameters::setCheckboxes(Modes mode, Type type)
+{
+    // disable/hide everything unless we are sure we don't need it
+    // exception: the direction parameters are in any case visible
+    bool isLengthEditVisible = false;
+    bool isLengthEdit2Visible = false;
+    bool isOffsetEditVisible = false;
+    bool isOffsetEditEnabled = true;
+    bool isMidplaneEnabled = false;
+    bool isMidplaneVisible = false;
+    bool isReversedEnabled = false;
+    bool isFaceEditEnabled = false;
+
+    if (mode == Modes::Dimension) {
+        isLengthEditVisible = true;
+        ui->lengthEdit->selectNumber();
+        QMetaObject::invokeMethod(ui->lengthEdit, "setFocus", Qt::QueuedConnection);
+        isMidplaneVisible = true;
+        isMidplaneEnabled = true;
+        // Reverse only makes sense if Midplane is not true
+        isReversedEnabled = !ui->checkBoxMidplane->isChecked();
+    }
+    else if (mode == Modes::ThroughAll && type == Type::Pocket) {
+        isOffsetEditVisible = true;
+        isOffsetEditEnabled = false; // offset may have some meaning for through all but it doesn't work
+        isMidplaneEnabled = true;
+        isReversedEnabled = !ui->checkBoxMidplane->isChecked();
+    }
+    else if (mode == Modes::ToLast && type == Type::Pad) {
+        isOffsetEditVisible = true;
+        isReversedEnabled = true;
+    }
+    else if (mode == Modes::ToFirst) {
+        isOffsetEditVisible = true;
+        isReversedEnabled = true;
+    }
+    else if (mode == Modes::ToFace) {
+        isOffsetEditVisible = true;
+        isReversedEnabled = true;
+        isFaceEditEnabled = true;
+        QMetaObject::invokeMethod(ui->lineFaceName, "setFocus", Qt::QueuedConnection);
+        // Go into reference selection mode if no face has been selected yet
+        if (ui->lineFaceName->property("FeatureName").isNull())
+            onButtonFace(true);
+    }
+    else if (mode == Modes::TwoDimensions) {
+        isLengthEditVisible = true;
+        isLengthEdit2Visible = true;
+        isReversedEnabled = true;
+    }
+
+    ui->lengthEdit->setVisible(isLengthEditVisible);
+    ui->lengthEdit->setEnabled(isLengthEditVisible);
+    ui->labelLength->setVisible(isLengthEditVisible);
+    ui->checkBoxAlongDirection->setVisible(isLengthEditVisible);
+
+    ui->lengthEdit2->setVisible(isLengthEdit2Visible);
+    ui->lengthEdit2->setEnabled(isLengthEdit2Visible);
+    ui->labelLength2->setVisible(isLengthEdit2Visible);
+
+    ui->offsetEdit->setVisible(isOffsetEditVisible);
+    ui->offsetEdit->setEnabled(isOffsetEditVisible && isOffsetEditEnabled);
+    ui->labelOffset->setVisible(isOffsetEditVisible);
+
+    ui->checkBoxMidplane->setEnabled(isMidplaneEnabled);
+    ui->checkBoxMidplane->setVisible(isMidplaneVisible);
+
+    ui->checkBoxReversed->setEnabled(isReversedEnabled);
+
+    ui->buttonFace->setEnabled(isFaceEditEnabled);
+    ui->lineFaceName->setEnabled(isFaceEditEnabled);
+    if (!isFaceEditEnabled) {
+        onButtonFace(false);
+    }
+}
+
 void TaskExtrudeParameters::onDirectionCBChanged(int num)
 {
     PartDesign::FeatureExtrude* extrude = static_cast<PartDesign::FeatureExtrude*>(vp->getObject());
@@ -522,6 +599,7 @@ void TaskExtrudeParameters::onMidplaneChanged(bool on)
 {
     PartDesign::FeatureExtrude* extrude = static_cast<PartDesign::FeatureExtrude*>(vp->getObject());
     extrude->Midplane.setValue(on);
+    ui->checkBoxReversed->setEnabled(!on);
     tryRecomputeFeature();
 }
 
@@ -529,6 +607,7 @@ void TaskExtrudeParameters::onReversedChanged(bool on)
 {
     PartDesign::FeatureExtrude* extrude = static_cast<PartDesign::FeatureExtrude*>(vp->getObject());
     extrude->Reversed.setValue(on);
+    ui->checkBoxMidplane->setEnabled(!on);
     // update the direction
     tryRecomputeFeature();
     updateDirectionEdits();
@@ -616,16 +695,6 @@ void TaskExtrudeParameters::translateFaceName()
             ui->lineFaceName->setText(parts[0]);
         }
     }
-}
-
-double TaskExtrudeParameters::getLength(void) const
-{
-    return ui->lengthEdit->value().getValue();
-}
-
-double TaskExtrudeParameters::getLength2(void) const
-{
-    return ui->lengthEdit2->value().getValue();
 }
 
 double TaskExtrudeParameters::getOffset(void) const
@@ -734,6 +803,24 @@ void TaskExtrudeParameters::saveHistory(void)
     ui->lengthEdit->pushToHistory();
     ui->lengthEdit2->pushToHistory();
     ui->offsetEdit->pushToHistory();
+}
+
+void TaskExtrudeParameters::applyParameters(QString facename)
+{
+    auto obj = vp->getObject();
+
+    ui->lengthEdit->apply();
+    ui->lengthEdit2->apply();
+    FCMD_OBJ_CMD(obj, "UseCustomVector = " << (getCustom() ? 1 : 0));
+    FCMD_OBJ_CMD(obj, "Direction = ("
+        << getXDirection() << ", " << getYDirection() << ", " << getZDirection() << ")");
+    FCMD_OBJ_CMD(obj, "ReferenceAxis = " << getReferenceAxis());
+    FCMD_OBJ_CMD(obj, "AlongSketchNormal = " << (getAlongSketchNormal() ? 1 : 0));
+    FCMD_OBJ_CMD(obj, "Type = " << getMode());
+    FCMD_OBJ_CMD(obj, "UpToFace = " << facename.toLatin1().data());
+    FCMD_OBJ_CMD(obj, "Reversed = " << (getReversed() ? 1 : 0));
+    FCMD_OBJ_CMD(obj, "Midplane = " << (getMidplane() ? 1 : 0));
+    FCMD_OBJ_CMD(obj, "Offset = " << getOffset());
 }
 
 void TaskExtrudeParameters::onModeChanged(int)

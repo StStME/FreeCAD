@@ -165,7 +165,9 @@ ObjectIdentifier::ObjectIdentifier(const Property &prop, int index)
     DocumentObject * docObj = freecad_dynamic_cast<DocumentObject>(prop.getContainer());
 
     if (!docObj)
-        FC_THROWM(Base::TypeError,"Property must be owned by a document object.");
+        FC_THROWM(Base::TypeError, "Property must be owned by a document object.");
+    if (!prop.hasName())
+        FC_THROWM(Base::RuntimeError, "Property must have a name.");
 
     owner = const_cast<DocumentObject*>(docObj);
 
@@ -307,7 +309,7 @@ bool ObjectIdentifier::verify(const App::Property &prop, bool silent) const {
     const std::string &name = components[result.propertyIndex].getName();
     CellAddress addr;
     bool isAddress = addr.parseAbsoluteAddress(name.c_str());
-    if((isAddress && addr.toString(true) != prop.getName()) ||
+    if((isAddress && addr.toString(CellAddress::Cell::ShowRowColumn) != prop.getName()) ||
        (!isAddress && name!=prop.getName()))
     {
         if(silent) return false;

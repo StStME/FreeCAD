@@ -302,6 +302,7 @@ SET(FreeCADBase_HPP_SRCS
     Base64.h
     BaseClass.h
     BindingManager.h
+    Bitmask.h
     BoundBox.h
     Builder3D.h
     Console.h

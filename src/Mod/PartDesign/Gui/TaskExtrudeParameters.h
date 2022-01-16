@@ -31,7 +31,7 @@
 #include "TaskSketchBasedParameters.h"
 #include "ViewProviderSketchBased.h"
 
-class Ui_TaskPadParameters;
+class Ui_TaskPadPocketParameters;
 
 namespace App {
 class Property;
@@ -65,6 +65,20 @@ public:
     void fillDirectionCombo();
     void addAxisToCombo(App::DocumentObject* linkObj, std::string linkSubname, QString itemText,
         bool hasSketch = true);
+    void applyParameters(QString facename);
+
+    enum class Type {
+        Pad,
+        Pocket
+    };
+    enum class Modes {
+        Dimension,
+        ThroughAll,
+        ToLast = ThroughAll,
+        ToFirst,
+        ToFace,
+        TwoDimensions
+    };
 
 protected Q_SLOTS:
     void onLengthChanged(double);
@@ -83,14 +97,13 @@ protected Q_SLOTS:
     virtual void onModeChanged(int);
 
 protected:
+    void setCheckboxes(Modes mode, Type type);
     void setupDialog();
     void readValuesFromHistory();
     void changeEvent(QEvent *e) override;
     App::PropertyLinkSub* propReferenceAxis;
     void getReferenceAxis(App::DocumentObject*& obj, std::vector<std::string>& sub) const;
 
-    double getLength(void) const;
-    double getLength2(void) const;
     bool   getAlongSketchNormal(void) const;
     bool   getCustom(void) const;
     std::string getReferenceAxis(void) const;
@@ -118,7 +131,7 @@ private:
 
 protected:
     QWidget* proxy;
-    std::unique_ptr<Ui_TaskPadParameters> ui;
+    std::unique_ptr<Ui_TaskPadPocketParameters> ui;
     bool selectionFace;
     std::vector<std::unique_ptr<App::PropertyLinkSub>> axesInList;
 };

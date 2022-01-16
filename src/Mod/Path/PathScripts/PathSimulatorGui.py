@@ -31,7 +31,6 @@ import PathScripts.PathJob as PathJob
 import PathSimulator
 import math
 import os
-from PySide.QtCore import QT_TRANSLATE_NOOP
 
 from FreeCAD import Vector, Base
 
@@ -165,7 +164,8 @@ class PathSimulation:
             maxlen = self.stock.BoundBox.XLength
             if maxlen < self.stock.BoundBox.YLength:
                 maxlen = self.stock.BoundBox.YLength
-            self.voxSim.BeginSimulation(self.stock, 0.01 * self.accuracy * maxlen)
+            self.resolution = 0.01 * self.accuracy * maxlen
+            self.voxSim.BeginSimulation(self.stock, self.resolution)
             (
                 self.cutMaterial.Mesh,
                 self.cutMaterialIn.Mesh,
@@ -311,9 +311,7 @@ class PathSimulation:
                     self.stock = newStock.removeSplitter()
             except Exception:
                 if self.debug:
-                    FreeCAD.Console.PrintError(
-                        "invalid cut at cmd #{}".format(self.icmd)
-                    )
+                    print("invalid cut at cmd #{}".format(self.icmd))
         if not self.disableAnim:
             self.cutTool.Placement = FreeCAD.Placement(self.curpos, self.stdrot)
         self.icmd += 1
@@ -343,7 +341,29 @@ class PathSimulation:
         # for cmd in job.Path.Commands:
         if cmd.Name in ["G0", "G1", "G2", "G3"]:
             self.firstDrill = True
-            self.curpos = self.voxSim.ApplyCommand(self.curpos, cmd)
+            if cmd.Name in ['G2', 'G3'] and (cmd.k or 0) == 0:
+                cx = self.curpos.Base.x + (cmd.i or 0)
+                cy = self.curpos.Base.y + (cmd.j or 0)
+                a0 = math.atan2( self.curpos.Base.y - cy, self.curpos.Base.x - cx )
+                a1 = math.atan2( cmd.y - cy, cmd.x - cx )
+                da = a1 - a0
+                if cmd.Name == 'G3':
+                    da = da % (2 * math.pi)
+                else:
+                    da = -((-da) % (2 * math.pi))
+                r  = math.sqrt( (cmd.i or 0) ** 2 + (cmd.j or 0) ** 2 )
+                n  = math.ceil( math.sqrt( r / self.resolution * da * da ) )
+                da = da / n
+                dz = (cmd.z - self.curpos.Base.z) / n
+                cmd.Name = 'G1'
+                for i in range( n ):
+                    a0 += da
+                    cmd.x = cx + r * math.cos( a0 )
+                    cmd.y = cy + r * math.sin( a0 )
+                    cmd.z = self.curpos.Base.z + dz
+                    self.curpos = self.voxSim.ApplyCommand(self.curpos, cmd)
+            else:
+                self.curpos = self.voxSim.ApplyCommand(self.curpos, cmd)
             if not self.disableAnim:
                 self.cutTool.Placement = self.curpos
                 (
@@ -622,9 +642,9 @@ class CommandPathSimulate:
     def GetResources(self):
         return {
             "Pixmap": "Path_Simulator",
-            "MenuText": QT_TRANSLATE_NOOP("Path_Simulator", "CAM Simulator"),
+            "MenuText": QtCore.QT_TRANSLATE_NOOP("Path_Simulator", "CAM Simulator"),
             "Accel": "P, M",
-            "ToolTip": QT_TRANSLATE_NOOP(
+            "ToolTip": QtCore.QT_TRANSLATE_NOOP(
                 "Path_Simulator", "Simulate Path G-Code on stock"
             ),
         }
@@ -637,10 +657,9 @@ class CommandPathSimulate:
         return False
 
     def Activated(self):
+        pathSimulation = PathSimulation()
         pathSimulation.Activate()
 
-
-pathSimulation = PathSimulation()
 
 if FreeCAD.GuiUp:
     # register the FreeCAD command

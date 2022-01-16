@@ -59,6 +59,8 @@ using namespace PartDesign;
 
 PROPERTY_SOURCE(PartDesign::FeatureExtrude, PartDesign::ProfileBased)
 
+App::PropertyQuantityConstraint::Constraints FeatureExtrude::signedLengthConstraint = { -DBL_MAX, DBL_MAX, 1.0 };
+
 FeatureExtrude::FeatureExtrude()
 {
 }
