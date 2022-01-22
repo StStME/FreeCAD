@@ -48,7 +48,7 @@
 
 #include <algorithm>
 #include <QApplication>
-#include <QGLWidget>
+#include <QOpenGLWidget>
 #include <QTimer>
 #include <QDebug>
 #include <Inventor/SoDB.h>
@@ -72,7 +72,7 @@
 
 
 
-class CoinRiftWidget : public QGLWidget
+class CoinRiftWidget : public QWidget
 {
     ovrHmd hmd;
     //ovrHmdDesc hmdDesc;

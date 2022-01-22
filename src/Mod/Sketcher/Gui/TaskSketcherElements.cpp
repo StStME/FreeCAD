@@ -363,11 +363,12 @@ void TaskSketcherElements::onSelectionChanged(const Gui::SelectionChanges& msg)
                 std::string shapetype(msg.pSubName);
                 // if-else edge vertex
                 if (shapetype.size() > 4 && shapetype.substr(0,4) == "Edge") {
-                    QRegExp rx(QString::fromLatin1("^Edge(\\d+)$"));
-                    int pos = expr.indexOf(rx);
+                    QRegularExpression rx(QString::fromLatin1("^Edge(\\d+)$"));
+                    QRegularExpressionMatch match;
+                    int pos = expr.indexOf(rx, 0, &match);
                     if (pos > -1) {
                         bool ok;
-                        int ElementId = rx.cap(1).toInt(&ok) - 1;
+                        int ElementId = match.captured(1).toInt(&ok) - 1;
                         if (ok) {
                             int countItems = ui->listWidgetElements->count();
                             for (int i=0; i < countItems; i++) {
@@ -382,11 +383,12 @@ void TaskSketcherElements::onSelectionChanged(const Gui::SelectionChanges& msg)
                     }
                 }
                 else if (shapetype.size() > 6 && shapetype.substr(0,6) == "Vertex"){
-                    QRegExp rx(QString::fromLatin1("^Vertex(\\d+)$"));
-                    int pos = expr.indexOf(rx);
+                    QRegularExpression rx(QString::fromLatin1("^Vertex(\\d+)$"));
+                    QRegularExpressionMatch match;
+                    int pos = expr.indexOf(rx, 0, &match);
                     if (pos > -1) {
                         bool ok;
-                        int ElementId = rx.cap(1).toInt(&ok) - 1;
+                        int ElementId = match.captured(1).toInt(&ok) - 1;
                         if (ok) {
                             // Get the GeoID&Pos
                             int GeoId;

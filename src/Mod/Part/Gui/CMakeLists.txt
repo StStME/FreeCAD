@@ -36,6 +36,12 @@ if (BUILD_QT5)
     list(APPEND PartGui_LIBS
         ${Qt5Concurrent_LIBRARIES}
     )
+elseif (BUILD_QT6)
+    find_package(Qt6 REQUIRED COMPONENTS Concurrent)
+
+    list(APPEND PartGui_LIBS
+        Qt6::Concurrent
+    )
 endif()
 
 if (BUILD_QT5)

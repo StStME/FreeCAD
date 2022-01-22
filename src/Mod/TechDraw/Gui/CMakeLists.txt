@@ -26,11 +26,21 @@ include_directories(
     ${XercesC_INCLUDE_DIRS}
 )
 
+set(TechDrawGui_LIBS
+    TechDraw
+    FreeCADGui
+)
+
+
 if(BUILD_QT5)
     include_directories(
         ${Qt5XmlPatterns_INCLUDE_DIRS}
     )
 elseif(BUILD_QT6)
+    find_package(Qt6 REQUIRED COMPONENTS Xml)
+    list(APPEND TechDrawGui_LIBS
+        Qt6::Xml
+        )
     message(WARNING "No QTXML fpr QT6!")
 else(BUILD_QT5)
     include_directories(
@@ -43,11 +53,6 @@ set(TechDrawGui_XML_SRCS
 )
 
 link_directories(${OCC_LIBRARY_DIR})
-
-set(TechDrawGui_LIBS
-    TechDraw
-    FreeCADGui
-)
 
 if(BUILD_QT5)
     qt5_add_resources(TechDrawGui_SRCS Resources/TechDraw.qrc)

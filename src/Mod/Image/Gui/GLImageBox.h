@@ -20,7 +20,7 @@
 #define GLIMAGEBOX_H
 
 #include <Mod/Image/App/ImageBase.h>
-#include <QGLWidget>
+//#include <QGLWidget>
 
 namespace ImageGui
 {
@@ -29,13 +29,13 @@ namespace ImageGui
 #define IV_DISPLAY_FITIMAGE     1       // fit-image when displaying a new image (other settings remain the same)
 #define IV_DISPLAY_RESET        2       // reset settings when displaying a new image (image will be displayed at 1:1 scale with no color map)
 
-class ImageGuiExport GLImageBox : public QGLWidget
+class ImageGuiExport GLImageBox : public QWidget
 {
     Q_OBJECT
 
 public:
 
-    GLImageBox(QWidget * parent = 0, const QGLWidget * shareWidget = 0, Qt::WindowFlags f = 0);
+    GLImageBox(QWidget * parent = 0, const QWidget * shareWidget = 0, Qt::WindowFlags f = Qt::Widget);
     ~GLImageBox();
 
     Image::ImageBase *getImageBasePtr() { return &_image; }

@@ -29,7 +29,10 @@
 # include <QContextMenuEvent>
 # include <QFileInfo>
 # include <QFileDialog>
-# include <QGLWidget>
+//# include <QGLWidget>
+#include <QActionGroup>
+#include <QPaintEngine>
+# include <QOpenGLWidget>
 # include <QGraphicsRectItem>
 # include <QGraphicsSvgItem>
 # include <QGridLayout>
@@ -144,7 +147,7 @@ void SvgView::setRenderer(RendererType type)
 
     if (m_renderer == OpenGL) {
 #ifndef QT_NO_OPENGL
-        setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+        setViewport(new QWidget);
 #endif
     } else {
         setViewport(new QWidget);

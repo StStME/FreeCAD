@@ -36,6 +36,7 @@
 # include <QFutureWatcher>
 # include <QKeyEvent>
 # include <QtConcurrentMap>
+
 # include <boost_bind_bind.hpp>
 # include <Python.h>
 # include <Inventor/nodes/SoBaseColor.h>

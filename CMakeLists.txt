@@ -34,8 +34,9 @@ include(cMake/FreeCadMacros.cmake)
 add_subdirectory(cMake/FreeCAD_Helpers)
 
 ## hacky hack:
+#qt/libexec/moc
 #/opt/homebrew/Cellar/qt/6.2.2/share/qt/libexec/moc
-set(Qt6Core_MOC_EXECUTABLE /opt/homebrew/Cellar/qt/6.2.2/share/qt/libexec/moc)
+set(Qt6Core_MOC_EXECUTABLE /Users/stefan.steinmueller/workspace/Qt/6.2.2/macos/libexec/moc)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cMake")
 
@@ -74,6 +75,9 @@ if(NOT FREECAD_LIBPACK_USE OR FREECAD_LIBPACK_CHECKFILE_CLBUNDLER)
     SetupFreetype()
 
     if(BUILD_GUI)
+        if(BUILD_QT6)
+            add_definitions(-DHAVE_QT6_OPENGL)
+        endif()
         SetupCoin3D()
         SetupSpaceball()
         SetupShibokenAndPyside()

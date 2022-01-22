@@ -140,6 +140,9 @@ include_directories(
         Qt6::Gui
         Qt6::SvgWidgets
         Qt6::OpenGLWidgets
+        /Users/stefan.steinmueller/workspace/pyside-setup/build/qfp-py3.9-qt6.2.2-64bit-release/build/shiboken6/libshiboken/libshiboken6.cpython-39-darwin.6.0.0.dylib
+        /Users/stefan.steinmueller/workspace/pyside-setup/build/qfp-py3.9-qt6.2.2-64bit-release/build/pyside6/libpyside/libpyside6.cpython-39-darwin.6.0.0.dylib
+
     )
 else()
     include_directories(

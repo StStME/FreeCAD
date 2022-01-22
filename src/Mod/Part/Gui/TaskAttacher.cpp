@@ -621,22 +621,23 @@ void TaskAttacher::onRefName(const QString& text, unsigned idx)
         // TODO: check validity of the text that was entered: Does subElement actually reference to an element on the obj?
 
         // We must expect that "text" is the translation of "Face", "Edge" or "Vertex" followed by an ID.
-        QRegExp rx;
+        QRegularExpression rx;
+        QRegularExpressionMatch match;
         std::stringstream ss;
 
         rx.setPattern(QString::fromLatin1("^") + tr("Face") + QString::fromLatin1("(\\d+)$"));
-        if (parts[1].indexOf(rx) >= 0) {
-            int faceId = rx.cap(1).toInt();
+        if (parts[1].indexOf(rx, 0, &match) >= 0) {
+            int faceId = match.captured(1).toInt();
             ss << "Face" << faceId;
         } else {
             rx.setPattern(QString::fromLatin1("^") + tr("Edge") + QString::fromLatin1("(\\d+)$"));
-            if (parts[1].indexOf(rx) >= 0) {
-                int lineId = rx.cap(1).toInt();
+            if (parts[1].indexOf(rx, 0, &match) >= 0) {
+                int lineId = match.captured(1).toInt();
                 ss << "Edge" << lineId;
             } else {
                 rx.setPattern(QString::fromLatin1("^") + tr("Vertex") + QString::fromLatin1("(\\d+)$"));
-                if (parts[1].indexOf(rx) >= 0) {
-                    int vertexId = rx.cap(1).toInt();
+                if (parts[1].indexOf(rx, 0, &match) >= 0) {
+                    int vertexId = match.captured(1).toInt();
                     ss << "Vertex" << vertexId;
                 } else {
                     //none of Edge/Vertex/Face. May be empty string.

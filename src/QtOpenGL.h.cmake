@@ -64,7 +64,7 @@ typedef QOpenGLFramebufferObjectFormat QtGLFramebufferObjectFormat;
 
 #include <QGLContext>
 #include <QGLFormat>
-#include <QGLWidget>
+#include <QOpenGLWidget>
 #include <QGLPixelBuffer>
 #include <QGLFramebufferObject>
 

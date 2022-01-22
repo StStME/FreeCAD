@@ -28,6 +28,8 @@ set(SketcherGui_LIBS
 if(BUILD_QT5)
     qt5_add_resources(SketcherGui_SRCS Resources/Sketcher.qrc)
 elseif(BUILD_QT6)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
+list(APPEND SketcherGui_LIBS Qt6::Widgets)
     qt6_add_resources(SketcherGui_SRCS Resources/Sketcher.qrc)
 else()
     qt4_add_resources(SketcherGui_SRCS Resources/Sketcher.qrc)

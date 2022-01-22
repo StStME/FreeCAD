@@ -48,7 +48,7 @@
 #include <QResizeEvent>
 #include <QTimer>
 #include <QVBoxLayout>
-#include <QGLWidget>
+#include <QOpenGLWidget>
 #include <QGraphicsView>
 #include <QPaintEngine>
 #include <QGraphicsItem>

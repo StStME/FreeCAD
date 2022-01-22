@@ -27,6 +27,13 @@ set(ImageGui_LIBS
     ${OPENGL_glu_LIBRARY}
 )
 
+if (BUILD_QT6)
+    find_package(Qt6 REQUIRED COMPONENTS Concurrent)
+
+    list(APPEND ImageGui_LIBS
+        Qt6::Concurrent
+    )
+endif()
 SET(ImageGui_RES_SRCS
     Resources/Image.qrc
 )

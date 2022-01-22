@@ -141,7 +141,7 @@ private:
     void makeFrameBuffer(int width, int height, int samples);
 
 #if !defined(HAVE_QT5_OPENGL) && !defined(HAVE_QT6_OPENGL)
-    QGLPixelBuffer*         pixelbuffer; // the offscreen rendering supported by Qt
+    //QGLPixelBuffer*         pixelbuffer; // the offscreen rendering supported by Qt
 #endif
     QtGLFramebufferObject*  framebuffer;
     uint32_t                cache_context; // our unique context id

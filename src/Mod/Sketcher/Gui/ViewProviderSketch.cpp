@@ -50,6 +50,7 @@
 # include <QTextStream>
 # include <QKeyEvent>
 //# include <QDesktopWidget>
+#include <QScreen>
 
 # include <boost_bind_bind.hpp>
 #endif
@@ -3468,7 +3469,8 @@ int ViewProviderSketch::defaultFontSizePixels() const
 }
 
 int ViewProviderSketch::getApplicationLogicalDPIX() const {
-    return QApplication::desktop()->logicalDpiX();
+    return QGuiApplication::primaryScreen()->logicalDotsPerInchX();
+    
 }
 
 double ViewProviderSketch::getRotation(SbVec3f pos0, SbVec3f pos1) const
