@@ -61,9 +61,19 @@ Property::~Property()
 
 }
 
-const char* Property::getName(void) const
+const char* Property::getName() const
 {
-    return myName;
+    return myName ? myName : "";
+}
+
+bool Property::hasName() const
+{
+    return isValidName(myName);
+}
+
+bool Property::isValidName(const char* name)
+{
+    return name && name[0] != '\0';
 }
 
 std::string Property::getFullName() const {
@@ -279,6 +289,8 @@ void Property::setStatus(Status pos, bool on) {
 }
 
 bool Property::isSame(const Property &other) const {
+    if(&other == this)
+        return true;
     if(other.getTypeId() != getTypeId() || getMemSize() != other.getMemSize())
         return false;
 
