@@ -113,7 +113,7 @@ protected Q_SLOTS:
     bool chckHostAllowed(const QString& host);
     void urlFilter(const QUrl &url);
 #ifdef QTWEBENGINE
-    void onDownloadRequested(QWebEngineDownloadItem *request);
+    void onDownloadRequested(QWebEngineDownloadRequest *request);
     void onLinkHovered(const QString& url);
 #else
     void onDownloadRequested(const QNetworkRequest& request);

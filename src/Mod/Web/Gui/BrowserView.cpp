@@ -57,7 +57,7 @@
 # include <QWebEngineView>
 # include <QWebEngineSettings>
 # include <QWebEngineProfile>
-# include <QWebEngineContextMenuData>
+# include <QWebEngineContextMenuRequest>
 # include <QWebEngineUrlRequestInterceptor>
 # include <QWebEngineUrlRequestInfo>
 #elif defined(QTWEBKIT)
@@ -353,16 +353,16 @@ void WebView::wheelEvent(QWheelEvent *event)
 void WebView::contextMenuEvent(QContextMenuEvent *event)
 {
 #ifdef QTWEBENGINE
-    const QWebEngineContextMenuData r = page()->contextMenuData();
+    const QWebEngineContextMenuRequest* r = this->lastContextMenuRequest();
 #else
     QWebHitTestResult r = page()->mainFrame()->hitTestContent(event->pos());
 #endif
-    if (!r.linkUrl().isEmpty()) {
+    if (!r->linkUrl().isEmpty()) {
         QMenu menu(this);
 
         // building a custom signal for external browser action
         QSignalMapper* signalMapper = new QSignalMapper (&menu);
-        signalMapper->setProperty("url", QVariant(r.linkUrl()));
+        signalMapper->setProperty("url", QVariant(r->linkUrl()));
         connect(signalMapper, SIGNAL(mapped(int)),
                 this, SLOT(triggerContextMenuAction(int)));
 
@@ -385,12 +385,12 @@ void WebView::contextMenuEvent(QContextMenuEvent *event)
         static bool firstRun = true;
         if (firstRun) {
             firstRun = false;
-            QMenu *menu = page()->createStandardContextMenu();
+            QMenu *menu = this->createStandardContextMenu();
             QList<QAction *> actions = menu->actions();
             for(QAction *ac : actions) {
                 if (ac->data().toInt() == WebAction::ViewSource) {
                     QSignalMapper* signalMapper = new QSignalMapper (this);
-                    signalMapper->setProperty("url", QVariant(r.linkUrl()));
+                    signalMapper->setProperty("url", QVariant(r->linkUrl()));
                     signalMapper->setMapping(ac, WebAction::ViewSource);
                     connect(signalMapper, SIGNAL(mapped(int)),
                             this, SLOT(triggerContextMenuAction(int)));
@@ -621,7 +621,7 @@ bool BrowserView::chckHostAllowed(const QString& host)
 }
 
 #ifdef QTWEBENGINE
-void BrowserView::onDownloadRequested(QWebEngineDownloadItem *request)
+void BrowserView::onDownloadRequested(QWebEngineDownloadRequest *request)
 {
     QUrl url = request->url();
     if (!url.isLocalFile()) {
