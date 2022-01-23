@@ -9,6 +9,8 @@ include_directories(
 
 if (Qt5WebEngineWidgets_FOUND)
     add_definitions(-DQTWEBENGINE)
+elseif(Qt6WebEngineWidgets_FOUND)
+    add_definitions(-DQTWEBENGINE)
 elseif(Qt5WebKitWidgets_FOUND OR QT_QTWEBKIT_FOUND) # Qt5 and Qt4
     add_definitions(-DQTWEBKIT)
 endif()
@@ -26,6 +28,9 @@ if(BUILD_QT5)
         list(APPEND WebGui_LIBS ${Qt5WebKitWidgets_LIBRARIES})
     endif()
     qt5_add_resources(Web_QRC_SRCS Resources/Web.qrc)
+elseif(BUILD_QT6)
+    include_directories(${Qt6WebEngineWidgets_INCLUDE_DIRS})
+    qt6_add_resources(Web_QRC_SRCS Resources/Web.qrc)
 else()
     qt4_add_resources(Web_QRC_SRCS Resources/Web.qrc)
 endif()
