@@ -33,15 +33,15 @@
 
 #include <boost/regex.hpp>
 
-#include <QXmlQuery>
-#include <QXmlResultItems>
+#include <QDomNodeList>
+#include <QString>
 
 #include <Base/Exception.h>
 #include <Base/FileInfo.h>
 #include <Base/Console.h>
 #include <Base/Tools.h>
 
-#include "QDomNodeModel.h"
+// #include "QDomNodeModel.h"
 #include "DrawUtil.h"
 #include "DrawPage.h"
 #include "DrawViewSymbol.h"
@@ -92,25 +92,22 @@ void DrawViewSymbol::onChanged(const App::Property* prop)
             bool nsProcess = false;
             bool rc = symbolDocument.setContent(qba, nsProcess, &errorMsg, &errorLine, &errorCol);
             if (rc) {
-                QDomElement symbolDocElem = symbolDocument.documentElement();
-
-                QXmlQuery query(QXmlQuery::XQuery10);
-                QDomNodeModel model(query.namePool(), symbolDocument);
-                query.setFocus(QXmlItem(model.fromDomNode(symbolDocElem)));
-
-                // XPath query to select all <tspan> nodes whose <text> parent
-                // has "freecad:editable" attribute
-                query.setQuery(QString::fromUtf8(
-                    "declare default element namespace \"" SVG_NS_URI "\"; "
-                    "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-                    "//text[@freecad:editable]/tspan"));
-
-                QXmlResultItems queryResult;
-                query.evaluateTo(&queryResult);
-
-                while (!queryResult.next().isNull())
+                
+                QDomNodeList items = symbolDocument
+                                        .elementsByTagNameNS(
+                                            QString::fromUtf8(FREECAD_SVG_NS_URI), 
+                                            QString::fromUtf8("text")
+                                            );
+                for(int i = 0; i < items.length(); i++)
                 {
-                    QDomElement tspanElement = model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
+                    if(!items.item(i).attributes().contains(QString::fromUtf8("freecad:editable"))) // there must be a better way...
+                        continue;
+                    
+                    QDomElement tspanElement = items.item(i).firstChildElement(
+                        QString::fromUtf8("tspan"),
+                        QString::fromUtf8("")
+                    ); 
+                    //model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
                     editables.push_back(tspanElement.text().toStdString());
                 }
             }
@@ -159,25 +156,22 @@ App::DocumentObjectExecReturn *DrawViewSymbol::execute(void)
         if (rc) {
             QDomElement symbolDocElem = symbolDocument.documentElement();
 
-            QXmlQuery query(QXmlQuery::XQuery10);
-            QDomNodeModel model(query.namePool(), symbolDocument);
-            query.setFocus(QXmlItem(model.fromDomNode(symbolDocElem)));
-
-            // XPath query to select all <tspan> nodes whose <text> parent
-            // has "freecad:editable" attribute
-            query.setQuery(QString::fromUtf8(
-                "declare default element namespace \"" SVG_NS_URI "\"; "
-                "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-                "//text[@freecad:editable]/tspan"));
-
-            QXmlResultItems queryResult;
-            query.evaluateTo(&queryResult);
-
-            unsigned int count = 0;
-            while (!queryResult.next().isNull())
+            
+            QDomNodeList items = symbolDocument
+                                        .elementsByTagNameNS(
+                                            QString::fromUtf8(FREECAD_SVG_NS_URI), 
+                                            QString::fromUtf8("text")
+                                            );
+            
+            for(int i = 0; i < items.length(); i++)
             {
-                QDomElement tspanElement = model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
-
+                if(!items.item(i).attributes().contains(QString::fromUtf8("freecad:editable"))) // there must be a better way...
+                    continue;
+                    
+                QDomElement tspanElement = items.item(i).firstChildElement(
+                        QString::fromUtf8("tspan"),
+                        QString::fromUtf8("")
+                    ); 
                 // Keep all spaces in the text node
                 tspanElement.setAttribute(QString::fromUtf8("xml:space"), QString::fromUtf8("preserve"));
 
@@ -188,8 +182,7 @@ App::DocumentObjectExecReturn *DrawViewSymbol::execute(void)
 
                 // Finally append text node with editable replacement as the only <tspan> descendant
                 tspanElement.appendChild(symbolDocument.createTextNode(
-                                 QString::fromUtf8(editText[count].c_str())));
-                ++count;
+                                 QString::fromUtf8(editText[i].c_str())));
             }
 
             Symbol.setValue(symbolDocument.toString(1).toStdString());

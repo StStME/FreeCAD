@@ -26,6 +26,8 @@ if(BUILD_QT5)
     set(QtXmlPatternsLib ${Qt5XmlPatterns_LIBRARIES})
 elseif(BUILD_QT6)
 find_package(Qt6 COMPONENTS Xml REQUIRED)
+find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
+find_package(Qt6 COMPONENTS Core REQUIRED)
 
 else(BUILD_QT5)
     include_directories(
@@ -43,6 +45,9 @@ set(TechDrawLIBS
     Drawing
     Import
 )
+if(BUILD_QT6)
+    list(APPEND TechDrawLibs Qt6::Xml Qt6::Core)
+endif()
 
 generate_from_xml(DrawPagePy)
 generate_from_xml(DrawViewPy)
@@ -127,8 +132,8 @@ SET(Draw_SRCS
     DrawLeaderLine.h
     DrawRichAnno.cpp
     DrawRichAnno.h
-    QDomNodeModel.cpp
-    QDomNodeModel.h
+    # QDomNodeModel.cpp
+    # QDomNodeModel.h
     DrawTile.cpp
     DrawTile.h
     DrawTileWeld.cpp

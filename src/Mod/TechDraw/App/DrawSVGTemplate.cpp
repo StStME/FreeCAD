@@ -29,9 +29,9 @@
   #include <QFile>
 #endif
 
-#include <QXmlQuery>
-#include <QXmlResultItems>
-#include "QDomNodeModel.h"
+// #include <QXmlQuery>
+// #include <QXmlResultItems>
+// #include "QDomNodeModel.h"
 
 #include <Base/Exception.h>
 #include <Base/Console.h>
@@ -193,26 +193,22 @@ QString DrawSVGTemplate::processTemplate(QString fileSpec)
 		std::string error = std::string("Cannot parse file ") + Template.getValue();
 		return QString();
 	}
-
-	QXmlQuery query(QXmlQuery::XQuery10);
-	QDomNodeModel model(query.namePool(), templateDocument);
-	query.setFocus(QXmlItem(model.fromDomNode(templateDocument.documentElement())));
-
-	// XPath query to select all <tspan> nodes whose <text> parent
-	// has "freecad:editable" attribute
-	query.setQuery(QString::fromUtf8(
-		"declare default element namespace \"" SVG_NS_URI "\"; "
-		"declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-		"//text[@freecad:editable]/tspan"));
-
-	QXmlResultItems queryResult;
-	query.evaluateTo(&queryResult);
-
 	std::map<std::string, std::string> substitutions = EditableTexts.getValues();
-	while (!queryResult.next().isNull())
-	{
-		QDomElement tspan = model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
-
+	
+	QDomNodeList items = templateDocument
+                        	.elementsByTagNameNS(
+                            QString::fromUtf8(FREECAD_SVG_NS_URI), 
+							QString::fromUtf8("text")
+                            );
+    for(int i = 0; i < items.length(); i++)
+    {
+        if(!items.item(i).attributes().contains(QString::fromUtf8("freecad:editable"))) // there must be a better way...
+            continue;
+                    
+        QDomElement tspan = items.item(i).firstChildElement(
+            QString::fromUtf8("tspan"),
+        	QString::fromUtf8("")
+        ); 
 		// Replace the editable text spans with new nodes holding actual values
 		QString editableName = tspan.parentNode().toElement().attribute(QString::fromUtf8("freecad:editable"));
 		std::map<std::string, std::string>::iterator item =
@@ -298,23 +294,20 @@ std::map<std::string, std::string> DrawSVGTemplate::getEditableTextsFromTemplate
         return editables;
     }
 
-    QXmlQuery query(QXmlQuery::XQuery10);
-    QDomNodeModel model(query.namePool(), templateDocument, true);
-    query.setFocus(QXmlItem(model.fromDomNode(templateDocument.documentElement())));
-
-    // XPath query to select all <tspan> nodes whose <text> parent
-    // has "freecad:editable" attribute
-    query.setQuery(QString::fromUtf8(
-        "declare default element namespace \"" SVG_NS_URI "\"; "
-        "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-        "//text[@freecad:editable]/tspan"));
-
-    QXmlResultItems queryResult;
-    query.evaluateTo(&queryResult);
-
-    while (!queryResult.next().isNull()) {
-        QDomElement tspan = model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
-
+    QDomNodeList items = templateDocument
+                            .elementsByTagNameNS(
+                            	QString::fromUtf8(FREECAD_SVG_NS_URI), 
+                            	QString::fromUtf8("text")
+                            );
+    for(int i = 0; i < items.length(); i++)
+    {
+        if(!items.item(i).attributes().contains(QString::fromUtf8("freecad:editable"))) // there must be a better way...
+            continue;
+                    
+        QDomElement tspan = items.item(i).firstChildElement(
+                QString::fromUtf8("tspan"),
+                QString::fromUtf8("")
+            ); 
         QString editableName = tspan.parentNode().toElement().attribute(QString::fromUtf8("freecad:editable"));
         QString editableValue = tspan.firstChild().nodeValue();
 

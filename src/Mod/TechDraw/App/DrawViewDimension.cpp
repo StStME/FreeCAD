@@ -29,7 +29,7 @@
 # include <exception>
 # include <QString>
 # include <QStringList>
-# include <QRegExp>
+# include <QRegularExpression>
 #include <BRepBuilderAPI_MakeVertex.hxx>
 #include <BRepBuilderAPI_MakeEdge.hxx>
 #include <BRepExtrema_DistShapeShape.hxx>
@@ -796,10 +796,10 @@ std::string DrawViewDimension::formatValue(qreal value, QString qFormatSpec, int
 
         // qUserString is the value + unit with default decimals, so extract the unit
         // we cannot just use unit.getString() because this would convert '°' to 'deg'
-        QRegExp rxUnits(QString::fromUtf8(" \\D*$")); // space + any non digits at end of string
-        int pos = 0;
-        if ((pos = rxUnits.indexIn(qUserString, 0)) != -1) {
-            qUserStringUnits = rxUnits.cap(0); // entire capture - non numerics at end of qUserString
+        QRegularExpression rxUnits(QString::fromUtf8(" \\D*$")); // space + any non digits at end of string
+        QRegularExpressionMatch match = rxUnits.match(qUserString);
+        if (match.hasMatch()) {
+            qUserStringUnits = match.captured(0); // entire capture - non numerics at end of qUserString
         }
         
         // get value in the base unit with default decimals
@@ -863,7 +863,7 @@ std::string DrawViewDimension::formatValue(qreal value, QString qFormatSpec, int
         if (angularMeasure) {
             // remove space between dimension and unit if unit is not "deg"
             if ( !qUserStringUnits.contains(QString::fromLatin1("deg")) ) {
-                QRegExp space(QString::fromUtf8("\\s"));
+                QRegularExpression space(QString::fromUtf8("\\s"));
                 qUserStringUnits.remove(space);
             }
             result = Base::Tools::toStdString(qUserStringUnits);
@@ -969,11 +969,12 @@ QStringList DrawViewDimension::getPrefixSuffixSpec(QString fSpec)
     QString formatPrefix;
     QString formatSuffix;
     //find the %x.y tag in FormatSpec
-    QRegExp rxFormat(QString::fromUtf8("%[+-]?[0-9]*\\.*[0-9]*[aefgAEFG]")); //printf double format spec
-    QString match;
-    int pos = 0;
-    if ((pos = rxFormat.indexIn(fSpec, 0)) != -1)  {
-        match = rxFormat.cap(0);                                          //entire capture of rx
+    QRegularExpression rxFormat(QString::fromUtf8("%[+-]?[0-9]*\\.*[0-9]*[aefgAEFG]")); //printf double format spec
+    QRegularExpressionMatch re_match = rxFormat.match(fSpec);
+    QString match; 
+    if (re_match.hasMatch())  {
+        int pos = re_match.capturedStart(0);
+        match = re_match.captured(0);                                          //entire capture of rx
 //        formatted = QString::asprintf(Base::Tools::toStdString(match).c_str(),value);
         formatPrefix = fSpec.left(pos);
         result.append(formatPrefix);
