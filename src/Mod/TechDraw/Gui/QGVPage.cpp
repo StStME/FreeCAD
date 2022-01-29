@@ -27,7 +27,7 @@
 # include <QContextMenuEvent>
 # include <QFileInfo>
 # include <QFileDialog>
-# include <QGLWidget>
+# include <QWidget>
 # include <QGraphicsEffect>
 # include <QMouseEvent>
 # include <QPainter>
@@ -44,8 +44,8 @@
 #include <cmath>
 #endif
 
-#include <QXmlQuery>
-#include <QXmlResultItems>
+// #include <QXmlQuery>
+// #include <QXmlResultItems>
 
 #include <App/Application.h>
 #include <App/Document.h>
@@ -86,7 +86,7 @@
 #include <Mod/TechDraw/App/DrawWeldSymbol.h>
 #include <Mod/TechDraw/App/DrawTile.h>
 #include <Mod/TechDraw/App/DrawTileWeld.h>
-#include <Mod/TechDraw/App/QDomNodeModel.h>
+// #include <Mod/TechDraw/App/QDomNodeModel.h>
 #include <Mod/TechDraw/App/DrawUtil.h>
 
 #include "Rez.h"
@@ -778,7 +778,7 @@ void QGVPage::setRenderer(RendererType type)
 
     if (m_renderer == OpenGL) {
 #ifndef QT_NO_OPENGL
-        setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+        setViewport(new QWidget);
 #endif
     } else {
         setViewport(new QWidget);
@@ -991,41 +991,54 @@ void QGVPage::postProcessXml(QTemporaryFile& temporaryFile, QString fileName, QS
         }
     }
 
-    QXmlQuery query(QXmlQuery::XQuery10);
-    QDomNodeModel model(query.namePool(), exportDoc);
-    query.setFocus(QXmlItem(model.fromDomNode(exportDocElem)));
+    // QXmlQuery query(QXmlQuery::XQuery10);
+    // QDomNodeModel model(query.namePool(), exportDoc);
+    // query.setFocus(QXmlItem(model.fromDomNode(exportDocElem)));
 
-    // XPath query to select first <g> node as direct <svg> element descendant
-    query.setQuery(QString::fromUtf8(
-        "declare default element namespace \"" SVG_NS_URI "\"; "
-        "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-        "/svg/g[1]"));
+    // // XPath query to select first <g> node as direct <svg> element descendant
+    // query.setQuery(QString::fromUtf8(
+    //     "declare default element namespace \"" SVG_NS_URI "\"; "
+    //     "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
+    //     "/svg/g[1]"));
 
-    QXmlResultItems queryResult;
-    query.evaluateTo(&queryResult);
+    // QXmlResultItems queryResult;
+    // query.evaluateTo(&queryResult);
+
+    QDomElement drawingGroup = exportDocElem
+                            .elementsByTagName(
+                            	QString::fromUtf8("svg")
+                            )
+                            .item(0)
+                            .firstChildElement(
+                                QString::fromUtf8("g")
+                                )
+                            ;
+    
 
     // Obtain the drawing group element, move it under root node and set its id to "DrawingContent"
-    QDomElement drawingGroup;
-    if (!queryResult.next().isNull()) {
-        drawingGroup = model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
+    if (!drawingGroup.isNull()) {
         drawingGroup.setAttribute(QString::fromUtf8("id"), QString::fromUtf8("DrawingContent"));
         rootGroup.appendChild(drawingGroup);
     }
 
     exportDocElem.appendChild(rootGroup);
 
-    // As icing on the cake, get rid of the empty <g>'s Qt SVG generator painting inserts.
-    // XPath query to select any <g> element anywhere with no child nodes whatsoever
-    query.setQuery(QString::fromUtf8(
-        "declare default element namespace \"" SVG_NS_URI "\"; "
-        "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-        "//g[not(*)]"));
+    /*
+     * maybe they fixed that in 6.x?
+     * 
+     */
+    // // As icing on the cake, get rid of the empty <g>'s Qt SVG generator painting inserts.
+    // // XPath query to select any <g> element anywhere with no child nodes whatsoever
+    // query.setQuery(QString::fromUtf8(
+    //     "declare default element namespace \"" SVG_NS_URI "\"; "
+    //     "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
+    //     "//g[not(*)]"));
 
-    query.evaluateTo(&queryResult);
-    while (!queryResult.next().isNull()) {
-        QDomElement g(model.toDomNode(queryResult.current().toNodeModelIndex()).toElement());
-        g.parentNode().removeChild(g);
-    }
+    // query.evaluateTo(&queryResult);
+    // while (!queryResult.next().isNull()) {
+    //     QDomElement g(model.toDomNode(queryResult.current().toNodeModelIndex()).toElement());
+    //     g.parentNode().removeChild(g);
+    // }
 
     // Time to save our product
     QFile outFile( fileName );
@@ -1035,7 +1048,7 @@ void QGVPage::postProcessXml(QTemporaryFile& temporaryFile, QString fileName, QS
 
     QTextStream stream( &outFile );
     stream.setGenerateByteOrderMark(false);
-    stream.setCodec("UTF-8");
+    // stream.setCodec("UTF-8"); -> UTF8 is default in QT6
 
     stream << exportDoc.toByteArray();
     outFile.close();
@@ -1157,7 +1170,7 @@ void QGVPage::kbPanScroll(int xMove, int yMove)
     }
 }
 
-void QGVPage::enterEvent(QEvent *event)
+void QGVPage::enterEvent(QEnterEvent *event)
 {
     QGraphicsView::enterEvent(event);
     if (balloonPlacing) {

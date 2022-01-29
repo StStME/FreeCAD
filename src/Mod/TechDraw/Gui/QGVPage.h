@@ -129,7 +129,7 @@ public Q_SLOTS:
 protected:
     void wheelEvent(QWheelEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
-    void enterEvent(QEvent *event) override;
+    void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;

@@ -66,9 +66,9 @@ if(BUILD_DRAFT)
   add_subdirectory(Draft)
 endif(BUILD_DRAFT)
 
-if(BUILD_WEB)
-  add_subdirectory(Web)
-endif(BUILD_WEB)
+# if(BUILD_WEB)
+#   add_subdirectory(Web)
+# endif(BUILD_WEB)
 
 if(BUILD_SURFACE)
   add_subdirectory(Surface)

@@ -32,8 +32,8 @@
 #endif // #ifndef _PreComp_
 
 #include <QFile>
-#include <QXmlQuery>
-#include <QXmlResultItems>
+// #include <QXmlQuery>
+// #include <QXmlResultItems>
 
 #include <App/Application.h>
 #include <Base/Console.h>
@@ -41,7 +41,7 @@
 #include <Base/Parameter.h>
 #include <Gui/Command.h>
 
-#include <Mod/TechDraw/App/QDomNodeModel.h>
+// #include <Mod/TechDraw/App/QDomNodeModel.h>
 #include <Mod/TechDraw/App/DrawUtil.h>
 #include <Mod/TechDraw/App/Geometry.h>
 #include <Mod/TechDraw/App/DrawSVGTemplate.h>
@@ -169,19 +169,6 @@ void QGISVGTemplate::createClickHandles(void)
 
     QDomElement templateDocElem = templateDocument.documentElement();
 
-    QXmlQuery query(QXmlQuery::XQuery10);
-    QDomNodeModel model(query.namePool(), templateDocument);
-    query.setFocus(QXmlItem(model.fromDomNode(templateDocElem)));
-
-    // XPath query to select all <text> nodes with "freecad:editable" attribute
-    query.setQuery(QString::fromUtf8(
-        "declare default element namespace \"" SVG_NS_URI "\"; "
-        "declare namespace freecad=\"" FREECAD_SVG_NS_URI "\"; "
-        "//text[@freecad:editable]"));
-
-    QXmlResultItems queryResult;
-    query.evaluateTo(&queryResult);
-
     //TODO: Find location of special fields (first/third angle) and make graphics items for them
 
     Base::Reference<ParameterGrp> hGrp = App::GetApplication().GetUserParameter()
@@ -194,9 +181,20 @@ void QGISVGTemplate::createClickHandles(void)
     double width = editClickBoxSize;
     double height = editClickBoxSize;
 
-    while (!queryResult.next().isNull())
+    QDomNodeList items = templateDocument
+                            .elementsByTagNameNS(
+                            	QString::fromUtf8(FREECAD_SVG_NS_URI), 
+                            	QString::fromUtf8("text")
+                            );
+    for(int i = 0; i < items.length(); i++)
     {
-        QDomElement textElement = model.toDomNode(queryResult.current().toNodeModelIndex()).toElement();
+        if(!items.item(i).attributes().contains(QString::fromUtf8("freecad:editable"))) // there must be a better way...
+            continue;
+                    
+        QDomElement textElement = items.item(i).firstChildElement(
+                QString::fromUtf8("tspan"),
+                QString::fromUtf8("")
+            ); 
 
         QString name = textElement.attribute(QString::fromUtf8("freecad:editable"));
         double x = Rez::guiX(textElement.attribute(QString::fromUtf8("x"), QString::fromUtf8("0.0")).toDouble());
