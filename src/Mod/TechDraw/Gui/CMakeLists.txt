@@ -41,7 +41,6 @@ elseif(BUILD_QT6)
     list(APPEND TechDrawGui_LIBS
         Qt6::Xml
         )
-    message(WARNING "No QTXML fpr QT6!")
 else(BUILD_QT5)
     include_directories(
         ${QT_QTXMLPATTERNS_INCLUDE_DIR}
