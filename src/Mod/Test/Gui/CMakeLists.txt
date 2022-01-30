@@ -10,7 +10,7 @@ set(TestGui_LIBS
     FreeCADGui
 )
 
-set(Dialogs_UIC_SRCS
+set(Dialog_UIC_SRCS
     UnitTest.ui
 )
 
@@ -18,7 +18,6 @@ if (BUILD_QT5)
     qt5_wrap_ui(Dialogs_UIC_HDRS ${Dialog_UIC_SRCS})
 elseif (BUILD_QT6)
     qt6_wrap_ui(Dialogs_UIC_HDRS ${Dialog_UIC_SRCS})
-
 else()
     qt4_wrap_ui(Dialogs_UIC_HDRS ${Dialog_UIC_SRCS})
 endif()

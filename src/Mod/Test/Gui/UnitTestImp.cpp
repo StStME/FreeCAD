@@ -31,7 +31,7 @@
 #include <Base/Interpreter.h>
 #include <Gui/MainWindow.h>
 #include "UnitTestImp.h"
-// #include "ui_UnitTest.h"
+#include "ui_UnitTest.h"
 #include "UnitTestPy.h"
 
 
