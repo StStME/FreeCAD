@@ -37,7 +37,7 @@ two straight lines.
 
 import math
 import lazy_loader.lazy_loader as lz
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import FreeCADGui as Gui

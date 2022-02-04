@@ -42,7 +42,7 @@ except ImportError as err:
 
 if App.GuiUp:
     import FreeCADGui as Gui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from FreeCADGui import PySideUic as uic
 
 #-------------------------- translation-related code ----------------------------------------

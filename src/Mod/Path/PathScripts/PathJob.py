@@ -30,7 +30,7 @@ import PathScripts.PathUtil as PathUtil
 import json
 import time
 from PathScripts.PathPostProcessor import PostProcessor
-from PySide import QtCore
+from PySide6 import QtCore
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

@@ -29,7 +29,7 @@ to make sure tools are selected and configured and defaults have been revised
 """
 
 from __future__ import print_function
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 import FreeCAD
 import FreeCADGui
 import PathScripts
@@ -41,7 +41,7 @@ from datetime import datetime
 import os
 import webbrowser
 import subprocess
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 translate = FreeCAD.Qt.translate
 

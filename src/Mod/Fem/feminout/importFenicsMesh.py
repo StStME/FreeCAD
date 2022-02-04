@@ -41,7 +41,7 @@ from . import writeFenicsXDMF
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui, QtCore
+    from PySide6 import QtGui, QtCore
 
 
 # Template copied from importZ88Mesh.py. Thanks Bernd!

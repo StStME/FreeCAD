@@ -31,12 +31,12 @@ from PathScripts.PathUtils import horizontalFaceLoop
 from PathScripts.PathUtils import addToJob
 from PathScripts.PathUtils import findParentJob
 
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore
-    from PySide import QtGui
+    from PySide6 import QtCore
+    from PySide6 import QtGui
 
 # translate = FreeCAD.Qt.translate
 
@@ -115,7 +115,7 @@ class _CommandSelectLoop:
                             obj, "Edge" + str(elist.index(e) + 1)
                         )
         elif FreeCAD.GuiUp:
-            QtGui.QMessageBox.information(
+            QtWidgets.QMessageBox.information(
                 None,
                 QT_TRANSLATE_NOOP("Path_SelectLoop", "Feature Completion"),
                 QT_TRANSLATE_NOOP("Path_SelectLoop", "Closed loop detection failed."),

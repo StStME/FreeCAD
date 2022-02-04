@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import FreeCAD
 import FreeCADGui
-from PySide import QtGui
+from PySide6 import QtGui
 
 translate = FreeCAD.Qt.translate
 

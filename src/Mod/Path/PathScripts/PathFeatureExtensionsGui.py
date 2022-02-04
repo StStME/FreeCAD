@@ -28,7 +28,7 @@ import PathScripts.PathLog as PathLog
 import PathScripts.PathOpGui as PathOpGui
 import PathScripts.PathFeatureExtensions as FeatureExtensions
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from pivy import coin
 
 # lazily loaded modules

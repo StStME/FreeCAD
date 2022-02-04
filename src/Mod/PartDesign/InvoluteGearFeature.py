@@ -25,7 +25,7 @@ from fcgear import fcgear
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from FreeCADGui import PySideUic as uic
 
 __title__="PartDesign InvoluteGearObject management"
@@ -227,10 +227,10 @@ class _InvoluteGearTaskPanel:
         self.obj.Proxy.execute(self.obj)
         
     def getStandardButtons(self):
-        return int(QtGui.QDialogButtonBox.Ok) | int(QtGui.QDialogButtonBox.Cancel)| int(QtGui.QDialogButtonBox.Apply)
+        return int(QtWidgets.QDialogButtonBox.Ok) | int(QtWidgets.QDialogButtonBox.Cancel)| int(QtWidgets.QDialogButtonBox.Apply)
     
     def clicked(self,button):
-        if button == QtGui.QDialogButtonBox.Apply:
+        if button == QtWidgets.QDialogButtonBox.Apply:
             #print "Apply"
             self.transferTo()
             self.obj.Proxy.execute(self.obj) 

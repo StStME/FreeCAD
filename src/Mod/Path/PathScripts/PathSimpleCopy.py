@@ -23,7 +23,7 @@
 import FreeCAD
 import FreeCADGui
 import PathScripts
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 __doc__ = """Path SimpleCopy command"""
 

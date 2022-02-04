@@ -1,7 +1,7 @@
 import sys
 #sys.path.append("")
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 import FreeCAD, FreeCADGui
 import ctypes
 
@@ -10,7 +10,7 @@ from ui_mainwindow import Ui_MainWindow
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
-        from PySide import QtNetwork
+        from PySide6 import QtNetwork
         # Webkit is used to create icons from SVG files. This could cause a deadlock
         # when setting up the internally used network interface. Doing this before
         # creating the icons fixes the issue.

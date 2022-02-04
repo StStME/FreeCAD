@@ -23,9 +23,9 @@ import FreeCAD
 if FreeCAD.GuiUp:
     import FreeCADGui, os
     import Arch_rc # Needed for access to icons # lgtm [py/unused_import]
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -210,7 +210,7 @@ class _ViewProviderArchMaterialContainer:
         self.Object = vobj.Object
 
     def setupContextMenu(self,vobj,menu):
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         action1 = QtGui.QAction(QtGui.QIcon(":/icons/Arch_Material_Group.svg"),"Merge duplicates",menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.mergeByName)
         menu.addAction(action1)
@@ -430,7 +430,7 @@ class _ViewProviderArchMaterial:
 
     def updateData(self, obj, prop):
         if prop == "Color":
-            from PySide import QtCore,QtGui
+            from PySide6 import QtCore,QtGui
 
             # custom icon
             if hasattr(obj,"Color"):
@@ -654,7 +654,7 @@ class _ArchMaterialTaskPanel:
         "opens a color picker dialog"
         icon = button.icon()
         pixel = icon.pixmap(16,16).toImage().pixel(0,0)
-        color = QtGui.QColorDialog.getColor(QtGui.QColor(pixel))
+        color = QtWidgets.QColorDialog.getColor(QtGui.QColor(pixel))
         if color.isValid():
             colorPix = QtGui.QPixmap(16,16)
             colorPix.fill(color)
@@ -762,28 +762,28 @@ class _ViewProviderArchMultiMaterial:
 
 if FreeCAD.GuiUp:
 
-    class MultiMaterialDelegate(QtGui.QStyledItemDelegate):
+    class MultiMaterialDelegate(QtWidgets.QStyledItemDelegate):
 
         def __init__(self, parent=None, *args):
             self.mats = []
             for obj in FreeCAD.ActiveDocument.Objects:
                 if obj.isDerivedFrom("App::MaterialObject"):
                     self.mats.append(obj)
-            QtGui.QStyledItemDelegate.__init__(self, parent, *args)
+            QtWidgets.QStyledItemDelegate.__init__(self, parent, *args)
 
         def createEditor(self,parent,option,index):
             if index.column() == 0:
-                editor = QtGui.QComboBox(parent)
+                editor = QtWidgets.QComboBox(parent)
                 editor.setEditable(True)
             elif index.column() == 1:
-                editor = QtGui.QComboBox(parent)
+                editor = QtWidgets.QComboBox(parent)
             elif index.column() == 2:
                 ui = FreeCADGui.UiLoader()
                 editor = ui.createWidget("Gui::InputField")
-                editor.setSizePolicy(QtGui.QSizePolicy.Preferred,QtGui.QSizePolicy.Minimum)
+                editor.setSizePolicy(QtWidgets.QSizePolicy.Preferred,QtWidgets.QSizePolicy.Minimum)
                 editor.setParent(parent)
             else:
-                editor = QtGui.QLineEdit(parent)
+                editor = QtWidgets.QLineEdit(parent)
             return editor
 
         def setEditorData(self, editor, index):
@@ -798,7 +798,7 @@ if FreeCAD.GuiUp:
                         idx = i
                 editor.setCurrentIndex(idx)
             else:
-                QtGui.QStyledItemDelegate.setEditorData(self, editor, index)
+                QtWidgets.QStyledItemDelegate.setEditorData(self, editor, index)
 
         def setModelData(self, editor, model, index):
             if index.column() == 0:
@@ -812,7 +812,7 @@ if FreeCAD.GuiUp:
                 else:
                     model.setData(index, self.mats[editor.currentIndex()].Label)
             else:
-                QtGui.QStyledItemDelegate.setModelData(self, editor, model, index)
+                QtWidgets.QStyledItemDelegate.setModelData(self, editor, model, index)
 
 
 class _ArchMultiMaterialTaskPanel:

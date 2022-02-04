@@ -23,7 +23,7 @@ import FreeCAD, Part
 
 #if FreeCAD.GuiUp:
 #    import FreeCADGui
-#    from PySide import QtCore, QtGui
+#    from PySide6 import QtCore, QtGui, QtWidgets
 
 __title__="JoinFeatures module (legacy)"
 __author__ = "DeepSOIC"
@@ -40,7 +40,7 @@ FreeCAD v0.16. Do not use. Use BOPTools.JoinFeatures instead."
 #    def _fromUtf8(s):
 #        return s
 #try:
-#    _encoding = QtGui.QApplication.UnicodeUTF8
+#    _encoding = QtWidgets.QApplication.UnicodeUTF8
 #    def _translate(context, text, disambig):
 #        return QtGui.QApplication.translate(context, text, disambig, _encoding)
 #except AttributeError:
@@ -177,7 +177,7 @@ class _ViewProviderPartJoinFeature:
 #                   .format(err= str(err)))
 #        mb.setWindowTitle(_translate("Part_JoinFeatures","Bad selection", None))
 #        btnAbort = mb.addButton(QtGui.QMessageBox.StandardButton.Abort)
-#        btnOK = mb.addButton(_translate("Part_JoinFeatures","Continue",None), QtGui.QMessageBox.ButtonRole.ActionRole)
+#        btnOK = mb.addButton(_translate("Part_JoinFeatures","Continue",None), QtWidgets.QMessageBox.ButtonRole.ActionRole)
 #        mb.setDefaultButton(btnOK)
 #
 #        mb.exec_()

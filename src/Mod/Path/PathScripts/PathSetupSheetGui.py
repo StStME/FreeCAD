@@ -30,7 +30,7 @@ import PathScripts.PathSetupSheet as PathSetupSheet
 import PathScripts.PathSetupSheetOpPrototypeGui as PathSetupSheetOpPrototypeGui
 import PathScripts.PathUtil as PathUtil
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 __title__ = "Setup Sheet Editor"
 __author__ = "sliptonic (Brad Collette)"

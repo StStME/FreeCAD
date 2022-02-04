@@ -30,8 +30,8 @@ __url__ = "https://www.freecadweb.org"
 #  \brief task panel for reinforced material object
 
 import sys
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore
+from PySide6 import QtGui
 
 import FreeCAD
 import FreeCADGui

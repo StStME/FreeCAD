@@ -35,7 +35,7 @@ Perhaps in the future a specific Draft `Mirror` object can be defined.
 
 ## \addtogroup draftguitools
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import FreeCADGui as Gui

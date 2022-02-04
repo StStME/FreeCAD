@@ -37,7 +37,7 @@ this object should no longer be available.
 
 ## \addtogroup draftobjects
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import draftfunctions.svg as get_svg
 import draftfunctions.dxf as get_dxf

@@ -29,7 +29,7 @@
 # @{
 import FreeCAD as App
 
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 
 class WorkingPlaneProxy:

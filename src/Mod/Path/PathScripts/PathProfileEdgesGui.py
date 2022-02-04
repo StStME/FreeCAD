@@ -25,7 +25,7 @@ import FreeCAD
 import PathScripts.PathOpGui as PathOpGui
 import PathScripts.PathProfile as PathProfile
 import PathScripts.PathProfileGui as PathProfileGui
-from PySide import QtCore
+from PySide6 import QtCore
 
 
 __title__ = "Path Profile Edges Operation UI (depreciated)"

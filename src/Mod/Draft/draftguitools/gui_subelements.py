@@ -34,7 +34,7 @@ such as Move, Rotate, and Scale.
 ## \addtogroup draftguitools
 # @{
 import pivy.coin as coin
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCADGui as Gui
 import draftguitools.gui_base_original as gui_base_original

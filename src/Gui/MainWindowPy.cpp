@@ -79,13 +79,18 @@ Py::Object MainWindowPy::createWrapper(MainWindow *mw)
     if (!wrap.loadCoreModule() ||
         !wrap.loadGuiModule() ||
         !wrap.loadWidgetsModule()) {
+        printf("Failed to load Python wrapper for Qt");
         throw Py::RuntimeError("Failed to load Python wrapper for Qt");
     }
+        printf("Failed2 to load Python wrapper for Qt");
 
     // copy attributes
     std::list<std::string> attr = {"getWindows", "getWindowsOfType", "setActiveWindow", "getActiveWindow"};
 
-    Py::Object py = wrap.fromQWidget(mw, "QMainWindow");
+    Py::Object py = wrap.fromQWidget(mw, "QMainWindow"); // maybe here!
+    if(py == NULL){
+        printf("\nEXCEPT: NULLPOINTER");
+    }
     Py::ExtensionObject<MainWindowPy> inst(create(mw));
     for (const auto& it : attr) {
         py.setAttr(it, inst.getAttr(it));

@@ -23,7 +23,7 @@
 # ***************************************************************************
 
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 import FreeCAD
 import FreeCADGui
 import Path

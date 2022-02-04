@@ -29,7 +29,7 @@ __url__ = "https://www.freecadweb.org"
 #  \ingroup FEM
 #  \brief task panel for mesh region object
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 import FreeCAD
 import FreeCADGui

@@ -27,9 +27,9 @@ __url__    = "https://www.freecadweb.org"
 import FreeCAD,ArchComponent,DraftVecUtils
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui
+    from PySide6 import QtGui
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -239,13 +239,13 @@ class _Command3Views:
                 FreeCAD.Console.PrintError(translate("Arch","The selected object must be a mesh"))
             else:
                 if obj.Mesh.CountFacets > 1000:
-                    msgBox = QtGui.QMessageBox()
+                    msgBox = QtWidgets.QMessageBox()
                     msgBox.setText(translate("Arch","This mesh has more than 1000 facets."))
                     msgBox.setInformativeText(translate("Arch","This operation can take a long time. Proceed?"))
-                    msgBox.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
-                    msgBox.setDefaultButton(QtGui.QMessageBox.Cancel)
+                    msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+                    msgBox.setDefaultButton(QtWidgets.QMessageBox.Cancel)
                     ret = msgBox.exec_()
-                    if ret == QtGui.QMessageBox.Cancel:
+                    if ret == QtWidgets.QMessageBox.Cancel:
                         return
                 elif obj.Mesh.CountFacets >= 500:
                     FreeCAD.Console.PrintWarning(translate("Arch","The mesh has more than 500 facets. This will take a couple of minutes..."))

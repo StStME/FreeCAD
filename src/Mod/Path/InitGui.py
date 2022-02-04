@@ -73,7 +73,7 @@ class PathWorkbench(Workbench):
         import Path
         import PathScripts
         import PathGui
-        from PySide import QtCore, QtGui
+        from PySide6 import QtCore, QtGui, QtWidgets
 
         FreeCADGui.addLanguagePath(":/translations")
         FreeCADGui.addIconPath(":/icons")
@@ -83,7 +83,7 @@ class PathWorkbench(Workbench):
         from PathScripts import PathToolBitCmd
         from PathScripts import PathToolBitLibraryCmd
 
-        from PySide.QtCore import QT_TRANSLATE_NOOP
+        from PySide6.QtCore import QT_TRANSLATE_NOOP
 
         import PathCommands
 

@@ -32,7 +32,7 @@ import FreeCAD,Draft,ArchCommands, DraftVecUtils, ArchIFC
 if FreeCAD.GuiUp:
     import FreeCADGui
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -392,9 +392,9 @@ class _ViewProviderFloor:
             called.
         """
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         import Arch_rc
-        action1 = QtGui.QAction(QtGui.QIcon(":/icons/Arch_BuildingPart.svg"),"Convert to BuildingPart",menu)
+        action1 = QtWidgets.QAction(QtWidgets.QIcon(":/icons/Arch_BuildingPart.svg"),"Convert to BuildingPart",menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.convertToBuildingPart)
         menu.addAction(action1)
 

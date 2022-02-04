@@ -25,7 +25,7 @@ from __future__ import absolute_import
 import FreeCAD as App
 
 try:
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 except ImportError:
     def QT_TRANSLATE_NOOP(ctx, msg):
         return msg
@@ -84,7 +84,7 @@ class CommandEditAttachment:
         try:
             editAttachment()
         except Exception as err:
-            from PySide import QtGui
+            from PySide6 import QtGui
             mb = QtGui.QMessageBox()
             mb.setIcon(mb.Icon.Warning)
             mb.setText(str(err))

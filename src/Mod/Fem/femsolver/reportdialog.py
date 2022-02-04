@@ -30,7 +30,7 @@ __url__ = "https://www.freecadweb.org"
 
 # it is a Gui only module and should only be imported in Gui mode
 # thus no guard is needed
-from PySide import QtGui
+from PySide6 import QtGui
 
 
 ERROR_COLOR = "red"

@@ -32,8 +32,8 @@ __url__ = "https://www.freecadweb.org"
 
 import sys
 
-from PySide import QtGui
-from PySide import QtCore
+from PySide6 import QtGui
+from PySide6 import QtCore
 
 import FreeCAD
 import FreeCADGui
@@ -42,7 +42,7 @@ import FreeCADGui as Gui
 from femtools import geomtools
 
 
-class _Selector(QtGui.QWidget):
+class _Selector(QtWidgets.QWidget):
 
     def __init__(self):
         super(_Selector, self).__init__()
@@ -229,7 +229,7 @@ class SmallListView(QtGui.QListView):
         return QtCore.QSize(50, 50)
 
 
-class GeometryElementsSelection(QtGui.QWidget):
+class GeometryElementsSelection(QtWidgets.QWidget):
 
     def __init__(self, ref, eltypes, multigeom, showHintEmptyList):
         super(GeometryElementsSelection, self).__init__()

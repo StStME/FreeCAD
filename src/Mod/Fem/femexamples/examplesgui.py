@@ -30,13 +30,13 @@ import os
 
 from importlib import import_module
 
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore
+from PySide6 import QtGui
 
 import FreeCADGui
 
 
-class FemExamples(QtGui.QWidget):
+class FemExamples(QtWidgets.QWidget):
     def __init__(self):
         super(FemExamples, self).__init__()
         self.init_ui()

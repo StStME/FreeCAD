@@ -35,7 +35,7 @@ import copy
 
 __doc__ = """LeadInOut Dressup MASHIN-CRC USE ROLL-ON ROLL-OFF to profile"""
 
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 from PathPythonGui.simple_edit_panel import SimpleEditPanel
 

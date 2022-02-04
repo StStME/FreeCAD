@@ -20,7 +20,7 @@
 # *                                                                         *
 # ***************************************************************************
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 # Qt translation handling
 def translate(context, text, disambig=None):

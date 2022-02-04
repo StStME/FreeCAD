@@ -30,7 +30,7 @@ import PathScripts.PathGeom as PathGeom
 import PathScripts.PathLog as PathLog
 import PathScripts.PathUtils as PathUtils
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

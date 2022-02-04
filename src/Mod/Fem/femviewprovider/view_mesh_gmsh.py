@@ -183,7 +183,7 @@ class VPMeshGmsh:
                 FreeCAD.Console.PrintLog("No analysis in the active document.\n")
                 gui_doc.setEdit(vobj.Object.Name)
         else:
-            from PySide.QtGui import QMessageBox
+            from PySide6.QtGui import QMessageBox
             message = "Active Task Dialog found! Please close this one before opening  a new one!"
             QMessageBox.critical(None, "Error in tree view", message)
             FreeCAD.Console.PrintError(message + "\n")

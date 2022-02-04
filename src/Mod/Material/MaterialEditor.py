@@ -26,7 +26,7 @@ __url__ = "http://www.freecadweb.org"
 
 import os
 import sys
-from PySide import QtCore, QtGui, QtSvg
+from PySide6 import QtCore, QtGui, QtWidgets, QtSvg
 
 import FreeCAD
 import FreeCADGui
@@ -95,8 +95,8 @@ class MaterialEditor:
 
         buttonURL.setIcon(QtGui.QIcon(":/icons/internet-web-browser.svg"))
         buttonDeleteProperty.setEnabled(False)
-        standardButtons.button(QtGui.QDialogButtonBox.Ok).setAutoDefault(False)
-        standardButtons.button(QtGui.QDialogButtonBox.Cancel).setAutoDefault(False)
+        standardButtons.button(QtWidgets.QDialogButtonBox.Ok).setAutoDefault(False)
+        standardButtons.button(QtWidgets.QDialogButtonBox.Cancel).setAutoDefault(False)
         self.updateCardsInCombo()
         # TODO allow to enter a custom property by pressing Enter in the lineedit
         # currently closes the dialog
@@ -283,13 +283,13 @@ class MaterialEditor:
         ""
 
         self.storeSize()
-        QtGui.QDialog.accept(self.widget)
+        QtWidgets.QDialog.accept(self.widget)
 
     def reject(self):
         ""
 
         self.storeSize()
-        QtGui.QDialog.reject(self.widget)
+        QtWidgets.QDialog.reject(self.widget)
 
     def storeSize(self):
         "stores the widget size"
@@ -505,8 +505,8 @@ class MaterialEditor:
 
     def openfile(self):
         "Opens a FCMat file"
-        filetuple = QtGui.QFileDialog.getOpenFileName(
-            QtGui.QApplication.activeWindow(),
+        filetuple = QtWidgets.QFileDialog.getOpenFileName(
+            QtWidgets.QApplication.activeWindow(),
             "Open FreeCAD Material file",
             self.directory,
             "*.FCMat"
@@ -548,8 +548,8 @@ class MaterialEditor:
                 name = name.encode("utf8")
         if not name:
             name = "Material"
-        filetuple = QtGui.QFileDialog.getSaveFileName(
-            QtGui.QApplication.activeWindow(),
+        filetuple = QtWidgets.QFileDialog.getSaveFileName(
+            QtWidgets.QApplication.activeWindow(),
             "Save FreeCAD Material file",
             self.directory + "/" + name + ".FCMat",
             "*.FCMat"
@@ -746,7 +746,7 @@ def matProperWidget(parent=None, matproperty=None, Type="String", Value=None,
 
     else:
 
-        widget = QtGui.QLineEdit()
+        widget = QtWidgets.QLineEdit()
 
     if minimum is not None:
         widget.setProperty("minimum", minimum)

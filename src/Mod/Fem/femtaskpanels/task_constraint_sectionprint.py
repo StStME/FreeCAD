@@ -29,7 +29,7 @@ __url__ = "https://www.freecadweb.org"
 #  \ingroup FEM
 #  \brief task panel for constraint section print object
 
-from PySide import QtGui
+from PySide6 import QtGui
 
 import FreeCAD
 import FreeCADGui

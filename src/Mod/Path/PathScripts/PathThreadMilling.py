@@ -31,7 +31,7 @@ import PathScripts.PathOp as PathOp
 import PathScripts.PathUtils as PathUtils
 import math
 
-from PySide import QtCore
+from PySide66 import QtCore
 
 __title__ = "Path Thread Milling Operation"
 __author__ = "sliptonic (Brad Collette)"

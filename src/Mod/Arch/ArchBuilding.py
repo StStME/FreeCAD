@@ -23,9 +23,9 @@
 import FreeCAD,Draft,ArchCommands,ArchFloor
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore
+    from PySide6 import QtCore, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -298,7 +298,7 @@ class _ViewProviderBuilding(ArchFloor._ViewProviderFloor):
         return ":/icons/Arch_Building_Tree.svg"
 
     def setupContextMenu(self,vobj,menu):
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         import Arch_rc
         action1 = QtGui.QAction(QtGui.QIcon(":/icons/Arch_BuildingPart.svg"),"Convert to BuildingPart",menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.convertToBuildingPart)

@@ -25,7 +25,7 @@ import PathScripts.PathMillFace as PathMillFace
 import PathScripts.PathOpGui as PathOpGui
 import PathScripts.PathPocketBaseGui as PathPocketBaseGui
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __title__ = "Path Face Mill Operation UI"
 __author__ = "sliptonic (Brad Collette)"

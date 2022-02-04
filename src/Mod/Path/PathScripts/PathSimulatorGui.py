@@ -42,7 +42,7 @@ Part = LazyLoader("Part", globals(), "Part")
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui, QtCore
+    from PySide6 import QtGui, QtCore
 
 _filePath = os.path.dirname(os.path.abspath(__file__))
 

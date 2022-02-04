@@ -24,7 +24,7 @@ in FreeCAD, but is still there for archiving purposes."""
 
 
 import re, math, FreeCAD, FreeCADGui
-from PySide import QtCore,QtGui
+from PySide6 import QtCore,QtGui
 DEBUG = True # set to True to show debug messages
 
 if open.__module__ == '__builtin__':
@@ -729,12 +729,12 @@ class ViewProviderSpreadsheetPropertyController:
         return ":/icons/SpreadsheetPropertyController.svg"
 
 
-class SpreadsheetView(QtGui.QWidget):
+class SpreadsheetView(QtWidgets.QWidget):
     "A spreadsheet viewer for FreeCAD"
 
     def __init__(self,spreadsheet=None):
         from DraftTools import translate
-        QtGui.QWidget.__init__(self)
+        QtWidgets.QWidget.__init__(self)
 
         self.setWindowTitle(str(translate("Spreadsheet","Spreadsheet")))
         self.setObjectName("Spreadsheet viewer")

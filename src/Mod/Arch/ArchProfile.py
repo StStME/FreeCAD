@@ -37,9 +37,9 @@ import csv
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -137,21 +137,21 @@ class Arch_Profile:
 
         "sets up a taskbox widget"
 
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
         ui = FreeCADGui.UiLoader()
         w.setWindowTitle(translate("Arch","Profile settings"))
-        grid = QtGui.QGridLayout(w)
+        grid = QtWidgets.QGridLayout(w)
 
         # categories box
-        labelc = QtGui.QLabel(translate("Arch","Category"))
-        self.vCategory = QtGui.QComboBox()
+        labelc = QtWidgets.QLabel(translate("Arch","Category"))
+        self.vCategory = QtWidgets.QComboBox()
         self.vCategory.addItems([" "] + self.Categories)
         grid.addWidget(labelc,1,0,1,1)
         grid.addWidget(self.vCategory,1,1,1,1)
 
         # presets box
-        labelp = QtGui.QLabel(translate("Arch","Preset"))
-        self.vPresets = QtGui.QComboBox()
+        labelp = QtWidgets.QLabel(translate("Arch","Preset"))
+        self.vPresets = QtWidgets.QComboBox()
         self.pSelect = [None]
         fpresets = [" "]
         self.vPresets.addItems(fpresets)
@@ -429,11 +429,11 @@ class ProfileTaskPanel:
             self.type = "U"
         else:
             self.type = "Undefined"
-        self.form = QtGui.QWidget()
-        layout = QtGui.QVBoxLayout(self.form)
-        self.comboCategory = QtGui.QComboBox(self.form)
+        self.form = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout(self.form)
+        self.comboCategory = QtWidgets.QComboBox(self.form)
         layout.addWidget(self.comboCategory)
-        self.comboProfile = QtGui.QComboBox(self.form)
+        self.comboProfile = QtWidgets.QComboBox(self.form)
         layout.addWidget(self.comboProfile)
         QtCore.QObject.connect(self.comboCategory, QtCore.SIGNAL("currentIndexChanged(QString)"), self.changeCategory)
         QtCore.QObject.connect(self.comboProfile, QtCore.SIGNAL("currentIndexChanged(int)"), self.changeProfile)
@@ -510,7 +510,7 @@ class ProfileTaskPanel:
 
     def retranslateUi(self, TaskPanel):
 
-        self.form.setWindowTitle(self.type+" "+QtGui.QApplication.translate("Arch", "Profile", None))
+        self.form.setWindowTitle(self.type+" "+QtWidgets.QApplication.translate("Arch", "Profile", None))
 
 
 

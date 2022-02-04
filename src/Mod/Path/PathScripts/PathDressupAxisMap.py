@@ -27,7 +27,7 @@ import PathScripts.PathGeom as PathGeom
 import PathScripts.PathUtils as PathUtils
 import PathScripts.PathGui as PathGui
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 if FreeCAD.GuiUp:
     import FreeCADGui

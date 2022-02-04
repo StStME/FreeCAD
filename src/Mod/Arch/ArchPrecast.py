@@ -30,7 +30,7 @@ import ArchCommands,ArchComponent,FreeCAD
 from FreeCAD import Vector
 if FreeCAD.GuiUp:
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -761,9 +761,9 @@ class _PrecastTaskPanel:
     def __init__(self):
 
         import FreeCADGui
-        from PySide import QtCore,QtGui,QtSvg
-        self.form = QtGui.QWidget()
-        self.grid = QtGui.QGridLayout(self.form)
+        from PySide6 import QtCore,QtGui,QtSvg
+        self.form = QtWidgets.QWidget()
+        self.grid = QtWidgets.QGridLayout(self.form)
         self.PrecastTypes = ["Beam","I-Beam","Pillar","Panel","Slab","Stairs"]
         self.SlabTypes = ["Champagne","Hat"]
 
@@ -774,94 +774,94 @@ class _PrecastTaskPanel:
         self.grid.addWidget(self.preview,0,0,1,2)
 
         # parameters
-        self.labelSlabType = QtGui.QLabel()
-        self.valueSlabType = QtGui.QComboBox()
+        self.labelSlabType = QtWidgets.QLabel()
+        self.valueSlabType = QtWidgets.QComboBox()
         self.valueSlabType.addItems(self.SlabTypes)
         self.valueSlabType.setCurrentIndex(0)
         self.grid.addWidget(self.labelSlabType,1,0,1,1)
         self.grid.addWidget(self.valueSlabType,1,1,1,1)
 
-        self.labelChamfer = QtGui.QLabel()
+        self.labelChamfer = QtWidgets.QLabel()
         self.valueChamfer = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelChamfer,2,0,1,1)
         self.grid.addWidget(self.valueChamfer,2,1,1,1)
 
-        self.labelDentLength = QtGui.QLabel()
+        self.labelDentLength = QtWidgets.QLabel()
         self.valueDentLength = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelDentLength,3,0,1,1)
         self.grid.addWidget(self.valueDentLength,3,1,1,1)
 
-        self.labelDentWidth = QtGui.QLabel()
+        self.labelDentWidth = QtWidgets.QLabel()
         self.valueDentWidth = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelDentWidth,4,0,1,1)
         self.grid.addWidget(self.valueDentWidth,4,1,1,1)
 
-        self.labelDentHeight = QtGui.QLabel()
+        self.labelDentHeight = QtWidgets.QLabel()
         self.valueDentHeight = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelDentHeight,5,0,1,1)
         self.grid.addWidget(self.valueDentHeight,5,1,1,1)
 
-        self.labelBase = QtGui.QLabel()
+        self.labelBase = QtWidgets.QLabel()
         self.valueBase = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelBase,6,0,1,1)
         self.grid.addWidget(self.valueBase,6,1,1,1)
 
-        self.labelHoleNumber = QtGui.QLabel()
-        self.valueHoleNumber = QtGui.QSpinBox()
+        self.labelHoleNumber = QtWidgets.QLabel()
+        self.valueHoleNumber = QtWidgets.QSpinBox()
         self.grid.addWidget(self.labelHoleNumber,7,0,1,1)
         self.grid.addWidget(self.valueHoleNumber,7,1,1,1)
 
-        self.labelHoleMajor = QtGui.QLabel()
+        self.labelHoleMajor = QtWidgets.QLabel()
         self.valueHoleMajor = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelHoleMajor,8,0,1,1)
         self.grid.addWidget(self.valueHoleMajor,8,1,1,1)
 
-        self.labelHoleMinor = QtGui.QLabel()
+        self.labelHoleMinor = QtWidgets.QLabel()
         self.valueHoleMinor = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelHoleMinor,9,0,1,1)
         self.grid.addWidget(self.valueHoleMinor,9,1,1,1)
 
-        self.labelHoleSpacing = QtGui.QLabel()
+        self.labelHoleSpacing = QtWidgets.QLabel()
         self.valueHoleSpacing = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelHoleSpacing,10,0,1,1)
         self.grid.addWidget(self.valueHoleSpacing,10,1,1,1)
 
-        self.labelGrooveNumber = QtGui.QLabel()
-        self.valueGrooveNumber = QtGui.QSpinBox()
+        self.labelGrooveNumber = QtWidgets.QLabel()
+        self.valueGrooveNumber = QtWidgets.QSpinBox()
         self.grid.addWidget(self.labelGrooveNumber,11,0,1,1)
         self.grid.addWidget(self.valueGrooveNumber,11,1,1,1)
 
-        self.labelGrooveDepth = QtGui.QLabel()
+        self.labelGrooveDepth = QtWidgets.QLabel()
         self.valueGrooveDepth = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelGrooveDepth,12,0,1,1)
         self.grid.addWidget(self.valueGrooveDepth,12,1,1,1)
 
-        self.labelGrooveHeight = QtGui.QLabel()
+        self.labelGrooveHeight = QtWidgets.QLabel()
         self.valueGrooveHeight = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelGrooveHeight,13,0,1,1)
         self.grid.addWidget(self.valueGrooveHeight,13,1,1,1)
 
-        self.labelGrooveSpacing = QtGui.QLabel()
+        self.labelGrooveSpacing = QtWidgets.QLabel()
         self.valueGrooveSpacing = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelGrooveSpacing,14,0,1,1)
         self.grid.addWidget(self.valueGrooveSpacing,14,1,1,1)
 
-        self.labelRiserNumber = QtGui.QLabel()
-        self.valueRiserNumber = QtGui.QSpinBox()
+        self.labelRiserNumber = QtWidgets.QLabel()
+        self.valueRiserNumber = QtWidgets.QSpinBox()
         self.grid.addWidget(self.labelRiserNumber,15,0,1,1)
         self.grid.addWidget(self.valueRiserNumber,15,1,1,1)
 
-        self.labelDownLength = QtGui.QLabel()
+        self.labelDownLength = QtWidgets.QLabel()
         self.valueDownLength = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelDownLength,16,0,1,1)
         self.grid.addWidget(self.valueDownLength,16,1,1,1)
 
-        self.labelRiser = QtGui.QLabel()
+        self.labelRiser = QtWidgets.QLabel()
         self.valueRiser = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelRiser,17,0,1,1)
         self.grid.addWidget(self.valueRiser,17,1,1,1)
 
-        self.labelTread = QtGui.QLabel()
+        self.labelTread = QtWidgets.QLabel()
         self.valueTread = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelTread,18,0,1,1)
         self.grid.addWidget(self.valueTread,18,1,1,1)
@@ -983,7 +983,7 @@ class _PrecastTaskPanel:
         FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/Arch").SetFloat("PrecastTread",value)
 
     def retranslateUi(self, dialog):
-        from PySide import QtGui
+        from PySide6 import QtGui
         self.form.setWindowTitle(translate("Arch", "Precast elements"))
         self.labelSlabType.setText(translate("Arch", "Slab type"))
         self.labelChamfer.setText(translate("Arch", "Chamfer"))
@@ -1245,21 +1245,21 @@ class _DentsTaskPanel:
     def __init__(self):
 
         import FreeCADGui
-        from PySide import QtCore,QtGui,QtSvg
-        self.form = QtGui.QWidget()
-        self.grid = QtGui.QGridLayout(self.form)
+        from PySide6 import QtCore,QtGui,QtSvg
+        self.form = QtWidgets.QWidget()
+        self.grid = QtWidgets.QGridLayout(self.form)
         self.Rotations = ["N","S","E","O"]
         self.RotationAngles = [90,270,0,180]
 
         # dents list
-        self.labelDents = QtGui.QLabel()
-        self.listDents = QtGui.QListWidget()
+        self.labelDents = QtWidgets.QLabel()
+        self.listDents = QtWidgets.QListWidget()
         self.grid.addWidget(self.labelDents,0,0,1,2)
         self.grid.addWidget(self.listDents,1,0,1,2)
 
         # buttons
-        self.buttonAdd = QtGui.QPushButton()
-        self.buttonRemove = QtGui.QPushButton()
+        self.buttonAdd = QtWidgets.QPushButton()
+        self.buttonRemove = QtWidgets.QPushButton()
         self.grid.addWidget(self.buttonAdd,2,0,1,1)
         self.grid.addWidget(self.buttonRemove,2,1,1,1)
 
@@ -1270,39 +1270,39 @@ class _DentsTaskPanel:
         self.grid.addWidget(self.preview,3,0,1,2)
 
         # parameters
-        self.labelLength = QtGui.QLabel()
+        self.labelLength = QtWidgets.QLabel()
         self.valueLength = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelLength,4,0,1,1)
         self.grid.addWidget(self.valueLength,4,1,1,1)
 
-        self.labelWidth = QtGui.QLabel()
+        self.labelWidth = QtWidgets.QLabel()
         self.valueWidth = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelWidth,5,0,1,1)
         self.grid.addWidget(self.valueWidth,5,1,1,1)
 
-        self.labelHeight = QtGui.QLabel()
+        self.labelHeight = QtWidgets.QLabel()
         self.valueHeight = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelHeight,6,0,1,1)
         self.grid.addWidget(self.valueHeight,6,1,1,1)
 
-        self.labelSlant = QtGui.QLabel()
+        self.labelSlant = QtWidgets.QLabel()
         self.valueSlant = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelSlant,7,0,1,1)
         self.grid.addWidget(self.valueSlant,7,1,1,1)
 
-        self.labelLevel = QtGui.QLabel()
+        self.labelLevel = QtWidgets.QLabel()
         self.valueLevel = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelLevel,8,0,1,1)
         self.grid.addWidget(self.valueLevel,8,1,1,1)
 
-        self.labelRotation = QtGui.QLabel()
-        self.valueRotation = QtGui.QComboBox()
+        self.labelRotation = QtWidgets.QLabel()
+        self.valueRotation = QtWidgets.QComboBox()
         self.valueRotation.addItems(self.Rotations)
         self.valueRotation.setCurrentIndex(0)
         self.grid.addWidget(self.labelRotation,9,0,1,1)
         self.grid.addWidget(self.valueRotation,9,1,1,1)
 
-        self.labelOffset = QtGui.QLabel()
+        self.labelOffset = QtWidgets.QLabel()
         self.valueOffset = FreeCADGui.UiLoader().createWidget("Gui::InputField")
         self.grid.addWidget(self.labelOffset,10,0,1,1)
         self.grid.addWidget(self.valueOffset,10,1,1,1)
@@ -1386,7 +1386,7 @@ class _DentsTaskPanel:
             self.valueOffset.setText(FreeCAD.Units.Quantity(float(s[6]),FreeCAD.Units.Length).UserString)
 
     def retranslateUi(self, dialog):
-        from PySide import QtGui
+        from PySide6 import QtGui
         self.form.setWindowTitle(translate("Arch", "Precast options"))
         self.labelDents.setText(translate("Arch", "Dents list"))
         self.buttonAdd.setText(translate("Arch", "Add dent"))

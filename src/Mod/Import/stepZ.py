@@ -18,7 +18,7 @@ import shutil
 import os, re
 import ImportGui
 import PySide
-from PySide import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 import tempfile
 import shutil
 

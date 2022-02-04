@@ -37,7 +37,7 @@ They are more complex that simple text annotations.
 
 ## \addtogroup draftguitools
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 import sys
 
 import FreeCAD as App

@@ -640,8 +640,8 @@ class FCADLogger(object):
         except Exception as e:
             self.error(msg+'\n'+traceback.format_exc(),frame=1)
             if FreeCAD.GuiUp:
-                import FreeCADGui,PySide
-                PySide.QtGui.QMessageBox.critical(
+                import FreeCADGui,PySide6
+                PySide6.QtWidgets.QMessageBox.critical(
                         FreeCADGui.getMainWindow(),self.title,str(e))
 
 FreeCAD.Logger = FCADLogger

@@ -33,7 +33,7 @@ import PathScripts.PathToolEdit as PathToolEdit
 import PathScripts.PathUtils as PathUtils
 import PathScripts.PathToolLibraryManager as ToolLibraryManager
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 PathLog.setLevel(PathLog.Level.INFO, PathLog.thisModule())
 #PathLog.trackModule(PathLog.thisModule())
@@ -388,7 +388,7 @@ class EditorPanel():
 
         self.setFields()
 
-class ToolTableListWidgetItem(QtGui.QWidget):
+class ToolTableListWidgetItem(QtWidgets.QWidget):
 
     toolMoved = QtCore.Signal()
 

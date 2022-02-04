@@ -30,7 +30,7 @@ import PathScripts.PathLog as PathLog
 import PathScripts.PathPreferences as PathPreferences
 import PathScripts.PathUtils as PathUtils
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets, QtWidgets
 from pivy import coin
 
 PathLog.setLevel(PathLog.Level.INFO, PathLog.thisModule())

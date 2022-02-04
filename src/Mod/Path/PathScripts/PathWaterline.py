@@ -30,7 +30,7 @@ __doc__ = "Class and implementation of Waterline operation."
 __contributors__ = ""
 
 import FreeCAD
-from PySide import QtCore
+from PySide6 import QtCore
 
 # OCL must be installed
 try:

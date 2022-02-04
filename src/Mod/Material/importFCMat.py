@@ -33,7 +33,7 @@ import FreeCAD
 from materialtools.cardutils import get_material_template
 
 if FreeCAD.GuiUp:
-    from PySide import QtGui
+    from PySide6 import QtGui
 
 
 # to distinguish python built-in open function from the one declared below
@@ -130,7 +130,7 @@ def read(filename):
         error_message = "Error on loading. Material file '{}' might not utf-8.".format(filename)
         FreeCAD.Console.PrintError("{}\n".format(error_message))
         if FreeCAD.GuiUp:
-            QtGui.QMessageBox.critical(None, "Error on card reading", error_message)
+            QtWidgets.QMessageBox.critical(None, "Error on card reading", error_message)
         return {}
     d = {}
     d["CardName"] = card_name_file  # CardName is the MatCard file name
@@ -230,7 +230,7 @@ def write(filename, dictionary, write_group_section=True):
         error_message = "No card name provided. Card could not be written.".format(header)
         FreeCAD.Console.PrintError("{}\n".format(error_message))
         if FreeCAD.GuiUp:
-            QtGui.QMessageBox.critical(None, "No card name", error_message)
+            QtWidgets.QMessageBox.critical(None, "No card name", error_message)
         return
     f = pythonopen(filename, "w", encoding="utf-8")
     # write header

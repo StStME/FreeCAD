@@ -28,7 +28,7 @@ import PathScripts.PathWaterline as PathWaterline
 import PathScripts.PathGui as PathGui
 import PathScripts.PathOpGui as PathOpGui
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __title__ = "Path Waterline Operation UI"
 __author__ = "sliptonic (Brad Collette), russ4262 (Russell Johnson)"

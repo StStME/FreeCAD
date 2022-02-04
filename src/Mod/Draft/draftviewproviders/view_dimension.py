@@ -34,7 +34,7 @@ They inherit their behavior from the base Annotation viewprovider.
 
 import pivy.coin as coin
 import lazy_loader.lazy_loader as lz
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import DraftVecUtils

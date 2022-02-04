@@ -33,16 +33,16 @@ import FreeCAD, io
 
 if FreeCAD.GuiUp:
     try:
-        from PySide import QtGui
-        _encoding = QtGui.QApplication.UnicodeUTF8
+        from PySide6 import QtGui
+        _encoding = QtWidgets.QApplication.UnicodeUTF8
         def translate(context, text):
             "convenience function for Qt translator"
-            return QtGui.QApplication.translate(context, text, None, _encoding)
+            return QtWidgets.QApplication.translate(context, text, None, _encoding)
     except AttributeError:
         def translate(context, text):
             "convenience function for Qt translator"
-            from PySide import QtGui
-            return QtGui.QApplication.translate(context, text, None)
+            from PySide6 import QtGui
+            return QtWidgets.QApplication.translate(context, text, None)
 
 try:
     BaseError = FreeCAD.Base.FreeCADError

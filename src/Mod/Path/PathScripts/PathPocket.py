@@ -26,7 +26,7 @@ import PathScripts.PathOp as PathOp
 import PathScripts.PathPocketBase as PathPocketBase
 import PathScripts.PathUtils as PathUtils
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

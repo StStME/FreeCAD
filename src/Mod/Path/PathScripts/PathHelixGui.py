@@ -28,7 +28,7 @@ import PathScripts.PathHelix as PathHelix
 import PathScripts.PathLog as PathLog
 import PathScripts.PathOpGui as PathOpGui
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __doc__ = "Helix operation page controller and command implementation."
 

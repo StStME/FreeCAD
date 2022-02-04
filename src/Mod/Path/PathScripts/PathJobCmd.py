@@ -31,7 +31,7 @@ import PathScripts.PathUtil as PathUtil
 import json
 import os
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 
 # Qt translation handling

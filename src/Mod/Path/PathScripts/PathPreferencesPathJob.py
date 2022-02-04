@@ -28,7 +28,7 @@ import PathScripts.PathStock as PathStock
 import json
 
 from FreeCAD import Units
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from PathScripts.PathPostProcessor import PostProcessor
 
 

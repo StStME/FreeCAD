@@ -40,7 +40,7 @@ Its edit mode launches the `Draft_Edit` command.
 ## \addtogroup draftviewproviders
 # @{
 import json
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import draftutils.utils as utils

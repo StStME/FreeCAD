@@ -26,7 +26,7 @@ import PathGui as PGui # ensure Path/Gui/Resources are loaded
 import PathScripts.PathLog as PathLog
 import PathScripts.PathOpGui as PathOpGui
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 __title__ = "Base for Circular Hole based operations' UI"
 __author__ = "sliptonic (Brad Collette)"

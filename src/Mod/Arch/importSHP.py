@@ -66,8 +66,8 @@ def insert(filename,docname,record=None):
         fields = ["None"] + [field[0] for field in shp.fields]
         if FreeCAD.GuiUp:
             import FreeCADGui
-            from PySide import QtGui
-            reply = QtGui.QInputDialog.getItem(FreeCADGui.getMainWindow(),
+            from PySide6 import QtGui
+            reply = QtWidgets.QInputDialog.getItem(FreeCADGui.getMainWindow(),
                                                translate("Arch","Shapes elevation"),
                                                translate("Arch","Choose which field provides shapes elevations:"),
                                                fields)
@@ -133,13 +133,13 @@ def checkShapeFileLibrary():
         if FreeCAD.GuiUp:
             import addonmanager_utilities
             import FreeCADGui
-            from PySide import QtGui
-            reply = QtGui.QMessageBox.question(FreeCADGui.getMainWindow(),
+            from PySide6 import QtGui
+            reply = QtWidgets.QMessageBox.question(FreeCADGui.getMainWindow(),
                                                translate("Arch","Shapefile module not found"),
                                                translate("Arch","The shapefile python library was not found on your system. Would you like to download it now from <a href=\"https://github.com/GeospatialPython/pyshp\">https://github.com/GeospatialPython/pyshp</a>? It will be placed in your macros folder."),
-                                               QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
-                                               QtGui.QMessageBox.No)
-            if reply == QtGui.QMessageBox.Yes:
+                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                                               QtWidgets.QMessageBox.No)
+            if reply == QtWidgets.QMessageBox.Yes:
                 u = addonmanager_utilities.urlopen(url)
                 if not u:
                     FreeCAD.Console.PrintError(translate("Arch","Error: Unable to download from:")+" "+url+"\n")

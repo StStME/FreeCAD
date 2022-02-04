@@ -37,7 +37,7 @@ from femtools.errors import MustSaveError
 from femtools.errors import DirectoryDoesNotExistError
 
 if App.GuiUp:
-    from PySide import QtGui
+    from PySide6 import QtGui
     import FreeCADGui as Gui
     from . import solver_taskpanel
 

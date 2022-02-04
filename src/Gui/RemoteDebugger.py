@@ -24,8 +24,8 @@
 
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore
+from PySide6 import QtGui, QtWidgets
 
 class RemoteDebugger():
     def __init__(self, parent=None):
@@ -53,7 +53,7 @@ class RemoteDebugger():
                 ptvsd.enable_attach(address=(address, port), redirect_output=redirect)
                 ptvsd.wait_for_attach()
         except Exception as e:
-            QtGui.QMessageBox.warning(self.dialog, "Failed to attach", str(e))
+            QtWidgets.QMessageBox.warning(self.dialog, "Failed to attach", str(e))
 
         self.dialog.accept()
 

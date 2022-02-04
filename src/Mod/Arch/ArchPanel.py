@@ -23,9 +23,9 @@ import FreeCAD,Draft,ArchComponent,DraftVecUtils,ArchCommands,math, Part
 from FreeCAD import Vector
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
     import draftguitools.gui_trackers as DraftTrackers
 else:
     # \cond
@@ -217,14 +217,14 @@ class CommandPanel:
 
         "sets up a taskbox widget"
 
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
         ui = FreeCADGui.UiLoader()
         w.setWindowTitle(translate("Arch","Panel options", utf8_decode=True))
-        grid = QtGui.QGridLayout(w)
+        grid = QtWidgets.QGridLayout(w)
 
         # presets box
-        labelp = QtGui.QLabel(translate("Arch","Preset", utf8_decode=True))
-        valuep = QtGui.QComboBox()
+        labelp = QtWidgets.QLabel(translate("Arch","Preset", utf8_decode=True))
+        valuep = QtWidgets.QComboBox()
         fpresets = [" "]
         for p in Presets[1:]:
             fpresets.append(translate("Arch",p[0]))
@@ -233,33 +233,33 @@ class CommandPanel:
         grid.addWidget(valuep,0,1,1,1)
 
         # length
-        label1 = QtGui.QLabel(translate("Arch","Length", utf8_decode=True))
+        label1 = QtWidgets.QLabel(translate("Arch","Length", utf8_decode=True))
         self.vLength = ui.createWidget("Gui::InputField")
         self.vLength.setText(FreeCAD.Units.Quantity(self.Length,FreeCAD.Units.Length).UserString)
         grid.addWidget(label1,1,0,1,1)
         grid.addWidget(self.vLength,1,1,1,1)
 
         # width
-        label2 = QtGui.QLabel(translate("Arch","Width", utf8_decode=True))
+        label2 = QtWidgets.QLabel(translate("Arch","Width", utf8_decode=True))
         self.vWidth = ui.createWidget("Gui::InputField")
         self.vWidth.setText(FreeCAD.Units.Quantity(self.Width,FreeCAD.Units.Length).UserString)
         grid.addWidget(label2,2,0,1,1)
         grid.addWidget(self.vWidth,2,1,1,1)
 
         # height
-        label3 = QtGui.QLabel(translate("Arch","Thickness", utf8_decode=True))
+        label3 = QtWidgets.QLabel(translate("Arch","Thickness", utf8_decode=True))
         self.vHeight = ui.createWidget("Gui::InputField")
         self.vHeight.setText(FreeCAD.Units.Quantity(self.Thickness,FreeCAD.Units.Length).UserString)
         grid.addWidget(label3,3,0,1,1)
         grid.addWidget(self.vHeight,3,1,1,1)
 
         # horizontal button
-        value5 = QtGui.QPushButton(translate("Arch","Rotate", utf8_decode=True))
+        value5 = QtWidgets.QPushButton(translate("Arch","Rotate", utf8_decode=True))
         grid.addWidget(value5,4,0,1,2)
 
         # continue button
-        label4 = QtGui.QLabel(translate("Arch","Con&tinue", utf8_decode=True))
-        value4 = QtGui.QCheckBox()
+        label4 = QtWidgets.QLabel(translate("Arch","Con&tinue", utf8_decode=True))
+        value4 = QtWidgets.QCheckBox()
         value4.setObjectName("ContinueCmd")
         value4.setLayoutDirection(QtCore.Qt.RightToLeft)
         label4.setBuddy(value4)
@@ -1491,12 +1491,12 @@ class SheetTaskPanel(ArchComponent.ComponentTaskPanel):
 
         ArchComponent.ComponentTaskPanel.__init__(self)
         self.obj = obj
-        self.optwid = QtGui.QWidget()
-        self.optwid.setWindowTitle(QtGui.QApplication.translate("Arch", "Tools", None))
-        lay = QtGui.QVBoxLayout(self.optwid)
-        self.editButton = QtGui.QPushButton(self.optwid)
+        self.optwid = QtWidgets.QWidget()
+        self.optwid.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Tools", None))
+        lay = QtWidgets.QVBoxLayout(self.optwid)
+        self.editButton = QtWidgets.QPushButton(self.optwid)
         self.editButton.setIcon(QtGui.QIcon(":/icons/Draft_Edit.svg"))
-        self.editButton.setText(QtGui.QApplication.translate("Arch", "Edit views positions", None))
+        self.editButton.setText(QtWidgets.QApplication.translate("Arch", "Edit views positions", None))
         lay.addWidget(self.editButton)
         QtCore.QObject.connect(self.editButton, QtCore.SIGNAL("clicked()"), self.editNodes)
         self.form = [self.form,self.optwid]
@@ -1604,7 +1604,7 @@ class NestTaskPanel:
 
     def addObject(self,obj,form):
 
-        i = QtGui.QListWidgetItem()
+        i = QtWidgets.QListWidgetItem()
         i.setText(obj.Label)
         i.setToolTip(obj.Name)
         if hasattr(obj.ViewObject,"Proxy"):
@@ -1649,7 +1649,7 @@ class NestTaskPanel:
         self.form.ButtonStop.setEnabled(True)
         self.form.ButtonStart.setEnabled(False)
         self.form.ButtonPreview.setEnabled(False)
-        QtGui.QApplication.processEvents()
+        QtWidgets.QApplication.processEvents()
         result = self.nester.run()
         self.form.progressBar.hide()
         self.form.ButtonStart.setEnabled(True)

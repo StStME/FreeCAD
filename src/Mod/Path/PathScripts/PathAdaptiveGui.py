@@ -22,7 +22,7 @@
 # ***************************************************************************
 
 import PathScripts.PathOpGui as PathOpGui
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 import PathScripts.PathAdaptive as PathAdaptive
 import PathScripts.PathFeatureExtensionsGui as PathFeatureExtensionsGui
 
@@ -32,7 +32,7 @@ class TaskPanelOpPage(PathOpGui.TaskPanelPage):
         self.setTitle("Adaptive path operation")
 
     def getForm(self):
-        form = QtGui.QWidget()
+        form = QtWidgets.QWidget()
         layout = QtGui.QVBoxLayout()
         formLayout = QtGui.QFormLayout()
 

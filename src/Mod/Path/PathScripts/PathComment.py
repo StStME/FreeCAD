@@ -25,9 +25,9 @@
 import FreeCAD
 import FreeCADGui
 import Path
-from PySide import QtCore
+from PySide6 import QtCore
 
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 translate = FreeCAD.Qt.translate
 

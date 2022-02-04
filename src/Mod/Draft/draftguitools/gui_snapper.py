@@ -39,8 +39,9 @@ import inspect
 import itertools
 import math
 import pivy.coin as coin
-import PySide.QtCore as QtCore
-import PySide.QtGui as QtGui
+import PySide6.QtCore as QtCore
+import PySide6.QtGui as QtGui
+import PySide6.QtWidgets as QtWidgets
 
 import FreeCAD as App
 import FreeCADGui as Gui
@@ -245,7 +246,7 @@ class Snapper:
         if not hasattr(self, "toolbar"):
             self.makeSnapToolBar()
         mw = Gui.getMainWindow()
-        bt = mw.findChild(QtGui.QToolBar,"Draft Snap")
+        bt = mw.findChild(QtWidgets.QToolBar,"Draft Snap")
         if not bt:
             mw.addToolBar(self.toolbar)
         else:
@@ -1139,7 +1140,7 @@ class Snapper:
     def device_pixel_ratio(self):
         device_pixel_ratio = 1
         mw = Gui.getMainWindow()
-        for w in mw.findChild(QtGui.QMdiArea).findChildren(QtGui.QWidget):
+        for w in mw.findChild(QtWidgets.QMdiArea).findChildren(QtWidgets.QWidget):
             if w.metaObject().className() == "SIM::Coin3D::Quarter::QuarterWidget":
                 if int(QtCore.qVersion().split('.')[0]) > 4:
                     device_pixel_ratio = w.devicePixelRatio()
@@ -1175,13 +1176,13 @@ class Snapper:
         """Set or reset the cursor to the given mode or resets."""
         if self.selectMode:
             mw = Gui.getMainWindow()
-            for w in mw.findChild(QtGui.QMdiArea).findChildren(QtGui.QWidget):
+            for w in mw.findChild(QtWidgets.QMdiArea).findChildren(QtWidgets.QWidget):
                 if w.metaObject().className() == "SIM::Coin3D::Quarter::QuarterWidget":
                     w.unsetCursor()
             self.cursorMode = None
         elif not mode:
             mw = Gui.getMainWindow()
-            for w in mw.findChild(QtGui.QMdiArea).findChildren(QtGui.QWidget):
+            for w in mw.findChild(QtWidgets.QMdiArea).findChildren(QtWidgets.QWidget):
                 if w.metaObject().className() == "SIM::Coin3D::Quarter::QuarterWidget":
                     w.unsetCursor()
             self.cursorMode = None
@@ -1193,7 +1194,7 @@ class Snapper:
                     tail_icon_name = self.cursors[mode]
                 cur = self.get_cursor_with_tail(base_icon_name, tail_icon_name)
                 mw = Gui.getMainWindow()
-                for w in mw.findChild(QtGui.QMdiArea).findChildren(QtGui.QWidget):
+                for w in mw.findChild(QtWidgets.QMdiArea).findChildren(QtWidgets.QWidget):
                     if w.metaObject().className() == "SIM::Coin3D::Quarter::QuarterWidget":
                         w.setCursor(cur)
                 self.cursorMode = mode
@@ -1470,19 +1471,24 @@ class Snapper:
 
     def makeSnapToolBar(self):
         """Build the Snap toolbar."""
-        mw = Gui.getMainWindow()
-        self.toolbar = QtGui.QToolBar(mw)
-        mw.addToolBar(QtCore.Qt.TopToolBarArea, self.toolbar)
-        self.toolbar.setObjectName("Draft Snap")
-        self.toolbar.setWindowTitle(translate("Workbench", "Draft Snap"))
+        try:
+            mw = Gui.getMainWindow()
+            self.toolbar = QtGui.QToolBar(mw)
+            mw.addToolBar(QtCore.Qt.TopToolBarArea, self.toolbar)
+            self.toolbar.setObjectName("Draft Snap")
+            self.toolbar.setWindowTitle(translate("Workbench", "Draft Snap"))
+            # make snap buttons
+            snap_gui_commands = get_draft_snap_commands()
+            self.init_draft_snap_buttons(snap_gui_commands, self.toolbar, "_Button")
+            self.restore_snap_buttons_state(self.toolbar,"_Button")
 
-        # make snap buttons
-        snap_gui_commands = get_draft_snap_commands()
-        self.init_draft_snap_buttons(snap_gui_commands, self.toolbar, "_Button")
-        self.restore_snap_buttons_state(self.toolbar,"_Button")
+            if not Draft.getParam("showSnapBar",True):
+                self.toolbar.hide()
+        except Exception as e:
+            print("***************", e)
+        
 
-        if not Draft.getParam("showSnapBar",True):
-            self.toolbar.hide()
+        
 
 
     def init_draft_snap_buttons(self, commands, context, button_suffix):
@@ -1548,11 +1554,14 @@ class Snapper:
 
     def get_snap_toolbar(self):
         """Returns snap toolbar object."""
-        mw = Gui.getMainWindow()
-        if mw:
-            toolbar = mw.findChild(QtGui.QToolBar, "Draft Snap")
-            if toolbar:
-                return toolbar
+        try:
+            mw = Gui.getMainWindow()
+            if mw:
+                toolbar = mw.findChild(QtWidgets.QToolBar, "Draft Snap")
+                if toolbar:
+                    return toolbar
+        except Exception as e:
+            print("*********", e)
         return None
 
 
@@ -1620,11 +1629,17 @@ class Snapper:
             self.makeSnapToolBar()
         bt = self.get_snap_toolbar()
         if not bt:
-            mw = Gui.getMainWindow()
-            mw.addToolBar(self.toolbar)
-            self.toolbar.setParent(mw)
-        self.toolbar.show()
-        self.toolbar.toggleViewAction().setVisible(True)
+            try:    
+                mw = Gui.getMainWindow()
+                mw.addToolBar(self.toolbar)
+                self.toolbar.setParent(mw)
+            except Exception as e:
+                print("************", e)
+        try:
+            self.toolbar.show()
+            self.toolbar.toggleViewAction().setVisible(True)
+        except:
+            pass
         if Gui.ActiveDocument:
             self.setTrackers()
             if not App.ActiveDocument.Objects:

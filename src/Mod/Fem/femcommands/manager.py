@@ -35,7 +35,7 @@ import FreeCAD
 from femtools.femutils import is_of_type
 
 if FreeCAD.GuiUp:
-    from PySide import QtCore
+    from PySide6 import QtCore
     import FreeCADGui
     import FemGui
 

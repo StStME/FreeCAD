@@ -22,7 +22,7 @@
 
 import time
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 from PathScripts.PathUtils import waiting_effects
 import Path

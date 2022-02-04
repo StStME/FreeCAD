@@ -25,9 +25,9 @@ import sys
 import FreeCAD
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -462,7 +462,7 @@ class ArchScheduleTaskPanel:
             self.form.list.setRowCount(len(obj.Description))
             for i in range(5):
                 for j in range(len(obj.Description)):
-                    item = QtGui.QTableWidgetItem([obj.Description,obj.Value,obj.Unit,obj.Objects,obj.Filter][i][j])
+                    item = QtWidgets.QTableWidgetItem([obj.Description,obj.Value,obj.Unit,obj.Objects,obj.Filter][i][j])
                     self.form.list.setItem(j,i,item)
             self.form.lineEditName.setText(self.obj.Label)
             self.form.checkDetailed.setChecked(self.obj.DetailedResults)
@@ -501,7 +501,7 @@ class ArchScheduleTaskPanel:
 
         """Imports a CSV file"""
 
-        filename = QtGui.QFileDialog.getOpenFileName(QtGui.QApplication.activeWindow(), translate("Arch","Import CSV File"), None, "CSV file (*.csv)");
+        filename = QtWidgets.QFileDialog.getOpenFileName(QtWidgets.QApplication.activeWindow(), translate("Arch","Import CSV File"), None, "CSV file (*.csv)");
         if filename:
             filename = filename[0]
             if sys.version_info.major < 3:
@@ -517,7 +517,7 @@ class ArchScheduleTaskPanel:
                             t = row[i]
                             #t = t.replace("²","^2")
                             #t = t.replace("³","^3")
-                            self.form.list.setItem(r,i,QtGui.QTableWidgetItem(t))
+                            self.form.list.setItem(r,i,QtWidgets.QTableWidgetItem(t))
                     r += 1
 
     def export(self):
@@ -535,7 +535,7 @@ class ArchScheduleTaskPanel:
         if not self.obj.Proxy.data:
             return
 
-        filename = QtGui.QFileDialog.getSaveFileName(QtGui.QApplication.activeWindow(),
+        filename = QtWidgets.QFileDialog.getSaveFileName(QtWidgets.QApplication.activeWindow(),
                                                      translate("Arch","Export CSV File"),
                                                      None,
                                                      "Comma-separated values (*.csv);;TAB-separated values (*.tsv);;Markdown (*.md)");
@@ -625,7 +625,7 @@ class ArchScheduleTaskPanel:
                         sel += ";"
                     sel += o.Name
             if sel:
-                self.form.list.setItem(self.form.list.currentRow(),3,QtGui.QTableWidgetItem(sel))
+                self.form.list.setItem(self.form.list.currentRow(),3,QtWidgets.QTableWidgetItem(sel))
 
     def accept(self):
 

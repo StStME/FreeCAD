@@ -35,9 +35,9 @@ import PathScripts.PathUtils as PathUtils
 import os
 
 from PathScripts.PathPostProcessor import PostProcessor
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from datetime import datetime
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 LOG_MODULE = PathLog.thisModule()
 

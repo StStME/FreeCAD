@@ -26,7 +26,7 @@ import PathGui as PGui # ensure Path/Gui/Resources are loaded
 import PathScripts.PathGui as PathGui
 import PathScripts.PathOpGui as PathOpGui
 
-from PySide import QtCore #, QtGui
+from PySide6 import QtCore #, QtGui
 
 __title__ = "Path Pocket Base Operation UI"
 __author__ = "sliptonic (Brad Collette)"

@@ -23,9 +23,9 @@ import FreeCAD, Sketcher
 
 if FreeCAD.GuiUp:
     import FreeCADGui,SketcherGui,os
-    from PySide import QtCore, QtGui
-    from PySide.QtCore import Qt
-    from PySide.QtGui import QApplication, QCursor
+    from PySide6 import QtCore, QtGui, QtWidgets
+    from PySide6.QtCore import Qt
+    from PySide6.QtGui import QApplication, QCursor
     from FreeCADGui import PySideUic as uic
 
     #s=os.path.dirname(__file__)

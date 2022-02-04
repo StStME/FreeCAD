@@ -29,7 +29,7 @@ import PathScripts.PathUtil as PathUtil
 import glob
 import os
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from collections import Counter
 
 

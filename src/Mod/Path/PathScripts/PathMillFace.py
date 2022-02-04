@@ -27,7 +27,7 @@ import PathScripts.PathLog as PathLog
 import PathScripts.PathPocketBase as PathPocketBase
 import PathScripts.PathUtils as PathUtils
 
-from PySide import QtCore
+from PySide6 import QtCore
 import numpy
 
 # lazily loaded modules

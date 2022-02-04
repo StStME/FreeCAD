@@ -26,9 +26,9 @@ import ArchProfile
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
     import ArchPrecast
     import draftguitools.gui_trackers as DraftTrackers
 else:
@@ -423,15 +423,15 @@ class _CommandStructure:
 
         "sets up a taskbox widget"
 
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
         ui = FreeCADGui.UiLoader()
         w.setWindowTitle(translate("Arch","Structure options"))
-        grid = QtGui.QGridLayout(w)
+        grid = QtWidgets.QGridLayout(w)
 
         # mode box
-        labelmode = QtGui.QLabel(translate("Arch","Drawing mode")+":")
-        self.modeb = QtGui.QRadioButton(translate("Arch","Beam"))
-        self.modec = QtGui.QRadioButton(translate("Arch","Column"))
+        labelmode = QtWidgets.QLabel(translate("Arch","Drawing mode")+":")
+        self.modeb = QtWidgets.QRadioButton(translate("Arch","Beam"))
+        self.modec = QtWidgets.QRadioButton(translate("Arch","Column"))
         if self.bpoint or self.beammode:
             self.modeb.setChecked(True)
         else:
@@ -441,15 +441,15 @@ class _CommandStructure:
         grid.addWidget(self.modec,1,1,1,1)
 
         # categories box
-        labelc = QtGui.QLabel(translate("Arch","Category"))
-        self.valuec = QtGui.QComboBox()
+        labelc = QtWidgets.QLabel(translate("Arch","Category"))
+        self.valuec = QtWidgets.QComboBox()
         self.valuec.addItems([" ","Precast concrete"]+Categories)
         grid.addWidget(labelc,2,0,1,1)
         grid.addWidget(self.valuec,2,1,1,1)
 
         # presets box
-        labelp = QtGui.QLabel(translate("Arch","Preset"))
-        self.vPresets = QtGui.QComboBox()
+        labelp = QtWidgets.QLabel(translate("Arch","Preset"))
+        self.vPresets = QtWidgets.QComboBox()
         self.pSelect = [None]
         fpresets = [" "]
         self.vPresets.addItems(fpresets)
@@ -457,7 +457,7 @@ class _CommandStructure:
         grid.addWidget(self.vPresets,3,1,1,1)
 
         # length
-        label1 = QtGui.QLabel(translate("Arch","Length"))
+        label1 = QtWidgets.QLabel(translate("Arch","Length"))
         self.vLength = ui.createWidget("Gui::InputField")
         if self.modeb.isChecked():
             self.vLength.setText(FreeCAD.Units.Quantity(self.Height,FreeCAD.Units.Length).UserString)
@@ -467,14 +467,14 @@ class _CommandStructure:
         grid.addWidget(self.vLength,4,1,1,1)
 
         # width
-        label2 = QtGui.QLabel(translate("Arch","Width"))
+        label2 = QtWidgets.QLabel(translate("Arch","Width"))
         self.vWidth = ui.createWidget("Gui::InputField")
         self.vWidth.setText(FreeCAD.Units.Quantity(self.Width,FreeCAD.Units.Length).UserString)
         grid.addWidget(label2,5,0,1,1)
         grid.addWidget(self.vWidth,5,1,1,1)
 
         # height
-        label3 = QtGui.QLabel(translate("Arch","Height"))
+        label3 = QtWidgets.QLabel(translate("Arch","Height"))
         self.vHeight = ui.createWidget("Gui::InputField")
         if self.modeb.isChecked():
             self.vHeight.setText(FreeCAD.Units.Quantity(self.Length,FreeCAD.Units.Length).UserString)
@@ -484,14 +484,14 @@ class _CommandStructure:
         grid.addWidget(self.vHeight,6,1,1,1)
 
         # horizontal button
-        value5 = QtGui.QPushButton(translate("Arch","Switch L/H"))
+        value5 = QtWidgets.QPushButton(translate("Arch","Switch L/H"))
         grid.addWidget(value5,7,0,1,1)
-        value6 = QtGui.QPushButton(translate("Arch","Switch L/W"))
+        value6 = QtWidgets.QPushButton(translate("Arch","Switch L/W"))
         grid.addWidget(value6,7,1,1,1)
 
         # continue button
-        label4 = QtGui.QLabel(translate("Arch","Con&tinue"))
-        value4 = QtGui.QCheckBox()
+        label4 = QtWidgets.QLabel(translate("Arch","Con&tinue"))
+        value4 = QtWidgets.QCheckBox()
         value4.setObjectName("ContinueCmd")
         value4.setLayoutDirection(QtCore.Qt.RightToLeft)
         label4.setBuddy(value4)
@@ -1144,52 +1144,52 @@ class StructureTaskPanel(ArchComponent.ComponentTaskPanel):
     def __init__(self,obj):
 
         ArchComponent.ComponentTaskPanel.__init__(self)
-        self.nodes_widget = QtGui.QWidget()
-        self.nodes_widget.setWindowTitle(QtGui.QApplication.translate("Arch", "Node Tools", None))
-        lay = QtGui.QVBoxLayout(self.nodes_widget)
+        self.nodes_widget = QtWidgets.QWidget()
+        self.nodes_widget.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Node Tools", None))
+        lay = QtWidgets.QVBoxLayout(self.nodes_widget)
 
-        self.resetButton = QtGui.QPushButton(self.nodes_widget)
+        self.resetButton = QtWidgets.QPushButton(self.nodes_widget)
         self.resetButton.setIcon(QtGui.QIcon(":/icons/edit-undo.svg"))
-        self.resetButton.setText(QtGui.QApplication.translate("Arch", "Reset nodes", None))
+        self.resetButton.setText(QtWidgets.QApplication.translate("Arch", "Reset nodes", None))
 
         lay.addWidget(self.resetButton)
         QtCore.QObject.connect(self.resetButton, QtCore.SIGNAL("clicked()"), self.resetNodes)
 
-        self.editButton = QtGui.QPushButton(self.nodes_widget)
+        self.editButton = QtWidgets.QPushButton(self.nodes_widget)
         self.editButton.setIcon(QtGui.QIcon(":/icons/Draft_Edit.svg"))
-        self.editButton.setText(QtGui.QApplication.translate("Arch", "Edit nodes", None))
+        self.editButton.setText(QtWidgets.QApplication.translate("Arch", "Edit nodes", None))
         lay.addWidget(self.editButton)
         QtCore.QObject.connect(self.editButton, QtCore.SIGNAL("clicked()"), self.editNodes)
 
-        self.extendButton = QtGui.QPushButton(self.nodes_widget)
+        self.extendButton = QtWidgets.QPushButton(self.nodes_widget)
         self.extendButton.setIcon(QtGui.QIcon(":/icons/Snap_Perpendicular.svg"))
-        self.extendButton.setText(QtGui.QApplication.translate("Arch", "Extend nodes", None))
-        self.extendButton.setToolTip(QtGui.QApplication.translate("Arch", "Extends the nodes of this element to reach the nodes of another element", None))
+        self.extendButton.setText(QtWidgets.QApplication.translate("Arch", "Extend nodes", None))
+        self.extendButton.setToolTip(QtWidgets.QApplication.translate("Arch", "Extends the nodes of this element to reach the nodes of another element", None))
         lay.addWidget(self.extendButton)
         QtCore.QObject.connect(self.extendButton, QtCore.SIGNAL("clicked()"), self.extendNodes)
 
-        self.connectButton = QtGui.QPushButton(self.nodes_widget)
+        self.connectButton = QtWidgets.QPushButton(self.nodes_widget)
         self.connectButton.setIcon(QtGui.QIcon(":/icons/Snap_Intersection.svg"))
-        self.connectButton.setText(QtGui.QApplication.translate("Arch", "Connect nodes", None))
-        self.connectButton.setToolTip(QtGui.QApplication.translate("Arch", "Connects nodes of this element with the nodes of another element", None))
+        self.connectButton.setText(QtWidgets.QApplication.translate("Arch", "Connect nodes", None))
+        self.connectButton.setToolTip(QtWidgets.QApplication.translate("Arch", "Connects nodes of this element with the nodes of another element", None))
         lay.addWidget(self.connectButton)
         QtCore.QObject.connect(self.connectButton, QtCore.SIGNAL("clicked()"), self.connectNodes)
 
-        self.toggleButton = QtGui.QPushButton(self.nodes_widget)
+        self.toggleButton = QtWidgets.QPushButton(self.nodes_widget)
         self.toggleButton.setIcon(QtGui.QIcon(":/icons/dagViewVisible.svg"))
-        self.toggleButton.setText(QtGui.QApplication.translate("Arch", "Toggle all nodes", None))
-        self.toggleButton.setToolTip(QtGui.QApplication.translate("Arch", "Toggles all structural nodes of the document on/off", None))
+        self.toggleButton.setText(QtWidgets.QApplication.translate("Arch", "Toggle all nodes", None))
+        self.toggleButton.setToolTip(QtWidgets.QApplication.translate("Arch", "Toggles all structural nodes of the document on/off", None))
         lay.addWidget(self.toggleButton)
         QtCore.QObject.connect(self.toggleButton, QtCore.SIGNAL("clicked()"), self.toggleNodes)
 
-        self.extrusion_widget = QtGui.QWidget()
-        self.extrusion_widget.setWindowTitle(QtGui.QApplication.translate("Arch", "Extrusion Tools", None))
-        lay = QtGui.QVBoxLayout(self.extrusion_widget)
+        self.extrusion_widget = QtWidgets.QWidget()
+        self.extrusion_widget.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Extrusion Tools", None))
+        lay = QtWidgets.QVBoxLayout(self.extrusion_widget)
 
-        self.selectToolButton = QtGui.QPushButton(self.extrusion_widget)
+        self.selectToolButton = QtWidgets.QPushButton(self.extrusion_widget)
         self.selectToolButton.setIcon(QtGui.QIcon())
-        self.selectToolButton.setText(QtGui.QApplication.translate("Arch", "Select tool...", None))
-        self.selectToolButton.setToolTip(QtGui.QApplication.translate("Arch", "Select object or edges to be used as a Tool (extrusion path)", None))
+        self.selectToolButton.setText(QtWidgets.QApplication.translate("Arch", "Select tool...", None))
+        self.selectToolButton.setToolTip(QtWidgets.QApplication.translate("Arch", "Select object or edges to be used as a Tool (extrusion path)", None))
         lay.addWidget(self.selectToolButton)
         QtCore.QObject.connect(self.selectToolButton, QtCore.SIGNAL("clicked()"), self.setSelectionFromTool)
 
@@ -1301,7 +1301,7 @@ class StructureTaskPanel(ArchComponent.ComponentTaskPanel):
                     FreeCADGui.Selection.addSelection(o, subs)
         QtCore.QObject.disconnect(self.selectToolButton, QtCore.SIGNAL("clicked()"), self.setSelectionFromTool)
         QtCore.QObject.connect(self.selectToolButton, QtCore.SIGNAL("clicked()"), self.setToolFromSelection)
-        self.selectToolButton.setText(QtGui.QApplication.translate("Arch", "Done", None))
+        self.selectToolButton.setText(QtWidgets.QApplication.translate("Arch", "Done", None))
 
     def setToolFromSelection(self):
         objectList = []
@@ -1322,7 +1322,7 @@ class StructureTaskPanel(ArchComponent.ComponentTaskPanel):
         self.Object.Tool = objectList
         QtCore.QObject.disconnect(self.selectToolButton, QtCore.SIGNAL("clicked()"), self.setToolFromSelection)
         QtCore.QObject.connect(self.selectToolButton, QtCore.SIGNAL("clicked()"), self.setSelectionFromTool)
-        self.selectToolButton.setText(QtGui.QApplication.translate("Arch", "Select tool...", None))
+        self.selectToolButton.setText(QtWidgets.QApplication.translate("Arch", "Select tool...", None))
 
     def accept(self):
 

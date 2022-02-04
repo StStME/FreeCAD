@@ -27,7 +27,7 @@ import PathScripts.PathSlot as PathSlot
 import PathScripts.PathGui as PathGui
 import PathScripts.PathOpGui as PathOpGui
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __title__ = "Path Slot Operation UI"
 __author__ = "russ4262 (Russell Johnson)"

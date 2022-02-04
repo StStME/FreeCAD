@@ -22,9 +22,9 @@
 
 import FreeCAD
 import PathScripts.PathLog as PathLog
-from PySide import QtCore
+from PySide66 import QtCore
 from PathScripts.PathUtils import waiting_effects
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide66.QtCore import QT_TRANSLATE_NOOP
 
 LOG_MODULE = "PathCollision"
 PathLog.setLevel(PathLog.Level.DEBUG, LOG_MODULE)

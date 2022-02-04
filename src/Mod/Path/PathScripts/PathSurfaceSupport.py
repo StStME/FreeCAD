@@ -29,7 +29,7 @@ __doc__ = "Support functions and classes for 3D Surface and Waterline operations
 __contributors__ = ""
 
 import FreeCAD
-from PySide import QtCore
+from PySide6 import QtCore
 import Path
 import PathScripts.PathLog as PathLog
 import PathScripts.PathUtils as PathUtils

@@ -39,7 +39,7 @@ import sys
 import FreeCAD
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui
+    from PySide6 import QtGui
 
 
 # ************************************************************************************************

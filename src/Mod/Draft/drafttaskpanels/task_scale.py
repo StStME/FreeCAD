@@ -47,7 +47,7 @@ class ScaleTaskPanel:
 
     def __init__(self):
         self.sourceCmd = None
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         layout = QtGui.QGridLayout(self.form)
         self.xLabel = QtGui.QLabel()
         layout.addWidget(self.xLabel, 0, 0, 1, 1)

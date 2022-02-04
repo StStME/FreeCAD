@@ -30,7 +30,7 @@ __doc__ = "Class and implementation of Slot operation."
 __contributors__ = ""
 
 import FreeCAD
-from PySide import QtCore
+from PySide6 import QtCore
 import Path
 import PathScripts.PathLog as PathLog
 import PathScripts.PathUtils as PathUtils

@@ -96,16 +96,17 @@ def fixVisibility():
 
 if gui:
     try:
-        _encoding = QtGui.QApplication.UnicodeUTF8
+        from PySide6 import QtGui, QtWidgets
+        _encoding = QtWidgets.QApplication.UnicodeUTF8
         def translate(context, text):
             "convenience function for Qt translator"
-            from PySide import QtGui
-            return QtGui.QApplication.translate(context, text, None, _encoding)
+            from PySide6 import QtGui, QtWidgets
+            return QtWidgets.QApplication.translate(context, text, None, _encoding)
     except AttributeError:
         def translate(context, text):
             "convenience function for Qt translator"
-            from PySide import QtGui
-            return QtGui.QApplication.translate(context, text, None)
+            from PySide6 import QtGui, QtWidgets
+            return QtWidgets.QApplication.translate(context, text, None)
 
 def open(filename):
     "called when freecad opens a file."
@@ -512,8 +513,8 @@ def p_not_supported(p):
                   '''
     if gui and not FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/OpenSCAD").\
             GetBool('usePlaceholderForUnsupported'):
-        from PySide import QtGui
-        QtGui.QMessageBox.critical(None, translate('OpenSCAD',"Unsupported Function")+" : "+p[1],translate('OpenSCAD',"Press OK"))
+        from PySide6 import QtGui
+        QtWidgets.QMessageBox.critical(None, translate('OpenSCAD',"Unsupported Function")+" : "+p[1],translate('OpenSCAD',"Press OK"))
     else:
         p[0] = [placeholder(p[1],p[6],p[3])]
 
@@ -1339,7 +1340,7 @@ def p_projection_action(p) :
     else: # cut == 'false' => true projection
         if gui and not FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/OpenSCAD").\
                 GetBool('usePlaceholderForUnsupported'):
-            from PySide import QtGui
-            QtGui.QMessageBox.critical(None, translate('OpenSCAD',"Unsupported Function") + " : " + p[1],translate('OpenSCAD',"Press OK"))
+            from PySide6 import QtGui
+            QtWidgets.QMessageBox.critical(None, translate('OpenSCAD',"Unsupported Function") + " : " + p[1],translate('OpenSCAD',"Press OK"))
         else:
             p[0] = [placeholder(p[1],p[6],p[3])]

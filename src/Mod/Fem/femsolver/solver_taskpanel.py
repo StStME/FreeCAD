@@ -28,8 +28,8 @@ __url__ = "https://www.freecadweb.org"
 ## \addtogroup FEM
 #  @{
 
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore
+from PySide6 import QtGui
 
 import FreeCADGui as Gui
 
@@ -198,7 +198,7 @@ class ControlTaskPanel(QtCore.QObject):
         self.machineStateChanged.emit(state)
 
 
-class ControlWidget(QtGui.QWidget):
+class ControlWidget(QtWidgets.QWidget):
 
     writeClicked = QtCore.Signal()
     editClicked = QtCore.Signal()
@@ -249,7 +249,7 @@ class ControlWidget(QtGui.QWidget):
         timeLyt.addWidget(self._timeLbl)
         timeLyt.addStretch()
         timeLyt.setContentsMargins(0, 0, 0, 0)
-        self._timeWid = QtGui.QWidget()
+        self._timeWid = QtWidgets.QWidget()
         self._timeWid.setLayout(timeLyt)
 
         # Main layout

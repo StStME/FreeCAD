@@ -31,7 +31,7 @@
 # @{
 import pivy.coin as coin
 import sys
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import draftutils.utils as utils
 

@@ -33,9 +33,9 @@ import FreeCAD,Draft,ArchComponent,DraftVecUtils,ArchCommands,math
 from FreeCAD import Vector
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
     import draftguitools.gui_trackers as DraftTrackers
 else:
     # \cond
@@ -467,12 +467,12 @@ class _CommandWall:
     def taskbox(self):
         """Set up a simple gui widget for the interactive mode."""
 
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
         ui = FreeCADGui.UiLoader()
         w.setWindowTitle(translate("Arch","Wall options"))
-        grid = QtGui.QGridLayout(w)
+        grid = QtWidgets.QGridLayout(w)
 
-        matCombo = QtGui.QComboBox()
+        matCombo = QtWidgets.QComboBox()
         matCombo.addItem(translate("Arch","Wall Presets..."))
         matCombo.setToolTip(translate("Arch","This list shows all the MultiMaterials objects of this document. Create some to define wall types."))
         self.multimats = []
@@ -488,34 +488,34 @@ class _CommandWall:
                     self.MultiMat = o
         grid.addWidget(matCombo,0,0,1,2)
 
-        label5 = QtGui.QLabel(translate("Arch","Length"))
+        label5 = QtWidgets.QLabel(translate("Arch","Length"))
         self.Length = ui.createWidget("Gui::InputField")
         self.Length.setText("0.00 mm")
         grid.addWidget(label5,1,0,1,1)
         grid.addWidget(self.Length,1,1,1,1)
 
-        label1 = QtGui.QLabel(translate("Arch","Width"))
+        label1 = QtWidgets.QLabel(translate("Arch","Width"))
         value1 = ui.createWidget("Gui::InputField")
         value1.setText(FreeCAD.Units.Quantity(self.Width,FreeCAD.Units.Length).UserString)
         grid.addWidget(label1,2,0,1,1)
         grid.addWidget(value1,2,1,1,1)
 
-        label2 = QtGui.QLabel(translate("Arch","Height"))
+        label2 = QtWidgets.QLabel(translate("Arch","Height"))
         value2 = ui.createWidget("Gui::InputField")
         value2.setText(FreeCAD.Units.Quantity(self.Height,FreeCAD.Units.Length).UserString)
         grid.addWidget(label2,3,0,1,1)
         grid.addWidget(value2,3,1,1,1)
 
-        label3 = QtGui.QLabel(translate("Arch","Alignment"))
-        value3 = QtGui.QComboBox()
+        label3 = QtWidgets.QLabel(translate("Arch","Alignment"))
+        value3 = QtWidgets.QComboBox()
         items = [translate("Arch","Center"),translate("Arch","Left"),translate("Arch","Right")]
         value3.addItems(items)
         value3.setCurrentIndex(["Center","Left","Right"].index(self.Align))
         grid.addWidget(label3,4,0,1,1)
         grid.addWidget(value3,4,1,1,1)
 
-        label4 = QtGui.QLabel(translate("Arch","Con&tinue"))
-        value4 = QtGui.QCheckBox()
+        label4 = QtWidgets.QLabel(translate("Arch","Con&tinue"))
+        value4 = QtWidgets.QCheckBox()
         value4.setObjectName("ContinueCmd")
         value4.setLayoutDirection(QtCore.Qt.RightToLeft)
         label4.setBuddy(value4)
@@ -525,8 +525,8 @@ class _CommandWall:
         grid.addWidget(label4,5,0,1,1)
         grid.addWidget(value4,5,1,1,1)
 
-        label5 = QtGui.QLabel(translate("Arch","Use sketches"))
-        value5 = QtGui.QCheckBox()
+        label5 = QtWidgets.QLabel(translate("Arch","Use sketches"))
+        value5 = QtWidgets.QCheckBox()
         value5.setObjectName("UseSketches")
         value5.setLayoutDirection(QtCore.Qt.RightToLeft)
         label5.setBuddy(value5)
@@ -1713,7 +1713,7 @@ class _ViewProviderWall(ArchComponent.ViewProviderComponent):
 
     def setupContextMenu(self,vobj,menu):
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         action1 = QtGui.QAction(QtGui.QIcon(":/icons/Arch_Wall_Tree.svg"),"Flip direction",menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.flipDirection)
         menu.addAction(action1)

@@ -31,9 +31,9 @@ import re
 import sys
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt, utf8_decode=False):
@@ -494,7 +494,7 @@ class ViewProviderArchReference:
 
     def setupContextMenu(self,vobj,menu):
 
-        action1 = QtGui.QAction(QtGui.QIcon(":/icons/view-refresh.svg"),"Reload reference",menu)
+        action1 = QtWidgets.QAction(QtGui.QIcon(":/icons/view-refresh.svg"),"Reload reference",menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.onReload)
         menu.addAction(action1)
         action2 = QtGui.QAction(QtGui.QIcon(":/icons/document-open.svg"),"Open reference",menu)
@@ -644,27 +644,27 @@ class ArchReferenceTaskPanel:
 
         self.obj = obj
         self.filename = None
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.form.setWindowTitle("External reference")
-        layout = QtGui.QVBoxLayout(self.form)
-        label1 = QtGui.QLabel("External file:")
+        layout = QtWidgets.QVBoxLayout(self.form)
+        label1 = QtWidgets.QLabel("External file:")
         layout.addWidget(label1)
-        self.fileButton = QtGui.QPushButton(self.form)
-        self.openButton = QtGui.QPushButton(self.form)
+        self.fileButton = QtWidgets.QPushButton(self.form)
+        self.openButton = QtWidgets.QPushButton(self.form)
         self.openButton.setText("Open")
         if not self.obj.File:
             self.openButton.setEnabled(False)
-        l2 = QtGui.QHBoxLayout(self.form)
+        l2 = QtWidgets.QHBoxLayout(self.form)
         layout.addLayout(l2)
         l2.addWidget(self.fileButton)
         l2.addWidget(self.openButton)
-        label2 = QtGui.QLabel("Part to use:")
+        label2 = QtWidgets.QLabel("Part to use:")
         layout.addWidget(label2)
         if self.obj.File:
             self.fileButton.setText(os.path.basename(self.obj.File))
         else:
             self.fileButton.setText("Choose file...")
-        self.partCombo = QtGui.QComboBox(self.form)
+        self.partCombo = QtWidgets.QComboBox(self.form)
         layout.addWidget(self.partCombo)
         if hasattr(self.obj.Proxy,"parts"):
             parts = self.obj.Proxy.parts
@@ -705,7 +705,7 @@ class ArchReferenceTaskPanel:
         loc = QtCore.QDir.homePath()
         if self.obj.File:
             loc = os.path.dirname(self.obj.File)
-        f = QtGui.QFileDialog.getOpenFileName(self.form,'Choose reference file',loc,"FreeCAD standard files (*.FCStd)")
+        f = QtWidgets.QFileDialog.getOpenFileName(self.form,'Choose reference file',loc,"FreeCAD standard files (*.FCStd)")
         if f:
             self.filename = f[0]
             self.fileButton.setText(os.path.basename(self.filename))

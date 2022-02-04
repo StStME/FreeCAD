@@ -23,7 +23,7 @@
 import FreeCAD
 import FreeCADGui
 import Path
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 __doc__ = """Path Hop object and FreeCAD command"""
 

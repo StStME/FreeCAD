@@ -32,7 +32,7 @@ Minimum number of sides is three (equilateral triangles).
 
 ## \addtogroup draftguitools
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import FreeCADGui as Gui

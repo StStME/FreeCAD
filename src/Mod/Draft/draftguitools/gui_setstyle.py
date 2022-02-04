@@ -68,8 +68,10 @@ class Draft_SetStyle_TaskPanel:
 
     def __init__(self):
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui, QtWidgets
+        import pdb
         self.p = "User parameter:BaseApp/Preferences/"
+        pdb.set_trace()
         self.form = FreeCADGui.PySideUic.loadUi(":/ui/TaskPanel_SetStyle.ui")
         self.form.setWindowIcon(QtGui.QIcon.fromTheme("gtk-apply", QtGui.QIcon(":/icons/Draft_Apply.svg")))
         self.form.applyButton.setIcon(QtGui.QIcon.fromTheme("gtk-apply", QtGui.QIcon(":/icons/Draft_Apply.svg")))
@@ -116,7 +118,7 @@ class Draft_SetStyle_TaskPanel:
 
     def getColor(self,c):
 
-        from PySide import QtGui
+        from PySide6 import QtGui
         r = ((c>>24)&0xFF)/255.0
         g = ((c>>16)&0xFF)/255.0
         b = ((c>>8)&0xFF)/255.0
@@ -144,7 +146,7 @@ class Draft_SetStyle_TaskPanel:
 
     def setValues(self,preset):
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         self.form.LineColor.setProperty("color",self.getColor(preset.get("LineColor",255)))
         self.form.LineWidth.setValue(preset.get("LineWidth",1))
         self.form.DrawStyle.setCurrentIndex(preset.get("DrawStyle",0))
@@ -269,7 +271,7 @@ class Draft_SetStyle_TaskPanel:
 
     def onSaveStyle(self):
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         reply = QtGui.QInputDialog.getText(None,
                                            translate("Draft","Save style"),
                                            translate("Draft","Name of this new style:"))

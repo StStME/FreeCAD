@@ -32,7 +32,7 @@ import math
 
 from PathScripts.PathDressupTagPreferences import HoldingTagPreferences
 from PathScripts.PathUtils import waiting_effects
-from PySide import QtCore
+from PySide6 import QtCore
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

@@ -27,7 +27,7 @@ import PathScripts.PathProbe as PathProbe
 import PathScripts.PathOpGui as PathOpGui
 import PathScripts.PathGui as PathGui
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 __title__ = "Path Probing Operation UI"
 __author__ = "sliptonic (Brad Collette)"

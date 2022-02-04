@@ -30,7 +30,7 @@ import PathScripts.PathOp as PathOp
 from PathScripts.PathUtils import fmt
 from PathScripts.PathUtils import findParentJob
 from PathScripts.PathUtils import sort_jobs
-from PySide import QtCore
+from PySide6 import QtCore
 
 __title__ = "Path Helix Drill Operation"
 __author__ = "Lorenz Hüdepohl"

@@ -34,9 +34,10 @@ __url__    = "https://www.freecadweb.org"
 import FreeCAD,Draft,ArchCommands,sys,ArchIFC
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui,QtCore
+    from PySide6 import QtGui,QtCore, QtWidgets
+
     from draftutils.translate import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -1501,7 +1502,7 @@ class ViewProviderComponent:
             called.
         """
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         action1 = QtGui.QAction(QtGui.QIcon(":/icons/Arch_ToggleSubs.svg"),translate("Arch","Toggle subcomponents"),menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.toggleSubcomponents)
         menu.addAction(action1)
@@ -1647,12 +1648,12 @@ class SelectionTaskPanel:
     """
 
     def __init__(self):
-        self.baseform = QtGui.QLabel()
-        self.baseform.setText(QtGui.QApplication.translate("Arch", "Please select a base object", None))
+        self.baseform = QtWidgets.QLabel()
+        self.baseform.setText(QtWidgets.QApplication.translate("Arch", "Please select a base object", None))
 
     def getStandardButtons(self):
         """Adds the cancel button."""
-        return int(QtGui.QDialogButtonBox.Cancel)
+        return int(QtWidgets.QDialogButtonBox.Cancel)
 
     def reject(self):
         """The method run when the user selects the cancel button."""
@@ -1676,40 +1677,40 @@ class ComponentTaskPanel:
 
         self.obj = None
         self.attribs = ["Base","Additions","Subtractions","Objects","Components","Axes","Fixtures","Group","Hosts"]
-        self.baseform = QtGui.QWidget()
+        self.baseform = QtWidgets.QWidget()
         self.baseform.setObjectName("TaskPanel")
-        self.grid = QtGui.QGridLayout(self.baseform)
+        self.grid = QtWidgets.QGridLayout(self.baseform)
         self.grid.setObjectName("grid")
-        self.title = QtGui.QLabel(self.baseform)
+        self.title = QtWidgets.QLabel(self.baseform)
         self.grid.addWidget(self.title, 0, 0, 1, 2)
         self.form = self.baseform
 
         # tree
-        self.tree = QtGui.QTreeWidget(self.baseform)
+        self.tree = QtWidgets.QTreeWidget(self.baseform)
         self.grid.addWidget(self.tree, 1, 0, 1, 2)
         self.tree.setColumnCount(1)
         self.tree.header().hide()
 
         # buttons
-        self.addButton = QtGui.QPushButton(self.baseform)
+        self.addButton = QtWidgets.QPushButton(self.baseform)
         self.addButton.setObjectName("addButton")
         self.addButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         self.grid.addWidget(self.addButton, 3, 0, 1, 1)
         self.addButton.setEnabled(False)
 
-        self.delButton = QtGui.QPushButton(self.baseform)
+        self.delButton = QtWidgets.QPushButton(self.baseform)
         self.delButton.setObjectName("delButton")
         self.delButton.setIcon(QtGui.QIcon(":/icons/Arch_Remove.svg"))
         self.grid.addWidget(self.delButton, 3, 1, 1, 1)
         self.delButton.setEnabled(False)
 
-        self.ifcButton = QtGui.QPushButton(self.baseform)
+        self.ifcButton = QtWidgets.QPushButton(self.baseform)
         self.ifcButton.setObjectName("ifcButton")
         self.ifcButton.setIcon(QtGui.QIcon(":/icons/IFC.svg"))
         self.grid.addWidget(self.ifcButton, 4, 0, 1, 2)
         self.ifcButton.hide()
 
-        self.classButton = QtGui.QPushButton(self.baseform)
+        self.classButton = QtWidgets.QPushButton(self.baseform)
         self.classButton.setObjectName("classButton")
         self.grid.addWidget(self.classButton, 5, 0, 1, 2)
         try:
@@ -1757,7 +1758,7 @@ class ComponentTaskPanel:
     def getStandardButtons(self):
         """Add the standard ok button."""
 
-        return int(QtGui.QDialogButtonBox.Ok)
+        return int(QtWidgets.QDialogButtonBox.Ok)
 
     def check(self,wid,col):
         """This method is run as the callback when the user selects an item in the tree.
@@ -1806,7 +1807,7 @@ class ComponentTaskPanel:
         elif obj.isDerivedFrom("Sketcher::SketchObject"):
             return QtGui.QIcon(":/icons/Sketcher_Sketch.svg")
         elif obj.isDerivedFrom("App::DocumentObjectGroup"):
-            return QtGui.QApplication.style().standardIcon(QtGui.QStyle.SP_DirIcon)
+            return QtWidgets.QApplication.style().standardIcon(QtWidgets.QStyle.SP_DirIcon)
         elif hasattr(obj.ViewObject, "Icon"):
             return QtGui.QIcon(obj.ViewObject.Icon)
         return QtGui.QIcon(":/icons/Part_3D_object.svg")
@@ -1824,9 +1825,9 @@ class ComponentTaskPanel:
         """
 
         self.tree.clear()
-        dirIcon = QtGui.QApplication.style().standardIcon(QtGui.QStyle.SP_DirIcon)
+        dirIcon = QtWidgets.QApplication.style().standardIcon(QtWidgets.QStyle.SP_DirIcon)
         for a in self.attribs:
-            setattr(self,"tree"+a,QtGui.QTreeWidgetItem(self.tree))
+            setattr(self,"tree"+a,QtWidgets.QTreeWidgetItem(self.tree))
             c = getattr(self,"tree"+a)
             c.setIcon(0,dirIcon)
             c.ChildIndicatorPolicy = 2
@@ -1844,7 +1845,7 @@ class ComponentTaskPanel:
                         if attrib == "Base":
                             Oattrib = [Oattrib]
                         for o in Oattrib:
-                            item = QtGui.QTreeWidgetItem()
+                            item = QtWidgets.QTreeWidgetItem()
                             item.setText(0,o.Label)
                             item.setToolTip(0,o.Name)
                             item.setIcon(0,self.getIcon(o))
@@ -1932,21 +1933,21 @@ class ComponentTaskPanel:
         """Add the text of the task panel, in translated form.
         """
 
-        self.baseform.setWindowTitle(QtGui.QApplication.translate("Arch", "Component", None))
-        self.delButton.setText(QtGui.QApplication.translate("Arch", "Remove", None))
-        self.addButton.setText(QtGui.QApplication.translate("Arch", "Add", None))
-        self.title.setText(QtGui.QApplication.translate("Arch", "Components of this object", None))
-        self.treeBase.setText(0,QtGui.QApplication.translate("Arch", "Base component", None))
-        self.treeAdditions.setText(0,QtGui.QApplication.translate("Arch", "Additions", None))
-        self.treeSubtractions.setText(0,QtGui.QApplication.translate("Arch", "Subtractions", None))
-        self.treeObjects.setText(0,QtGui.QApplication.translate("Arch", "Objects", None))
-        self.treeAxes.setText(0,QtGui.QApplication.translate("Arch", "Axes", None))
-        self.treeComponents.setText(0,QtGui.QApplication.translate("Arch", "Components", None))
-        self.treeFixtures.setText(0,QtGui.QApplication.translate("Arch", "Fixtures", None))
-        self.treeGroup.setText(0,QtGui.QApplication.translate("Arch", "Group", None))
-        self.treeHosts.setText(0,QtGui.QApplication.translate("Arch", "Hosts", None))
-        self.ifcButton.setText(QtGui.QApplication.translate("Arch", "Edit IFC properties", None))
-        self.classButton.setText(QtGui.QApplication.translate("Arch", "Edit standard code", None))
+        self.baseform.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Component", None))
+        self.delButton.setText(QtWidgets.QApplication.translate("Arch", "Remove", None))
+        self.addButton.setText(QtWidgets.QApplication.translate("Arch", "Add", None))
+        self.title.setText(QtWidgets.QApplication.translate("Arch", "Components of this object", None))
+        self.treeBase.setText(0,QtWidgets.QApplication.translate("Arch", "Base component", None))
+        self.treeAdditions.setText(0,QtWidgets.QApplication.translate("Arch", "Additions", None))
+        self.treeSubtractions.setText(0,QtWidgets.QApplication.translate("Arch", "Subtractions", None))
+        self.treeObjects.setText(0,QtWidgets.QApplication.translate("Arch", "Objects", None))
+        self.treeAxes.setText(0,QtWidgets.QApplication.translate("Arch", "Axes", None))
+        self.treeComponents.setText(0,QtWidgets.QApplication.translate("Arch", "Components", None))
+        self.treeFixtures.setText(0,QtWidgets.QApplication.translate("Arch", "Fixtures", None))
+        self.treeGroup.setText(0,QtWidgets.QApplication.translate("Arch", "Group", None))
+        self.treeHosts.setText(0,QtWidgets.QApplication.translate("Arch", "Hosts", None))
+        self.ifcButton.setText(QtWidgets.QApplication.translate("Arch", "Edit IFC properties", None))
+        self.classButton.setText(QtWidgets.QApplication.translate("Arch", "Edit standard code", None))
 
     def editIfcProperties(self):
         """Open the IFC editor dialog box.
@@ -1987,19 +1988,19 @@ class ComponentTaskPanel:
         # center the dialog over FreeCAD window
         mw = FreeCADGui.getMainWindow()
         self.ifcEditor.move(mw.frameGeometry().topLeft() + mw.rect().center() - self.ifcEditor.rect().center())
-        self.ifcModel = QtGui.QStandardItemModel()
+        self.ifcModel = QtWidgets.QStandardItemModel()
         self.ifcEditor.treeProperties.setModel(self.ifcModel)
-        #self.ifcEditor.treeProperties.setDragDropMode(QtGui.QAbstractItemView.InternalMove)
+        #self.ifcEditor.treeProperties.setDragDropMode(QtWidgets.QAbstractItemView.InternalMove)
         self.ifcEditor.treeProperties.setUniformRowHeights(True)
         self.ifcEditor.treeProperties.setItemDelegate(IfcEditorDelegate(dialog=self,ptypes=self.ptypes,plabels=self.plabels))
-        self.ifcModel.setHorizontalHeaderLabels([QtGui.QApplication.translate("Arch", "Property", None),
-                                                 QtGui.QApplication.translate("Arch", "Type", None),
-                                                 QtGui.QApplication.translate("Arch", "Value", None)])
+        self.ifcModel.setHorizontalHeaderLabels([QtWidgets.QApplication.translate("Arch", "Property", None),
+                                                 QtWidgets.QApplication.translate("Arch", "Type", None),
+                                                 QtWidgets.QApplication.translate("Arch", "Value", None)])
 
         # set combos
-        self.ifcEditor.comboProperty.addItems([QtGui.QApplication.translate("Arch", "Add property...", None)]+self.plabels)
-        self.ifcEditor.comboPset.addItems([QtGui.QApplication.translate("Arch", "Add property set...", None),
-                                           QtGui.QApplication.translate("Arch", "New...", None)]+self.psetkeys)
+        self.ifcEditor.comboProperty.addItems([QtWidgets.QApplication.translate("Arch", "Add property...", None)]+self.plabels)
+        self.ifcEditor.comboPset.addItems([QtWidgets.QApplication.translate("Arch", "Add property set...", None),
+                                           QtWidgets.QApplication.translate("Arch", "New...", None)]+self.psetkeys)
 
         # set UUID
         if "IfcUID" in self.obj.IfcData:
@@ -2025,16 +2026,16 @@ class ComponentTaskPanel:
                 plabel = self.plabels[self.ptypes.index(ptype)]
             psets.setdefault(pset,[]).append([pname,plabel,pvalue])
         for pset,plists in psets.items():
-            top = QtGui.QStandardItem(pset)
+            top = QtWidgets.QStandardItem(pset)
             top.setDragEnabled(False)
             top.setToolTip("PropertySet")
-            self.ifcModel.appendRow([top,QtGui.QStandardItem(),QtGui.QStandardItem()])
+            self.ifcModel.appendRow([top,QtWidgets.QStandardItem(),QtWidgets.QStandardItem()])
             for plist in plists:
-                it1 = QtGui.QStandardItem(plist[0])
+                it1 = QtWidgets.QStandardItem(plist[0])
                 it1.setDropEnabled(False)
-                it2 = QtGui.QStandardItem(plist[1])
+                it2 = QtWidgets.QStandardItem(plist[1])
                 it2.setDropEnabled(False)
-                it3 = QtGui.QStandardItem(plist[2])
+                it3 = QtWidgets.QStandardItem(plist[2])
                 it3.setDropEnabled(False)
                 top.appendRow([it1,it2,it3])
             top.sortChildren(0)
@@ -2140,18 +2141,18 @@ class ComponentTaskPanel:
                         pset = item
             if pset:
                 if not prop:
-                    prop = QtGui.QApplication.translate("Arch", "New property", None)
+                    prop = QtWidgets.QApplication.translate("Arch", "New property", None)
                 if not ptype:
                     if idx > 0:
                         ptype = self.plabels[idx-1]
                 if prop and ptype:
                     if ptype in self.ptypes:
                         ptype = self.plabels[self.ptypes.index(ptype)]
-                    it1 = QtGui.QStandardItem(prop)
+                    it1 = QtWidgets.QStandardItem(prop)
                     it1.setDropEnabled(False)
-                    it2 = QtGui.QStandardItem(ptype)
+                    it2 = QtWidgets.QStandardItem(ptype)
                     it2.setDropEnabled(False)
-                    it3 = QtGui.QStandardItem()
+                    it3 = QtWidgets.QStandardItem()
                     it3.setDropEnabled(False)
                     pset.appendRow([it1,it2,it3])
             if idx != 0:
@@ -2176,18 +2177,18 @@ class ComponentTaskPanel:
 
         if hasattr(self,"ifcEditor") and self.ifcEditor:
             if idx == 1:
-                top = QtGui.QStandardItem(QtGui.QApplication.translate("Arch", "New property set", None))
+                top = QtWidgets.QStandardItem(QtWidgets.QApplication.translate("Arch", "New property set", None))
                 top.setDragEnabled(False)
                 top.setToolTip("PropertySet")
-                self.ifcModel.appendRow([top,QtGui.QStandardItem(),QtGui.QStandardItem()])
+                self.ifcModel.appendRow([top,QtWidgets.QStandardItem(),QtWidgets.QStandardItem()])
             elif idx > 1:
                 psetlabel = self.psetkeys[idx-2]
                 psetdef = "Pset_"+psetlabel.replace(" ","")
                 if psetdef in self.psetdefs:
-                    top = QtGui.QStandardItem(psetdef)
+                    top = QtWidgets.QStandardItem(psetdef)
                     top.setDragEnabled(False)
                     top.setToolTip("PropertySet")
-                    self.ifcModel.appendRow([top,QtGui.QStandardItem(),QtGui.QStandardItem()])
+                    self.ifcModel.appendRow([top,QtWidgets.QStandardItem(),QtWidgets.QStandardItem()])
                     for i in range(0,len(self.psetdefs[psetdef]),2):
                         self.addIfcProperty(pset=top,prop=self.psetdefs[psetdef][i],ptype=self.psetdefs[psetdef][i+1])
             if idx != 0:
@@ -2231,7 +2232,7 @@ class ComponentTaskPanel:
 
 if FreeCAD.GuiUp:
 
-    class IfcEditorDelegate(QtGui.QStyledItemDelegate):
+    class IfcEditorDelegate(QtWidgets.QStyledItemDelegate):
         """This class manages the editing of the individual table cells in the IFC editor.
 
         Parameters
@@ -2249,7 +2250,7 @@ if FreeCAD.GuiUp:
 
         def __init__(self, parent=None, dialog=None, ptypes=[], plabels=[], *args):
             self.dialog = dialog
-            QtGui.QStyledItemDelegate.__init__(self, parent, *args)
+            QtWidgets.QStyledItemDelegate.__init__(self, parent, *args)
             self.ptypes = ptypes
             self.plabels = plabels
 
@@ -2277,24 +2278,24 @@ if FreeCAD.GuiUp:
             """
 
             if index.column() == 0: # property name
-                editor = QtGui.QLineEdit(parent)
+                editor = QtWidgets.QLineEdit(parent)
             elif index.column() == 1: # property type
-                editor = QtGui.QComboBox(parent)
+                editor = QtWidgets.QComboBox(parent)
             else: # property value
                 ptype = index.sibling(index.row(),1).data()
                 if "Integer" in ptype:
-                    editor = QtGui.QSpinBox(parent)
+                    editor = QtWidgets.QSpinBox(parent)
                 elif "Real" in ptype:
-                    editor = QtGui.QDoubleSpinBox(parent)
+                    editor = QtWidgets.QDoubleSpinBox(parent)
                     editor.setDecimals(FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Units").GetInt("Decimals",2))
                 elif ("Boolean" in ptype) or ("Logical" in ptype):
-                    editor = QtGui.QComboBox(parent)
+                    editor = QtWidgets.QComboBox(parent)
                     editor.addItems(["True","False"])
                 elif "Measure" in ptype:
                     editor = FreeCADGui.UiLoader().createWidget("Gui::InputField")
                     editor.setParent(parent)
                 else:
-                    editor = QtGui.QLineEdit(parent)
+                    editor = QtWidgets.QLineEdit(parent)
                 editor.setObjectName("editor_"+ptype)
             return editor
 

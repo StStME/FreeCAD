@@ -29,10 +29,10 @@ __date__ = "03/05/2019"
 
 import math
 import FreeCAD
-from PySide import QtCore
+from PySide6 import QtCore
 
 if FreeCAD.GuiUp:
-    from PySide import QtGui
+    from PySide6 import QtGui
     import pivy.coin as pvy
 
     import FreeCADGui
@@ -209,7 +209,7 @@ def cmdCreateImageScaling(name, trackers):
     
     #Init        
     if FreeCADGui.ActiveDocument is not None:
-        d = QtGui.QWidget()
+        d = QtWidgets.QWidget()
         ui = Ui_Dialog()
         ui.setupUi(d)
         centerOnScreen (d)

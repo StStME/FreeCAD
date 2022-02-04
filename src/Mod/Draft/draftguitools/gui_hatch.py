@@ -55,7 +55,7 @@ class Draft_Hatch_TaskPanel:
     def __init__(self,baseobj):
 
         import FreeCADGui
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         import Draft_rc
 
         self.baseobj = baseobj

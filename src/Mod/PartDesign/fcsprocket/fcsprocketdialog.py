@@ -15,7 +15,7 @@
 #   License along with FCGear; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
 
-from PySide import QtGui as qt
+from PySide6 import QtGui as qt
 import FreeCAD, FreeCADGui
 
 class SprocketCreationFrame(qt.QFrame):

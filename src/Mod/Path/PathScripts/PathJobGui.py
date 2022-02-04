@@ -21,7 +21,7 @@
 # ***************************************************************************
 
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from collections import Counter
 from contextlib import contextmanager
 from pivy import coin

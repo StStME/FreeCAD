@@ -26,7 +26,7 @@ import PathGui as PGui # ensure Path/Gui/Resources are loaded
 import PathScripts.PathDressupPathBoundary as PathDressupPathBoundary
 import PathScripts.PathLog as PathLog
 
-from PySide import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 
 PathLog.setLevel(PathLog.Level.INFO, PathLog.thisModule())
 #PathLog.trackModule()

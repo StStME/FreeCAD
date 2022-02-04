@@ -28,7 +28,7 @@ and attributes of Arch/BIM objects.
 import FreeCAD,json
 
 if FreeCAD.GuiUp:
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     def QT_TRANSLATE_NOOP(ctx,txt):
         return txt

@@ -705,13 +705,20 @@ PyObject* Application::sSendFocusView(PyObject * /*self*/, PyObject *args)
 
 PyObject* Application::sGetMainWindow(PyObject * /*self*/, PyObject *args)
 {
-    if (!PyArg_ParseTuple(args, ""))
+    if (!PyArg_ParseTuple(args, "")){
+        printf("\nNOARGS: try to get main window1");
+        PyErr_SetString(PyExc_RuntimeError, "\nNOARGS: try to get main window1");
         return nullptr;
+    }
 
     try {
+        printf("\ntry to get main window");
+        PyErr_SetString(PyExc_RuntimeError, "\ntry to get main window");
         return Py::new_reference_to(MainWindowPy::createWrapper(Gui::getMainWindow()));
     }
     catch (const Py::Exception&) {
+        printf("\nEXCEPTION: try to get main window");
+        PyErr_SetString(PyExc_RuntimeError, "\nException: try to get main window");
         return nullptr;
     }
 }

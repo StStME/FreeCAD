@@ -25,10 +25,10 @@ import FreeCAD,Draft,math,ArchCommands
 from FreeCAD import Vector
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
     from pivy import coin
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):
@@ -746,15 +746,15 @@ class _AxisTaskPanel:
         self.updating = False
 
         self.obj = None
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.form.setObjectName("TaskPanel")
-        self.grid = QtGui.QGridLayout(self.form)
+        self.grid = QtWidgets.QGridLayout(self.form)
         self.grid.setObjectName("grid")
-        self.title = QtGui.QLabel(self.form)
+        self.title = QtWidgets.QLabel(self.form)
         self.grid.addWidget(self.title, 0, 0, 1, 2)
 
         # tree
-        self.tree = QtGui.QTreeWidget(self.form)
+        self.tree = QtWidgets.QTreeWidget(self.form)
         self.grid.addWidget(self.tree, 1, 0, 1, 2)
         self.tree.setColumnCount(4)
         self.tree.header().resizeSection(0,50)
@@ -762,13 +762,13 @@ class _AxisTaskPanel:
         self.tree.header().resizeSection(2,60)
 
         # buttons
-        self.addButton = QtGui.QPushButton(self.form)
+        self.addButton = QtWidgets.QPushButton(self.form)
         self.addButton.setObjectName("addButton")
         self.addButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         self.grid.addWidget(self.addButton, 3, 0, 1, 1)
         self.addButton.setEnabled(True)
 
-        self.delButton = QtGui.QPushButton(self.form)
+        self.delButton = QtWidgets.QPushButton(self.form)
         self.delButton.setObjectName("delButton")
         self.delButton.setIcon(QtGui.QIcon(":/icons/Arch_Remove.svg"))
         self.grid.addWidget(self.delButton, 3, 1, 1, 1)
@@ -789,7 +789,7 @@ class _AxisTaskPanel:
 
     def getStandardButtons(self):
 
-        return int(QtGui.QDialogButtonBox.Close)
+        return int(QtWidgets.QDialogButtonBox.Close)
 
     def update(self):
 
@@ -798,7 +798,7 @@ class _AxisTaskPanel:
         self.tree.clear()
         if self.obj:
             for i in range(len(self.obj.Distances)):
-                item = QtGui.QTreeWidgetItem(self.tree)
+                item = QtWidgets.QTreeWidgetItem(self.tree)
                 item.setText(0,str(i+1))
                 if len(self.obj.Distances) > i:
                     item.setText(1,str(self.obj.Distances[i]))
@@ -814,7 +814,7 @@ class _AxisTaskPanel:
 
     def addElement(self):
 
-        item = QtGui.QTreeWidgetItem(self.tree)
+        item = QtWidgets.QTreeWidgetItem(self.tree)
         item.setText(0,str(self.tree.topLevelItemCount()))
         item.setText(1,"1.0")
         item.setText(2,"0.0")
@@ -867,14 +867,14 @@ class _AxisTaskPanel:
 
     def retranslateUi(self, TaskPanel):
 
-        TaskPanel.setWindowTitle(QtGui.QApplication.translate("Arch", "Axes", None))
-        self.delButton.setText(QtGui.QApplication.translate("Arch", "Remove", None))
-        self.addButton.setText(QtGui.QApplication.translate("Arch", "Add", None))
-        self.title.setText(QtGui.QApplication.translate("Arch", "Distances (mm) and angles (deg) between axes", None))
-        self.tree.setHeaderLabels([QtGui.QApplication.translate("Arch", "Axis", None),
-                                   QtGui.QApplication.translate("Arch", "Distance", None),
-                                   QtGui.QApplication.translate("Arch", "Angle", None),
-                                   QtGui.QApplication.translate("Arch", "Label", None)])
+        TaskPanel.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Axes", None))
+        self.delButton.setText(QtWidgets.QApplication.translate("Arch", "Remove", None))
+        self.addButton.setText(QtWidgets.QApplication.translate("Arch", "Add", None))
+        self.title.setText(QtWidgets.QApplication.translate("Arch", "Distances (mm) and angles (deg) between axes", None))
+        self.tree.setHeaderLabels([QtWidgets.QApplication.translate("Arch", "Axis", None),
+                                   QtWidgets.QApplication.translate("Arch", "Distance", None),
+                                   QtWidgets.QApplication.translate("Arch", "Angle", None),
+                                   QtWidgets.QApplication.translate("Arch", "Label", None)])
 
 
 class _AxisSystem:
@@ -1042,26 +1042,26 @@ class AxisSystemTaskPanel:
     def __init__(self,obj):
 
         self.obj = obj
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.form.setObjectName("Axis System")
-        self.grid = QtGui.QGridLayout(self.form)
+        self.grid = QtWidgets.QGridLayout(self.form)
         self.grid.setObjectName("grid")
-        self.title = QtGui.QLabel(self.form)
+        self.title = QtWidgets.QLabel(self.form)
         self.grid.addWidget(self.title, 0, 0, 1, 2)
 
         # tree
-        self.tree = QtGui.QTreeWidget(self.form)
+        self.tree = QtWidgets.QTreeWidget(self.form)
         self.grid.addWidget(self.tree, 1, 0, 1, 2)
         self.tree.setColumnCount(1)
         self.tree.header().hide()
 
         # buttons
-        self.addButton = QtGui.QPushButton(self.form)
+        self.addButton = QtWidgets.QPushButton(self.form)
         self.addButton.setObjectName("addButton")
         self.addButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         self.grid.addWidget(self.addButton, 3, 0, 1, 1)
 
-        self.delButton = QtGui.QPushButton(self.form)
+        self.delButton = QtWidgets.QPushButton(self.form)
         self.delButton.setObjectName("delButton")
         self.delButton.setIcon(QtGui.QIcon(":/icons/Arch_Remove.svg"))
         self.grid.addWidget(self.delButton, 3, 1, 1, 1)
@@ -1080,7 +1080,7 @@ class AxisSystemTaskPanel:
 
     def getStandardButtons(self):
 
-        return int(QtGui.QDialogButtonBox.Ok)
+        return int(QtWidgets.QDialogButtonBox.Ok)
 
     def getIcon(self,obj):
 
@@ -1089,7 +1089,7 @@ class AxisSystemTaskPanel:
         elif obj.isDerivedFrom("Sketcher::SketchObject"):
             return QtGui.QIcon(":/icons/Sketcher_Sketch.svg")
         elif obj.isDerivedFrom("App::DocumentObjectGroup"):
-            return QtGui.QApplication.style().standardIcon(QtGui.QStyle.SP_DirIcon)
+            return QtWidgets.QApplication.style().standardIcon(QtGui.QStyle.SP_DirIcon)
         elif hasattr(obj.ViewObject, "Icon"):
             return QtGui.QIcon(obj.ViewObject.Icon)
         return QtGui.QIcon(":/icons/Part_3D_object.svg")
@@ -1099,7 +1099,7 @@ class AxisSystemTaskPanel:
         self.tree.clear()
         if self.obj:
             for o in self.obj.Axes:
-                item = QtGui.QTreeWidgetItem(self.tree)
+                item = QtWidgets.QTreeWidgetItem(self.tree)
                 item.setText(0,o.Label)
                 item.setToolTip(0,o.Name)
                 item.setIcon(0,self.getIcon(o))
@@ -1135,10 +1135,10 @@ class AxisSystemTaskPanel:
 
     def retranslateUi(self, TaskPanel):
 
-        TaskPanel.setWindowTitle(QtGui.QApplication.translate("Arch", "Axes", None))
-        self.delButton.setText(QtGui.QApplication.translate("Arch", "Remove", None))
-        self.addButton.setText(QtGui.QApplication.translate("Arch", "Add", None))
-        self.title.setText(QtGui.QApplication.translate("Arch", "Axis system components", None))
+        TaskPanel.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Axes", None))
+        self.delButton.setText(QtWidgets.QApplication.translate("Arch", "Remove", None))
+        self.addButton.setText(QtWidgets.QApplication.translate("Arch", "Add", None))
+        self.title.setText(QtWidgets.QApplication.translate("Arch", "Axis system components", None))
 
 
 class ArchGrid:
@@ -1393,56 +1393,56 @@ class ArchGridTaskPanel:
         self.height = 0
         self.spans = []
         self.obj = obj
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         uil = FreeCADGui.UiLoader()
-        layout = QtGui.QVBoxLayout(self.form)
-        hbox3 = QtGui.QHBoxLayout()
+        layout = QtWidgets.QVBoxLayout(self.form)
+        hbox3 = QtWidgets.QHBoxLayout()
         layout.addLayout(hbox3)
-        self.wLabel = QtGui.QLabel(self.form)
+        self.wLabel = QtWidgets.QLabel(self.form)
         hbox3.addWidget(self.wLabel)
         self.widthUi = uil.createWidget("Gui::InputField")
         hbox3.addWidget(self.widthUi)
-        hbox4 = QtGui.QHBoxLayout()
+        hbox4 = QtWidgets.QHBoxLayout()
         layout.addLayout(hbox4)
-        self.hLabel = QtGui.QLabel(self.form)
+        self.hLabel = QtWidgets.QLabel(self.form)
         hbox4.addWidget(self.hLabel)
         self.heightUi = uil.createWidget("Gui::InputField")
         hbox4.addWidget(self.heightUi)
-        self.title = QtGui.QLabel(self.form)
+        self.title = QtWidgets.QLabel(self.form)
         layout.addWidget(self.title)
 
         # grid
-        self.table = QtGui.QTableWidget(self.form)
+        self.table = QtWidgets.QTableWidget(self.form)
         layout.addWidget(self.table)
         style = "QTableWidget { background-color: #ffffff; gridline-color: #000000; }"
         self.table.setStyleSheet(style)
-        self.table.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+        self.table.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.Stretch)
 
         # row/column buttons
-        hbox1 = QtGui.QHBoxLayout()
+        hbox1 = QtWidgets.QHBoxLayout()
         layout.addLayout(hbox1)
-        self.addRowButton = QtGui.QPushButton(self.form)
+        self.addRowButton = QtWidgets.QPushButton(self.form)
         self.addRowButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         hbox1.addWidget(self.addRowButton)
-        self.delRowButton = QtGui.QPushButton(self.form)
+        self.delRowButton = QtWidgets.QPushButton(self.form)
         self.delRowButton.setIcon(QtGui.QIcon(":/icons/Arch_Remove.svg"))
         hbox1.addWidget(self.delRowButton)
-        self.addColumnButton = QtGui.QPushButton(self.form)
+        self.addColumnButton = QtWidgets.QPushButton(self.form)
         self.addColumnButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         hbox1.addWidget(self.addColumnButton)
-        self.delColumnButton = QtGui.QPushButton(self.form)
+        self.delColumnButton = QtWidgets.QPushButton(self.form)
         self.delColumnButton.setIcon(QtGui.QIcon(":/icons/Arch_Remove.svg"))
         hbox1.addWidget(self.delColumnButton)
 
         # span buttons
         import SpreadsheetGui
-        hbox2 = QtGui.QHBoxLayout()
+        hbox2 = QtWidgets.QHBoxLayout()
         layout.addLayout(hbox2)
-        self.spanButton = QtGui.QPushButton(self.form)
+        self.spanButton = QtWidgets.QPushButton(self.form)
         self.spanButton.setIcon(QtGui.QIcon(":/icons/SpreadsheetMergeCells.svg"))
         hbox2.addWidget(self.spanButton)
         self.spanButton.setEnabled(False)
-        self.delSpanButton = QtGui.QPushButton(self.form)
+        self.delSpanButton = QtWidgets.QPushButton(self.form)
         self.delSpanButton.setIcon(QtGui.QIcon(":/icons/SpreadsheetSplitCell.svg"))
         hbox2.addWidget(self.delSpanButton)
         self.delSpanButton.setEnabled(False)
@@ -1464,16 +1464,16 @@ class ArchGridTaskPanel:
 
     def retranslateUi(self,widget=None):
 
-        self.form.setWindowTitle(QtGui.QApplication.translate("Arch", "Grid", None))
-        self.wLabel.setText(QtGui.QApplication.translate("Arch", "Total width", None))
-        self.hLabel.setText(QtGui.QApplication.translate("Arch", "Total height", None))
-        self.addRowButton.setText(QtGui.QApplication.translate("Arch", "Add row", None))
-        self.delRowButton.setText(QtGui.QApplication.translate("Arch", "Del row", None))
-        self.addColumnButton.setText(QtGui.QApplication.translate("Arch", "Add col", None))
-        self.delColumnButton.setText(QtGui.QApplication.translate("Arch", "Del col", None))
-        self.spanButton.setText(QtGui.QApplication.translate("Arch", "Create span", None))
-        self.delSpanButton.setText(QtGui.QApplication.translate("Arch", "Remove span", None))
-        self.title.setText(QtGui.QApplication.translate("Arch", "Rows", None)+": "+str(self.table.rowCount())+" / "+QtGui.QApplication.translate("Arch", "Columns", None)+": "+str(self.table.columnCount()))
+        self.form.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Grid", None))
+        self.wLabel.setText(QtWidgets.QApplication.translate("Arch", "Total width", None))
+        self.hLabel.setText(QtWidgets.QApplication.translate("Arch", "Total height", None))
+        self.addRowButton.setText(QtWidgets.QApplication.translate("Arch", "Add row", None))
+        self.delRowButton.setText(QtWidgets.QApplication.translate("Arch", "Del row", None))
+        self.addColumnButton.setText(QtWidgets.QApplication.translate("Arch", "Add col", None))
+        self.delColumnButton.setText(QtWidgets.QApplication.translate("Arch", "Del col", None))
+        self.spanButton.setText(QtWidgets.QApplication.translate("Arch", "Create span", None))
+        self.delSpanButton.setText(QtWidgets.QApplication.translate("Arch", "Remove span", None))
+        self.title.setText(QtWidgets.QApplication.translate("Arch", "Rows", None)+": "+str(self.table.rowCount())+" / "+QtWidgets.QApplication.translate("Arch", "Columns", None)+": "+str(self.table.columnCount()))
 
     def update(self):
 
@@ -1523,7 +1523,7 @@ class ArchGridTaskPanel:
 
         c = self.table.currentRow()
         self.table.insertRow(c+1)
-        self.table.setVerticalHeaderItem(c+1,QtGui.QTableWidgetItem("0"))
+        self.table.setVerticalHeaderItem(c+1,QtWidgets.QTableWidgetItem("0"))
         self.retranslateUi()
 
     def delRow(self):
@@ -1536,7 +1536,7 @@ class ArchGridTaskPanel:
 
         c = self.table.currentColumn()
         self.table.insertColumn(c+1)
-        self.table.setHorizontalHeaderItem(c+1,QtGui.QTableWidgetItem("0"))
+        self.table.setHorizontalHeaderItem(c+1,QtWidgets.QTableWidgetItem("0"))
         self.retranslateUi()
 
     def delColumn(self):
@@ -1587,15 +1587,15 @@ class ArchGridTaskPanel:
 
     def editHorizontalHeader(self, index):
 
-        val,ok = QtGui.QInputDialog.getText(None,'Edit size','New size')
+        val,ok = QtWidgets.QInputDialog.getText(None,'Edit size','New size')
         if ok:
-            self.table.setHorizontalHeaderItem(index,QtGui.QTableWidgetItem(val))
+            self.table.setHorizontalHeaderItem(index,QtWidgets.QTableWidgetItem(val))
 
     def editVerticalHeader(self, index):
 
-        val,ok = QtGui.QInputDialog.getText(None,'Edit size','New size')
+        val,ok = QtWidgets.QInputDialog.getText(None,'Edit size','New size')
         if ok:
-            self.table.setVerticalHeaderItem(index,QtGui.QTableWidgetItem(val))
+            self.table.setVerticalHeaderItem(index,QtWidgets.QTableWidgetItem(val))
 
     def setWidth(self,d):
 

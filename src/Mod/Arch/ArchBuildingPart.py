@@ -31,7 +31,7 @@ import os
 if FreeCAD.GuiUp:
     import FreeCADGui
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
     import draftutils.units as units
 else:
     # \cond
@@ -897,7 +897,7 @@ class ViewProviderBuildingPart:
 
     def setupContextMenu(self,vobj,menu):
 
-        from PySide import QtCore,QtGui
+        from PySide6 import QtCore,QtGui
         import Draft_rc
         action1 = QtGui.QAction(QtGui.QIcon(":/icons/Draft_SelectPlane.svg"),"Set working plane",menu)
         QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.setWorkingPlane)

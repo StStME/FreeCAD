@@ -1388,8 +1388,8 @@ def getIfcElevation(obj):
 def explore(filename=None):
     "explore the contents of an ifc file in a Qt dialog"
     if not filename:
-        from PySide import QtGui
-        filename = QtGui.QFileDialog.getOpenFileName(QtGui.QApplication.activeWindow(),'IFC files','*.ifc')
+        from PySide6 import QtGui
+        filename = QtWidgets.QFileDialog.getOpenFileName(QtWidgets.QApplication.activeWindow(),'IFC files','*.ifc')
         if filename:
             filename = filename[0]
     if filename:
@@ -1798,10 +1798,10 @@ class IfcDocument:
 
 def explorer(filename,schema="IFC2X3_TC1.exp"):
     "returns a PySide dialog showing the contents of an IFC file"
-    from PySide import QtCore,QtGui
+    from PySide6 import QtCore,QtGui
     ifc = IfcDocument(filename,schema)
     schema = IfcSchema(schema)
-    tree = QtGui.QTreeWidget()
+    tree = QtWidgets.QTreeWidget()
     tree.setColumnCount(3)
     tree.setWordWrap(True)
     tree.header().setDefaultSectionSize(60)
@@ -1811,7 +1811,7 @@ def explorer(filename,schema="IFC2X3_TC1.exp"):
     tree.headerItem().setText(0, "ID")
     tree.headerItem().setText(1, "")
     tree.headerItem().setText(2, "Item and Properties")
-    bold = QtGui.QFont()
+    bold = QtWidgets.QFont()
     bold.setWeight(75)
     bold.setBold(True)
 
@@ -1819,7 +1819,7 @@ def explorer(filename,schema="IFC2X3_TC1.exp"):
 
     for i in ifc.Entities.keys():
         e = ifc.Entities[i]
-        item = QtGui.QTreeWidgetItem(tree)
+        item = QtWidgets.QTreeWidgetItem(tree)
         if hasattr(e,"id"):
             item.setText(0,str(e.id))
             if e.type in ["IFCWALL","IFCWALLSTANDARDCASE"]:
@@ -1855,7 +1855,7 @@ def explorer(filename,schema="IFC2X3_TC1.exp"):
                         else:
                             t = str(v)
                         t = "    " + str(a) + " : " + str(t)
-                        item = QtGui.QTreeWidgetItem(tree)
+                        item = QtWidgets.QTreeWidgetItem(tree)
                         item.setText(2,str(t))
                         if isinstance(v,list):
                             for vi in v:
@@ -1864,14 +1864,14 @@ def explorer(filename,schema="IFC2X3_TC1.exp"):
                                 else:
                                     t = vi
                                 t = "        " + str(t)
-                                item = QtGui.QTreeWidgetItem(tree)
+                                item = QtWidgets.QTreeWidgetItem(tree)
                                 item.setText(2,str(t))
 
-    d = QtGui.QDialog()
+    d = QtWidgets.QDialog()
     d.setObjectName("IfcExplorer")
     d.setWindowTitle("Ifc Explorer")
     d.resize(640, 480)
-    layout = QtGui.QVBoxLayout(d)
+    layout = QtWidgets.QVBoxLayout(d)
     layout.addWidget(tree)
     return d
     

@@ -30,7 +30,7 @@ import math
 from lazy_loader.lazy_loader import LazyLoader
 PathUtils = LazyLoader('PathScripts.PathUtils', globals(), 'PathScripts.PathUtils')
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __title__ = "Path Features Extensions"
 __author__ = "sliptonic (Brad Collette)"

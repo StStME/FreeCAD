@@ -29,7 +29,7 @@ import PathScripts.PathToolBit as PathToolBit
 import PathScripts.PathToolBitEdit as PathToolBitEdit
 import os
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 __title__ = "Tool Bit UI"
 __author__ = "sliptonic (Brad Collette)"

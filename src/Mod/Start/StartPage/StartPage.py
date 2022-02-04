@@ -35,7 +35,7 @@ import FreeCAD
 import FreeCADGui
 import urllib.parse
 from . import TranslationTexts
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 FreeCADGui.addLanguagePath(":/translations")
 FreeCADGui.updateLocale()

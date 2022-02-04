@@ -31,8 +31,8 @@ __url__ = "https://www.freecadweb.org"
 #  \ingroup FEM
 #  \brief task panel for element fluid 1D object
 
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore
+from PySide6 import QtGui
 
 import FreeCAD
 import FreeCADGui

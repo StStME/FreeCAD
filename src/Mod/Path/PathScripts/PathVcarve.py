@@ -34,7 +34,7 @@ import traceback
 
 import math
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __doc__ = "Class and implementation of Path Vcarve operation"
 

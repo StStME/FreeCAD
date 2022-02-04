@@ -34,7 +34,7 @@ similar to the OrthoArray tool.
 ## \addtogroup draftguitools
 # @{
 import PySide.QtCore as QtCore
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCADGui as Gui
 import Draft

@@ -40,7 +40,7 @@ to create 2D projections of 2D and 3D objects.
 
 ## \addtogroup draftguitools
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import FreeCADGui as Gui

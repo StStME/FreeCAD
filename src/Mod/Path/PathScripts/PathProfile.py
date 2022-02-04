@@ -30,7 +30,7 @@ import PathScripts.PathOp as PathOp
 import PathScripts.PathUtils as PathUtils
 import math
 import numpy
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

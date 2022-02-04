@@ -26,7 +26,7 @@ import Path
 import PathScripts.PathLog as PathLog
 import math
 
-from PySide import QtGui
+from PySide6 import QtGui
 
 PathLog.setLevel(PathLog.Level.INFO, PathLog.thisModule())
 #PathLog.trackModule(PathLog.thisModule())

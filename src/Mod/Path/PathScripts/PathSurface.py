@@ -30,7 +30,7 @@ __doc__ = "Class and implementation of 3D Surface operation."
 __contributors__ = "russ4262 (Russell Johnson)"
 
 import FreeCAD
-from PySide import QtCore
+from PySide6 import QtCore
 
 # OCL must be installed
 try:

@@ -23,7 +23,7 @@
 import FreeCAD,ArchCommands
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     from DraftTools import translate
 else:
     # \cond
@@ -124,15 +124,15 @@ class _CutPlaneTaskPanel:
         else :
             self.plan = FreeCADGui.Selection.getSelectionEx()[1].SubObjects[0]
 
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.form.setObjectName("TaskPanel")
-        self.grid = QtGui.QGridLayout(self.form)
+        self.grid = QtWidgets.QGridLayout(self.form)
         self.grid.setObjectName("grid")
-        self.title = QtGui.QLabel(self.form)
+        self.title = QtWidgets.QLabel(self.form)
         self.grid.addWidget(self.title, 1, 0)
-        self.infoText =  QtGui.QLabel(self.form)
+        self.infoText =  QtWidgets.QLabel(self.form)
         self.grid.addWidget(self.infoText, 2, 0)
-        self.combobox = QtGui.QComboBox()
+        self.combobox = QtWidgets.QComboBox()
         self.combobox.setCurrentIndex(0)
         self.grid.addWidget(self.combobox, 2, 1)
         QtCore.QObject.connect(self.combobox,QtCore.SIGNAL("currentIndexChanged(int)"),self.previewCutVolume)
@@ -167,7 +167,7 @@ class _CutPlaneTaskPanel:
         return True
 
     def getStandardButtons(self):
-        return int(QtGui.QDialogButtonBox.Ok|QtGui.QDialogButtonBox.Cancel)
+        return int(QtWidgets.QDialogButtonBox.Ok|QtWidgets.QDialogButtonBox.Cancel)
 
     def previewCutVolume(self, i):
         cutVolume = ArchCommands.getCutVolume(self.plan,FreeCADGui.Selection.getSelectionEx()[0].Object.Shape)
@@ -183,11 +183,11 @@ class _CutPlaneTaskPanel:
             self.previewObj.Shape = cutVolume
 
     def retranslateUi(self, TaskPanel):
-        TaskPanel.setWindowTitle(QtGui.QApplication.translate("Arch", "Cut Plane", None))
-        self.title.setText(QtGui.QApplication.translate("Arch", "Cut Plane options", None))
-        self.infoText.setText(QtGui.QApplication.translate("Arch", "Which side to cut", None))
-        self.combobox.addItems([QtGui.QApplication.translate("Arch", "Behind", None),
-                                    QtGui.QApplication.translate("Arch", "Front", None)])
+        TaskPanel.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Cut Plane", None))
+        self.title.setText(QtWidgets.QApplication.translate("Arch", "Cut Plane options", None))
+        self.infoText.setText(QtWidgets.QApplication.translate("Arch", "Which side to cut", None))
+        self.combobox.addItems([QtWidgets.QApplication.translate("Arch", "Behind", None),
+                                    QtWidgets.QApplication.translate("Arch", "Front", None)])
 
 if FreeCAD.GuiUp:
     FreeCADGui.addCommand('Arch_CutPlane',_CommandCutPlane())

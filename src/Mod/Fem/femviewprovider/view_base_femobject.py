@@ -114,7 +114,7 @@ class VPBaseFemObject(object):
         if not guidoc.getInEdit():
             guidoc.setEdit(vobj.Object.Name)
         else:
-            from PySide.QtGui import QMessageBox
+            from PySide6.QtGui import QMessageBox
             message = "Active Task Dialog found! Please close this one before opening  a new one!"
             QMessageBox.critical(None, "Error in tree view", message)
             FreeCAD.Console.PrintError(message + "\n")

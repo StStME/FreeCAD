@@ -25,7 +25,7 @@ import FreeCADGui
 import PathScripts
 import os
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 class CommandToolBitCreate:
     '''
@@ -79,7 +79,7 @@ class CommandToolBitSave:
         return False
 
     def Activated(self):
-        from PySide import QtGui
+        from PySide6 import QtGui
         tool = self.selectedTool()
         if tool:
             path = None

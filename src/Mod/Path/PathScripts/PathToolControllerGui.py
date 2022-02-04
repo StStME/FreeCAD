@@ -30,7 +30,7 @@ import PathScripts.PathToolBitGui as PathToolBitGui
 import PathScripts.PathToolEdit as PathToolEdit
 import PathScripts.PathUtil as PathUtil
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

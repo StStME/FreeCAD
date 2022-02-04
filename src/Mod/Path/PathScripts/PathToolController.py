@@ -28,7 +28,7 @@ import PathScripts.PathLog as PathLog
 import PathScripts.PathPreferences as PathPreferences
 import PathScripts.PathToolBit as PathToolBit
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 # PathLog.setLevel(PathLog.Level.DEBUG, PathLog.thisModule())
 # PathLog.trackModule(PathLog.thisModule())

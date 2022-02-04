@@ -33,7 +33,7 @@ import DraftVecUtils
 if FreeCAD.GuiUp:
     import FreeCADGui
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
 else:
     # \cond
     def translate(ctxt,txt):

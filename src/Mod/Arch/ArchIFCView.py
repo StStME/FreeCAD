@@ -4,7 +4,7 @@ import FreeCAD, ArchIFC
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui
+    from PySide6 import QtGui
 
 class IfcContextView:
     """A default view provider for IfcContext objects."""
@@ -59,8 +59,8 @@ class IfcContextUI:
     def createBaseLayout(self):
         """Defines the basic layout of the task panel."""
 
-        self.baseWidget = QtGui.QWidget()
-        self.baseLayout = QtGui.QVBoxLayout(self.baseWidget)
+        self.baseWidget = QtWidgets.QWidget()
+        self.baseLayout = QtWidgets.QVBoxLayout(self.baseWidget)
 
     def createMapConversionFormLayout(self):
         """Creates form entries for the data being edited.
@@ -117,7 +117,7 @@ class IfcContextUI:
             Widget containing the label and form.
         """
 
-        layout = QtGui.QHBoxLayout(self.baseWidget)
+        layout = QtWidgets.QHBoxLayout(self.baseWidget)
         layout.addWidget(self.createLabel(label))
         layout.addWidget(self.createLineEdit(name))
         return layout
@@ -136,8 +136,8 @@ class IfcContextUI:
             The label Qt widget.
         """
 
-        label = QtGui.QLabel(self.baseWidget)
-        label.setText(QtGui.QApplication.translate("Arch", value, None))
+        label = QtWidgets.QLabel(self.baseWidget)
+        label.setText(QtWidgets.QApplication.translate("Arch", value, None))
         return label
 
     def createLineEdit(self, name):
@@ -155,7 +155,7 @@ class IfcContextUI:
             The form Qt widget.
         """
 
-        lineEdit = QtGui.QLineEdit(self.baseWidget)
+        lineEdit = QtWidgets.QLineEdit(self.baseWidget)
         lineEdit.setObjectName(name)
         self.lineEditObjects.append(lineEdit)
         return lineEdit

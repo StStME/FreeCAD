@@ -51,7 +51,7 @@ class ShapeStringTaskPanel:
     """TaskPanel for Draft_ShapeString."""
 
     def __init__(self):
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.form.setObjectName("ShapeStringTaskPanel")
         self.form.setWindowTitle(translate("draft", "ShapeString"))
         layout = QtGui.QVBoxLayout(self.form)

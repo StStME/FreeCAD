@@ -53,7 +53,7 @@ from femtools.errors import DirectoryDoesNotExistError
 from femtools.errors import MustSaveError
 
 if App.GuiUp:
-    from PySide import QtGui
+    from PySide6 import QtGui
     import FreeCADGui
 
 

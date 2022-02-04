@@ -22,7 +22,7 @@
 import FreeCAD
 
 import PySide
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from distutils.version import LooseVersion as V
 import sys
 
@@ -49,7 +49,7 @@ except ImportError:
 
 def getMainWindow():
     """ Return the FreeCAD main window. """
-    toplevel = PySide.QtGui.QApplication.topLevelWidgets()
+    toplevel = PySide.QtWidgets.QApplication.topLevelWidgets()
     for i in toplevel:
         if i.metaObject().className() == "Gui::MainWindow":
             return i
@@ -63,7 +63,7 @@ def getMdiArea():
         return None
     childs = mw.children()
     for c in childs:
-        if isinstance(c, PySide.QtGui.QMdiArea):
+        if isinstance(c, PySide.QtWidgets.QMdiArea):
             return c
     return None
 
@@ -404,7 +404,7 @@ class Line():
         return plt.getp(self.line, prop)
 
 
-class Plot(PySide.QtGui.QWidget):
+class Plot(PySide.QtWidgets.QWidget):
     def __init__(self,
                  winTitle="plot",
                  parent=None,
@@ -416,7 +416,7 @@ class Plot(PySide.QtGui.QWidget):
         parent -- Widget parent.
         flags -- QWidget flags
         """
-        PySide.QtGui.QWidget.__init__(self, parent, flags)
+        PySide.QtWidgets.QWidget.__init__(self, parent, flags)
         self.setWindowTitle(winTitle)
         # Create matplotlib canvas
         self.fig = Figure()
@@ -432,7 +432,7 @@ class Plot(PySide.QtGui.QWidget):
         # Add the navigation toolbar by default
         self.mpl_toolbar = NavigationToolbar(self.canvas, self)
         # Setup layout
-        vbox = PySide.QtGui.QVBoxLayout()
+        vbox = PySide.QtWidgets.QVBoxLayout()
         vbox.addWidget(self.canvas)
         vbox.addWidget(self.mpl_toolbar)
         self.setLayout(vbox)

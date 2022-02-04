@@ -3,7 +3,7 @@
 
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide import QtGui,QtCore
+from PySide6 import QtGui,QtCore, QtWidgets
 
 class MyLineEdit(QtGui.QLineEdit):
     pass
@@ -61,47 +61,47 @@ class TaskPanel:
         return True
 
     def getStandardButtons(self):
-        return int(QtGui.QDialogButtonBox.Ok)
+        return int(QtWidgets.QDialogButtonBox.Ok)
 
     def helpRequested(self):
         pass
 
     def setupUi(self):
         mw = self.getMainWindow()
-        form = mw.findChild(QtGui.QWidget, "TaskPanel")
-        form.pushButton = form.findChild(QtGui.QPushButton, "pushButton")
-        form.listWidget = form.findChild(QtGui.QListWidget, "listWidget")
+        form = mw.findChild(QtWidgets.QWidget, "TaskPanel")
+        form.pushButton = form.findChild(QtWidgets.QPushButton, "pushButton")
+        form.listWidget = form.findChild(QtWidgets.QListWidget, "listWidget")
         self.form = form
         #Connect Signals and Slots
         QtCore.QObject.connect(form.pushButton, QtCore.SIGNAL("clicked()"), self.addElement)
 
     def getMainWindow(self):
         "returns the main window"
-        # using QtGui.QApplication.activeWindow() isn't very reliable because if another
+        # using QtWidgets.QApplication.activeWindow() isn't very reliable because if another
         # widget than the mainwindow is active (e.g. a dialog) the wrong widget is
         # returned
-        toplevel = QtGui.QApplication.topLevelWidgets()
+        toplevel = QtWidgets.QApplication.topLevelWidgets()
         for i in toplevel:
             if i.metaObject().className() == "Gui::MainWindow":
                 return i
         raise RuntimeError("No main window found")
 
     def addElement(self):
-        item=QtGui.QInputDialog.getText(self.form, 'Add item', 'Enter:')
+        item=QtWidgets.QInputDialog.getText(self.form, 'Add item', 'Enter:')
         if item[1]:
             self.form.listWidget.addItem(item[0])
 
 class TaskCalendar:
     def __init__(self):
-        self.form = QtGui.QCalendarWidget()
+        self.form = QtWidgets.QCalendarWidget()
 
 class TaskManyTaskBoxes:
     "illustrates how to add several taskboxes"
     def __init__(self):
-        widget1 = QtGui.QCalendarWidget()
-        widget2 = QtGui.QWidget()
+        widget1 = QtWidgets.QCalendarWidget()
+        widget2 = QtWidgets.QWidget()
         widget2.setWindowTitle("My Test Box")
-        text = QtGui.QLabel("testBox",widget2)
+        text = QtWidgets.QLabel("testBox",widget2)
         self.form = [widget1,widget2]
 
 def createTask():

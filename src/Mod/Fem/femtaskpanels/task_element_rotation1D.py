@@ -29,7 +29,7 @@ __url__ = "https://www.freecadweb.org"
 #  \ingroup FEM
 #  \brief task panel  for element rotation 1D object
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 import FreeCAD
 import FreeCADGui

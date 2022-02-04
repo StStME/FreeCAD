@@ -22,9 +22,9 @@
 
 import FreeCAD
 import FreeCADGui
-from PySide import QtCore
+from PySide6 import QtCore
 
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 __doc__ = """Path Copy object and FreeCAD command"""
 

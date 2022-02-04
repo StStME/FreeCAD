@@ -93,19 +93,19 @@ class TaskHole:
 
     def setupUi(self):
         mw = self.getMainWindow()
-        form = mw.findChild(QtGui.QWidget, "TaskHole")
+        form = mw.findChild(QtWidgets.QWidget, "TaskHole")
         if form is None:
             return
         form.tabWidget = form.findChild(QtGui.QTabWidget, "tabWidget")
         # Type
-        form.tabType = form.tabWidget.findChild(QtGui.QWidget, "tab_type")
+        form.tabType = form.tabWidget.findChild(QtWidgets.QWidget, "tab_type")
         form.buttonThru = form.tabType.findChild(QtGui.QRadioButton, "buttonThru")
         form.buttonDepth = form.tabType.findChild(QtGui.QRadioButton, "buttonDepth")        
         form.checkThreaded = form.tabType.findChild(QtGui.QCheckBox, "checkThreaded")        
         form.checkCounterbore = form.tabType.findChild(QtGui.QCheckBox, "checkCounterbore")        
         form.checkCountersink = form.tabType.findChild(QtGui.QCheckBox, "checkCountersink")
         # Norm
-        form.tabNorm = form.tabWidget.findChild(QtGui.QWidget, "tab_norm")
+        form.tabNorm = form.tabWidget.findChild(QtWidgets.QWidget, "tab_norm")
         form.checkCustom = form.tabNorm.findChild(QtGui.QCheckBox, "checkCustom")
         form.comboNorm = form.tabNorm.findChild(QtGui.QComboBox, "comboNorm")
         for std in Standards.getStandards("through"):
@@ -116,7 +116,7 @@ class TaskHole:
         form.comboNormDia = form.tabNorm.findChild(QtGui.QComboBox, "comboNormDia")
         form.comboNormBoltWasher = form.tabNorm.findChild(QtGui.QComboBox,  "comboNormBoltWasher")        
         # Thread
-        form.tabThread = form.tabWidget.findChild(QtGui.QWidget,  "tab_thread")
+        form.tabThread = form.tabWidget.findChild(QtWidgets.QWidget,  "tab_thread")
         form.comboThreadNorm = form.tabThread.findChild(QtGui.QComboBox,  "comboThreadNorm")
         for std in Standards.getStandards("thread"):
             form.comboThreadNorm.addItem(std)
@@ -126,7 +126,7 @@ class TaskHole:
         for std in Standards.getStandards("threaded"):
             form.comboFinishNorm.addItem(std)
         # Data
-        form.tabData = form.tabWidget.findChild(QtGui.QWidget, "tab_data")
+        form.tabData = form.tabWidget.findChild(QtWidgets.QWidget, "tab_data")
         form.spinDiameter = form.tabData.findChild(QtGui.QDoubleSpinBox, "spinDiameter")        
         form.spinDepth = form.tabData.findChild(QtGui.QDoubleSpinBox, "spinDepth")        
         form.spinCounterboreDiameter = form.tabData.findChild(QtGui.QDoubleSpinBox, "spinCounterboreDiameter")
@@ -134,7 +134,7 @@ class TaskHole:
         form.spinCountersinkAngle = form.tabData.findChild(QtGui.QDoubleSpinBox, "spinCountersinkAngle")
         form.spinThreadLength = form.tabData.findChild(QtGui.QDoubleSpinBox,  "spinThreadLength")
         # Position
-        form.tabPosition = form.tabWidget.findChild(QtGui.QWidget, "tab_position")
+        form.tabPosition = form.tabWidget.findChild(QtWidgets.QWidget, "tab_position")
         form.comboType = form.tabPosition.findChild(QtGui.QComboBox, "comboType")
         for i in self.typestr:
             form.comboType.addItem(i)

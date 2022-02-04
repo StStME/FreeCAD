@@ -29,7 +29,7 @@ import draftobjects.patharray as patharray
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
     import PySide.QtGui as QtGui
 else:
     # \cond
@@ -395,7 +395,7 @@ class _CommandFence:
         sel = FreeCADGui.Selection.getSelection()
 
         if len(sel) != 3:
-            QtGui.QMessageBox.information(QtGui.QApplication.activeWindow(
+            QtWidgets.QMessageBox.information(QtWidgets.QApplication.activeWindow(
             ), 'Arch Fence selection', 'Select a section, post and path in exactly this order to build a fence.')
 
             return

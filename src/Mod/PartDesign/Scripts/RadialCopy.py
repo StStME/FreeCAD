@@ -8,7 +8,7 @@ An example for a high-level custom feature object to make a so called "radial co
 __author__ = "Werner Mayer <wmayer@users.sourceforge.net>"
 
 import FreeCAD, FreeCADGui, Part, math
-from PySide import QtGui
+from PySide6 import QtGui
 from FreeCAD import Base
 
 def makeCopy(shape, radius, angle):

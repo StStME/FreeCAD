@@ -34,7 +34,7 @@ of one of its points in the Z direction to create a sloped line.
 ## \addtogroup draftguitools
 # @{
 import PySide.QtGui as QtGui
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import FreeCADGui as Gui
@@ -84,7 +84,7 @@ class LineSlope(gui_base.GuiCommandNeedsSelection):
         # TODO: create a .ui file with QtCreator and import it here
         # instead of creating the interface programmatically,
         # see the `gui_othoarray` module for an example.
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
         w.setWindowTitle(translate("Draft", "Slope"))
         layout = QtGui.QHBoxLayout(w)
         label = QtGui.QLabel(w)
@@ -107,7 +107,7 @@ class LineSlope(gui_base.GuiCommandNeedsSelection):
         # we must contain our interface inside a parent widget.
         # Then our interface must be installed in this parent widget
         # inside the attribute called "form".
-        taskwidget = QtGui.QWidget()
+        taskwidget = QtWidgets.QWidget()
         taskwidget.form = w
 
         # The "accept" attribute of the parent widget

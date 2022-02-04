@@ -33,7 +33,7 @@ as the normal is sometimes not correctly calculated automatically.
 
 ## \addtogroup draftguitools
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCADGui as Gui
 import draftutils.utils as utils

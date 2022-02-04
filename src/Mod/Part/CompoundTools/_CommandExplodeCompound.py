@@ -29,8 +29,8 @@ from .Explode import explodeCompound
 import FreeCAD
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui
-    from PySide import QtCore
+    from PySide6 import QtGui
+    from PySide6 import QtCore
 
 
 # translation-related code

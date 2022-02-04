@@ -26,7 +26,7 @@
 These are a common functions and classes for creating custom post processors.
 """
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 import FreeCAD
 
 translate = FreeCAD.Qt.translate

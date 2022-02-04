@@ -21,7 +21,7 @@
 # *                                                                            *
 # ******************************************************************************/
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 import FreeCAD # Just for debug printing...
 
 class WizardShaftTable:

@@ -32,7 +32,7 @@ from lazy_loader.lazy_loader import LazyLoader
 DraftGeomUtils = LazyLoader('DraftGeomUtils', globals(), 'DraftGeomUtils')
 Part = LazyLoader('Part', globals(), 'Part')
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __doc__ = "Base class for all ops in the engrave family."
 

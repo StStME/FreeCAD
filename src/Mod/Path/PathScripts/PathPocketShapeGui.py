@@ -27,7 +27,7 @@ import PathScripts.PathPocketShape as PathPocketShape
 import PathScripts.PathPocketBaseGui as PathPocketBaseGui
 import PathScripts.PathFeatureExtensionsGui as PathFeatureExtensionsGui
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

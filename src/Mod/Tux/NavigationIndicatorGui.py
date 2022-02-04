@@ -21,8 +21,8 @@
 import Tux_rc
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide import QtGui
-from PySide import QtCore
+from PySide6 import QtGui
+from PySide6 import QtCore, QtWidgets
 
 timer = QtCore.QTimer()
 mw = Gui.getMainWindow()
@@ -32,18 +32,18 @@ pView = App.ParamGet("User parameter:BaseApp/Preferences/View")
 
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QtWidgets.QApplication.UnicodeUTF8
 
     def translate(context, text):
         "convenience function for Qt 4 translator"
-        return QtGui.QApplication.translate(context, text, None, _encoding)
+        return QtWidgets.QApplication.translate(context, text, None, _encoding)
 except AttributeError:
     def translate(context, text):
         "convenience function for Qt 5 translator"
-        return QtGui.QApplication.translate(context, text, None)
+        return QtWidgets.QApplication.translate(context, text, None)
 
 
-class IndicatorButton(QtGui.QPushButton):
+class IndicatorButton(QtWidgets.QPushButton):
     """Detect language change events."""
     def __init__(self, parent=None):
         super(IndicatorButton, self).__init__()
@@ -339,11 +339,11 @@ indicator.setFlat(True)
 indicator.adjustSize()
 indicator.setObjectName("NavigationIndicator")
 
-menu = QtGui.QMenu(indicator)
+menu = QtWidgets.QMenu(indicator)
 indicator.setMenu(menu)
 
-menuSettings = QtGui.QMenu(menu)
-menuOrbit = QtGui.QMenu(menu)
+menuSettings = QtWidgets.QMenu(menu)
+menuOrbit = QtWidgets.QMenu(menu)
 
 aCompact = QtGui.QAction(menuSettings)
 aCompact.setCheckable(True)

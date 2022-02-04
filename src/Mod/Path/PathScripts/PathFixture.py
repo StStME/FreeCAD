@@ -26,7 +26,7 @@ import FreeCAD
 import FreeCADGui
 import Path
 import PathScripts.PathUtils as PathUtils
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 
 class Fixture:

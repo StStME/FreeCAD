@@ -10,7 +10,7 @@ import Draft
 import MeshPart
 import Mesh
 import math
-from PySide import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 
 App = FreeCAD
 Gui = FreeCADGui

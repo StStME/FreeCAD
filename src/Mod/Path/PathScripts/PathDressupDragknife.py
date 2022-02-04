@@ -23,11 +23,11 @@
 from __future__ import print_function
 import FreeCAD
 import Path
-from PySide import QtCore
+from PySide6 import QtCore
 import math
 import PathScripts.PathUtils as PathUtils
 import PathScripts.PathGui as PathGui
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

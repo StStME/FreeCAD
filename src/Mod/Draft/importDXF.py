@@ -73,7 +73,7 @@ if gui:
     except (AttributeError, NameError):
         draftui = None
     from DraftTools import translate
-    from PySide import QtGui
+    from PySide6 import QtGui, QtWidgets
 else:
     def translate(context, txt):
         return txt
@@ -126,7 +126,7 @@ def errorDXFLib(gui):
                     message = translate("Draft", """Download of dxf libraries failed.
 Please install the dxf Library addon manually
 from menu Tools -> Addon Manager""")
-                    QtGui.QMessageBox.information(None, "", message)
+                    QtWidgets.QMessageBox.information(None, "", message)
                 else:
                     FCC.PrintWarning("The DXF import/export libraries needed by FreeCAD to handle the DXF format are not installed.\n")
                     FCC.PrintWarning("Please install the dxf Library addon from Tools -> Addon Manager\n")
@@ -146,13 +146,13 @@ To enabled FreeCAD to download these libraries, answer Yes.""")
             if six.PY2:
                 if not isinstance(message, six.text_type):
                     message = message.decode('utf8')
-            reply = QtGui.QMessageBox.question(None, "", message,
-                                               QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
-                                               QtGui.QMessageBox.No)
-            if reply == QtGui.QMessageBox.Yes:
+            reply = QtWidgets.QMessageBox.question(None, "", message,
+                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                                               QtWidgets.QMessageBox.No)
+            if reply == QtWidgets.QMessageBox.Yes:
                 p.SetBool("dxfAllowDownload", True)
                 errorDXFLib(gui)
-            if reply == QtGui.QMessageBox.No:
+            if reply == QtWidgets.QMessageBox.No:
                 pass
         else:
             FCC.PrintWarning("The DXF import/export libraries needed by FreeCAD to handle the DXF format are not installed.\n")
@@ -2351,18 +2351,18 @@ def processdxf(document, filename, getShapes=False, reComputeFlag=True):
         if len(edges) > (100):
             FCC.PrintMessage(str(len(edges)) + " edges to join\n")
             if FreeCAD.GuiUp:
-                d = QtGui.QMessageBox()
+                d = QtWidgets.QMessageBox()
                 d.setText("Warning: High number of entities to join (>100)")
                 d.setInformativeText("This might take a long time "
                                      "or even freeze your computer. "
                                      "Are you sure? You can also disable "
                                      "the 'join geometry' setting in DXF "
                                      "import preferences")
-                d.setStandardButtons(QtGui.QMessageBox.Ok
-                                     | QtGui.QMessageBox.Cancel)
-                d.setDefaultButton(QtGui.QMessageBox.Cancel)
+                d.setStandardButtons(QtWidgets.QMessageBox.Ok
+                                     | QtWidgets.QMessageBox.Cancel)
+                d.setDefaultButton(QtWidgets.QMessageBox.Cancel)
                 res = d.exec_()
-                if res == QtGui.QMessageBox.Cancel:
+                if res == QtWidgets.QMessageBox.Cancel:
                     FCC.PrintMessage("Aborted\n")
                     return
         shapes = DraftGeomUtils.findWires(edges)

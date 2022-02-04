@@ -33,7 +33,7 @@ import json
 import math
 import area
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

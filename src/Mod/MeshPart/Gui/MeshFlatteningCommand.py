@@ -26,7 +26,7 @@ import FreeCADGui as Gui
 import Part
 import MeshPartGui
 
-from PySide.QtCore import QT_TRANSLATE_NOOP # for translations
+from PySide6.QtCore import QT_TRANSLATE_NOOP # for translations
 
 class BaseCommand(object):
     def __init__(self):

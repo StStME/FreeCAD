@@ -31,8 +31,8 @@ import numpy
 
 from FreeCAD import Vector
 from PathScripts import PathLog
-from PySide import QtCore
-from PySide import QtGui
+from PySide6 import QtCore
+from PySide6 import QtGui
 
 # lazily loaded modules
 from lazy_loader.lazy_loader import LazyLoader

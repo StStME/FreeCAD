@@ -5,12 +5,12 @@ Examples for customizing the FreeCAD application with PySide facilities.
 
 __author__ = "Werner Mayer <werner.wm.mayer@gmx.de>"
 
-from PySide import QtCore,QtGui
+from PySide6 import QtCore,QtGui, QtWidgets
 import FreeCAD,FreeCADGui, __main__
 
 class MainWindow:
 	def __init__(self):
-		self.app = QtGui.qApp
+		self.app = QtWidgets.QApplication
 		self.mw = FreeCADGui.getMainWindow()
 		self.dock = {}
 
@@ -18,27 +18,27 @@ class MainWindow:
 		self.mw.setWindowTitle(name)
 
 	def addCalendar(self):
-		d = QtGui.QDockWidget()
+		d = QtWidgets.QDockWidget()
 		d.setWindowTitle("Calendar")
-		c = QtGui.QCalendarWidget()
+		c = QtWidgets.QCalendarWidget()
 		d.setWidget(c)
 		self.mw.addDockWidget(QtCore.Qt.RightDockWidgetArea,d)
 		self.dock[d] = c
 
 	def information(self, title, text):
-		QtGui.QMessageBox.information(self.mw, title, text)
+		QtWidgets.QMessageBox.information(self.mw, title, text)
 
 	def warning(self, title, text):
-		QtGui.QMessageBox.warning(self.mw, title, text)
+		QtWidgets.QMessageBox.warning(self.mw, title, text)
 
 	def critical(self, title, text):
-		QtGui.QMessageBox.critical(self.mw, title, text)
+		QtWidgets.QMessageBox.critical(self.mw, title, text)
 
 	def question(self, title, text):
-		QtGui.QMessageBox.question(self.mw, title, text)
+		QtWidgets.QMessageBox.question(self.mw, title, text)
 
 	def aboutQt(self):
-		QtGui.QMessageBox.aboutQt(self.mw, self.mw.tr("About Qt"))
+		QtWidgets.QMessageBox.aboutQt(self.mw, self.mw.tr("About Qt"))
 
 
 class PythonQtWorkbench (__main__.Workbench):
@@ -53,16 +53,16 @@ class PythonQtWorkbench (__main__.Workbench):
 		self.item = []
 
 	def information(self):
-		QtGui.QMessageBox.information(self.mw, "Info", "This is an information")
+		QtWidgets.QMessageBox.information(self.mw, "Info", "This is an information")
 
 	def warning(self):
-		QtGui.QMessageBox.warning(self.mw, "Warning", "This is a warning")
+		QtWidgets.QMessageBox.warning(self.mw, "Warning", "This is a warning")
 
 	def critical(self):
-		QtGui.QMessageBox.critical(self.mw, "Error", "This is an error")
+		QtWidgets.QMessageBox.critical(self.mw, "Error", "This is an error")
 
 	def Initialize(self):
-		self.menu = QtGui.QMenu()
+		self.menu = QtWidgets.QMenu()
 		self.menu.setTitle("Python Qt")
 		self.item.append(self.menu.addAction("Test 1"))
 		self.item.append(self.menu.addAction("Test 2"))
@@ -76,9 +76,9 @@ class PythonQtWorkbench (__main__.Workbench):
 		self.__title__ = self.mw.windowTitle()
 		self.mw.setWindowTitle("FreeCAD -- PythonQt")
 
-		d = QtGui.QDockWidget()
+		d = QtWidgets.QDockWidget()
 		d.setWindowTitle("Calendar")
-		c = QtGui.QCalendarWidget()
+		c = QtWidgets.QCalendarWidget()
 		d.setWidget(c)
 		self.mw.addDockWidget(QtCore.Qt.RightDockWidgetArea,d)
 		self.dock[d] = c

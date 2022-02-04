@@ -33,21 +33,21 @@ import OpenSCADUtils
 
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui
+    from PySide6 import QtCore, QtGui, QtWidgets
     gui = True
 else:
     gui = False
 
 if gui:
     try:
-        _encoding = QtGui.QApplication.UnicodeUTF8
+        _encoding = QtWidgets.QApplication.UnicodeUTF8
         def translate(context, text):
             "convenience function for Qt translator"
-            return QtGui.QApplication.translate(context, text, None, _encoding)
+            return QtWidgets.QApplication.translate(context, text, None, _encoding)
     except AttributeError:
         def translate(context, text):
             "convenience function for Qt translator"
-            return QtGui.QApplication.translate(context, text, None)
+            return QtWidgets.QApplication.translate(context, text, None)
 
 class ExplodeGroup:
     "Ungroup Objects"
@@ -176,7 +176,7 @@ class MirrorMeshFeature:
             newobj.Label='mirror_%s' % selobj.Object.Label
             msh=selobj.Object.Mesh
             items=["[1;0;0]","[0;1;0]","[0;0;1]","[1;1;0]","[0;1;1]","[1;0;1]","[1;1;1]"]
-            item, ok = QtGui.QInputDialog.getItem(QtGui.QApplication.activeWindow(),'Mirror about which Axis?','Select Axis (or enter custom value):',items,editable=True)
+            item, ok = QtWidgets.QInputDialog.getItem(QtWidgets.QApplication.activeWindow(),'Mirror about which Axis?','Select Axis (or enter custom value):',items,editable=True)
             if ok:
                 splits = list(item.replace('[','').replace(']','').split(';'))
                 x = float(splits[0])
@@ -206,7 +206,7 @@ class ScaleMeshFeature:
             newobj.Label='scale_%s' % selobj.Object.Label
             msh=selobj.Object.Mesh
             items=["[1;1;1]"]
-            item, ok = QtGui.QInputDialog.getItem(QtGui.QApplication.activeWindow(),'Scale about which Axis?','Enter scaling value:',items,editable=True)
+            item, ok = QtWidgets.QInputDialog.getItem(QtWidgets.QApplication.activeWindow(),'Scale about which Axis?','Enter scaling value:',items,editable=True)
             if ok:
                 splits = list(item.replace('[','').replace(']','').split(';'))
                 x = float(splits[0])
@@ -236,7 +236,7 @@ class ResizeMeshFeature:
             newobj.Label='resize_%s' % selobj.Object.Label
             msh=selobj.Object.Mesh
             items=["[1;1;1]"]
-            item, ok = QtGui.QInputDialog.getItem(QtGui.QApplication.activeWindow(),'Resize about which Axis?','Enter resizing value:',items,editable=True)
+            item, ok = QtWidgets.QInputDialog.getItem(QtWidgets.QApplication.activeWindow(),'Resize about which Axis?','Enter resizing value:',items,editable=True)
             if ok:
                 splits = list(item.replace('[','').replace(']','').split(';'))
                 x = float(splits[0])
@@ -324,33 +324,33 @@ class RemoveSubtree:
                 'MenuText': QtCore.QT_TRANSLATE_NOOP('OpenSCAD_RemoveSubtree', 'Remove Objects and their Children'),
                 'ToolTip' : QtCore.QT_TRANSLATE_NOOP('OpenSCAD_RemoveSubtree', 'Removes the selected objects and all children that are not referenced from other objects')}
 
-class AddSCADWidget(QtGui.QWidget):
+class AddSCADWidget(QtWidgets.QWidget):
     def __init__(self,*args):
-        QtGui.QWidget.__init__(self,*args)
+        QtWidgets.QWidget.__init__(self,*args)
         # Main text area
-        self.textEdit=QtGui.QTextEdit()
+        self.textEdit=QtWidgets.QTextEdit()
         self.textEdit.setAcceptRichText(False)
         #print(self.textEdit.maximumHeight())
         #print(self.textEdit.maximumViewportSize())
         # Message Area
-        self.textMsg=QtGui.QPlainTextEdit()
+        self.textMsg=QtWidgets.QPlainTextEdit()
         self.textMsg.setReadOnly(True)
         h = int(2.5 * self.textMsg.fontMetrics().height())
         self.textMsg.setMaximumHeight(h)
         self.textMsg.resize(self.textMsg.width(),h)
-        self.buttonadd = QtGui.QPushButton(translate('OpenSCAD','Add'))
-        self.buttonclear = QtGui.QPushButton(translate('OpenSCAD','Clear'))
-        self.buttonload = QtGui.QPushButton(translate('OpenSCAD','Load'))
-        self.buttonsave = QtGui.QPushButton(translate('OpenSCAD','Save'))
-        self.buttonrefresh = QtGui.QPushButton(translate('OpenSCAD','Refresh'))
-        self.checkboxmesh = QtGui.QCheckBox(translate('OpenSCAD','as Mesh'))
-        layouth=QtGui.QHBoxLayout()
+        self.buttonadd = QtWidgets.QPushButton(translate('OpenSCAD','Add'))
+        self.buttonclear = QtWidgets.QPushButton(translate('OpenSCAD','Clear'))
+        self.buttonload = QtWidgets.QPushButton(translate('OpenSCAD','Load'))
+        self.buttonsave = QtWidgets.QPushButton(translate('OpenSCAD','Save'))
+        self.buttonrefresh = QtWidgets.QPushButton(translate('OpenSCAD','Refresh'))
+        self.checkboxmesh = QtWidgets.QCheckBox(translate('OpenSCAD','as Mesh'))
+        layouth=QtWidgets.QHBoxLayout()
         layouth.addWidget(self.buttonadd)
         layouth.addWidget(self.buttonload)
         layouth.addWidget(self.buttonsave)
         layouth.addWidget(self.buttonrefresh)
         layouth.addWidget(self.buttonclear)
-        layout= QtGui.QVBoxLayout()
+        layout= QtWidgets.QVBoxLayout()
         layout.addLayout(layouth)
         layout.addWidget(self.checkboxmesh)
         layout.addWidget(self.textEdit)
@@ -378,7 +378,7 @@ class AddSCADTask:
         self.form.buttonrefresh.clicked.connect(self.refreshelement)
 
     def getStandardButtons(self):
-        return int(QtGui.QDialogButtonBox.Close)
+        return int(QtWidgets.QDialogButtonBox.Close)
 
     def isAllowedAlterSelection(self):
         return True
@@ -421,7 +421,7 @@ class AddSCADTask:
         self.addelement()
 
     def loadelement(self):
-        filename, filter = QtGui.QFileDialog.getOpenFileName(parent=self.form, caption='Open file', dir='.', filter='OpenSCAD Files (*.scad)',selectedFilter='',option=0)
+        filename, filter = QtWidgets.QFileDialog.getOpenFileName(parent=self.form, caption='Open file', dir='.', filter='OpenSCAD Files (*.scad)',selectedFilter='',option=0)
 
         if filename:
            print('filename :'+filename)
@@ -430,40 +430,40 @@ class AddSCADTask:
               self.form.textEdit.setText(data)
     
     def saveelement(self) :
-        filename, filter = QtGui.QFileDialog.getSaveFileName(parent=self.form, caption='Open file', dir='.', filter='OpenSCAD Files (*.scad)',selectedFilter='',option=0)
+        filename, filter = QtWidgets.QFileDialog.getSaveFileName(parent=self.form, caption='Open file', dir='.', filter='OpenSCAD Files (*.scad)',selectedFilter='',option=0)
 
         if filename:
            Text = self.form.textEdit.toPlainText()
            with open(filename,'w') as fp :
               fp.write(Text)
     
-class OpenSCADMeshBooleanWidget(QtGui.QWidget):
+class OpenSCADMeshBooleanWidget(QtWidgets.QWidget):
     def __init__(self,*args):
-        QtGui.QWidget.__init__(self,*args)
-        #self.textEdit=QtGui.QTextEdit()
-        self.buttonadd = QtGui.QPushButton(translate('OpenSCAD','Perform'))
-        self.rb_group = QtGui.QButtonGroup()
-        self.rb_group_box = QtGui.QGroupBox()
-        self.rb_group_box_layout = QtGui.QVBoxLayout()
+        QtWidgets.QWidget.__init__(self,*args)
+        #self.textEdit=QtWidgets.QTextEdit()
+        self.buttonadd = QtWidgets.QPushButton(translate('OpenSCAD','Perform'))
+        self.rb_group = QtWidgets.QButtonGroup()
+        self.rb_group_box = QtWidgets.QGroupBox()
+        self.rb_group_box_layout = QtWidgets.QVBoxLayout()
         self.rb_group_box.setLayout(self.rb_group_box_layout)
-        self.rb_union = QtGui.QRadioButton("Union")
+        self.rb_union = QtWidgets.QRadioButton("Union")
         self.rb_group.addButton(self.rb_union)
         self.rb_group_box_layout.addWidget(self.rb_union)
-        self.rb_intersection = QtGui.QRadioButton("Intersection")
+        self.rb_intersection = QtWidgets.QRadioButton("Intersection")
         self.rb_group.addButton(self.rb_intersection)
         self.rb_group_box_layout.addWidget(self.rb_intersection)
-        self.rb_difference = QtGui.QRadioButton("Difference")
+        self.rb_difference = QtWidgets.QRadioButton("Difference")
         self.rb_group.addButton(self.rb_difference)
         self.rb_group_box_layout.addWidget(self.rb_difference)
-        self.rb_hull = QtGui.QRadioButton("Hull")
+        self.rb_hull = QtWidgets.QRadioButton("Hull")
         self.rb_group.addButton(self.rb_hull)
         self.rb_group_box_layout.addWidget(self.rb_hull)
-        self.rb_minkowski = QtGui.QRadioButton("Minkowski")
+        self.rb_minkowski = QtWidgets.QRadioButton("Minkowski")
         self.rb_group.addButton(self.rb_minkowski)
         self.rb_group_box_layout.addWidget(self.rb_minkowski)
-        layouth=QtGui.QHBoxLayout()
+        layouth=QtWidgets.QHBoxLayout()
         layouth.addWidget(self.buttonadd)
-        layout= QtGui.QVBoxLayout()
+        layout= QtWidgets.QVBoxLayout()
         layout.addLayout(layouth)
         layout.addWidget(self.rb_group_box)
         self.setLayout(layout)
@@ -479,7 +479,7 @@ class OpenSCADMeshBooleanTask:
         self.form.buttonadd.clicked.connect(self.doboolean)
 
     def getStandardButtons(self):
-        return int(QtGui.QDialogButtonBox.Close)
+        return int(QtWidgets.QDialogButtonBox.Close)
 
     def isAllowedAlterSelection(self):
         return False

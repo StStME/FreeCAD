@@ -20,7 +20,7 @@
 #***************************************************************************
 
 import sys
-from PySide import QtGui
+from PySide6 import QtGui
 
 
 def translate(context,text):

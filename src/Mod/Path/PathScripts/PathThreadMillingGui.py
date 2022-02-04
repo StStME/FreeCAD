@@ -30,7 +30,7 @@ import PathScripts.PathLog as PathLog
 import PathScripts.PathOpGui as PathOpGui
 import csv
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 __title__ = "Path Thread Milling Operation UI."
 __author__ = "sliptonic (Brad Collette)"

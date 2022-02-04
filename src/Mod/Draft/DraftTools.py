@@ -39,7 +39,7 @@ is available, for example, during the workbench definition in `IntiGui.py`.
 # ---------------------------------------------------------------------------
 import math
 import sys
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from pivy import coin
 
 import FreeCAD

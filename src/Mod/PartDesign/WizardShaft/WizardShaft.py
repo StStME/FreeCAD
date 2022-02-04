@@ -23,7 +23,7 @@
 
 import FreeCAD, FreeCADGui
 import traceback
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from .WizardShaftTable import WizardShaftTable
 from .Shaft import Shaft
 
@@ -75,7 +75,7 @@ class TaskWizardShaft:
         # Create Shaft object
         self.shaft = Shaft(self)
         # Create table widget
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.table = WizardShaftTable(self, self.shaft)
 
         # The top layout will contain the Shaft Wizard layout plus the elements of the FEM constraints dialog

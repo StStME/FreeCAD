@@ -30,8 +30,8 @@ import PartDesign
 import PartDesignGui
 import tempfile
 
-from PySide import QtGui, QtCore
-from PySide.QtGui import QApplication
+from PySide6 import QtGui, QtCore
+from PySide6.QtGui import QApplication
 
 #timer runs this class in order to access modal dialog
 class CallableCheckWorkflow:
@@ -41,7 +41,7 @@ class CallableCheckWorkflow:
         diag = QApplication.activeModalWidget()
         self.test.assertIsNotNone(diag, "Dialog box could not be found")
         if (diag != None):
-            cbuttons = diag.findChildren(QtGui.QPushButton)
+            cbuttons = diag.findChildren(QtWidgets.QPushButton)
             cbutton = cbuttons[1]
             dialogcheck = CallableCheckDialog(self.test)
             QtCore.QTimer.singleShot(500, dialogcheck)
@@ -70,7 +70,7 @@ class CallableComboBox:
         diag = QApplication.activeModalWidget()
         self.test.assertIsNotNone(diag, "Warning dialog box could not be found")
         if (diag != None):
-            cbox = diag.findChild(QtGui.QComboBox)
+            cbox = diag.findChild(QtWidgets.QComboBox)
             self.test.assertIsNotNone(cbox, "ComboBox widget could not be found")
             if (cbox != None):
                 QtCore.QTimer.singleShot(0, diag, QtCore.SLOT('accept()'))

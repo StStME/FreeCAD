@@ -365,7 +365,7 @@ class Edit(gui_base_original.Modifier):
             Gui.Snapper.grid.set()
         self.running = False
         # delay resetting edit mode otherwise it doesn't happen
-        from PySide import QtCore
+        from PySide6 import QtCore
         QtCore.QTimer.singleShot(0, Gui.ActiveDocument.resetEdit)
 
 

@@ -173,7 +173,7 @@ FreeCADGui.addWorkbench(DraftWorkbench)
 # Preference pages for importing and exporting various file formats
 # are independent of the loading of the workbench and can be loaded at startup
 import Draft_rc
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 FreeCADGui.addPreferencePage(":/ui/preferences-dxf.ui", QT_TRANSLATE_NOOP("Draft", "Import-Export"))
 FreeCADGui.addPreferencePage(":/ui/preferences-dwg.ui", QT_TRANSLATE_NOOP("Draft", "Import-Export"))
 FreeCADGui.addPreferencePage(":/ui/preferences-svg.ui", QT_TRANSLATE_NOOP("Draft", "Import-Export"))

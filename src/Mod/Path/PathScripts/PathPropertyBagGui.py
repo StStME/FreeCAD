@@ -30,7 +30,7 @@ import PathScripts.PathPropertyEditor as PathPropertyEditor
 import PathScripts.PathUtil as PathUtil
 import re
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 
 __title__ = "Property Bag Editor"
 __author__ = "sliptonic (Brad Collette)"

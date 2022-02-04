@@ -29,7 +29,7 @@ __url__ = "http://www.freecadweb.org"
 #  \ingroup FEM
 #  \brief task panel for element geometry 1D object
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 import FreeCAD
 import FreeCADGui

@@ -27,9 +27,9 @@ from FreeCAD import Units
 from FreeCAD import Vector
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtCore, QtGui, QtSvg
+    from PySide6 import QtCore, QtGui, QtWidgets, QtSvg
     from DraftTools import translate
-    from PySide.QtCore import QT_TRANSLATE_NOOP
+    from PySide6.QtCore import QT_TRANSLATE_NOOP
     import draftguitools.gui_trackers as DraftTrackers
 else:
     # \cond
@@ -322,19 +322,19 @@ class _CommandWindow:
 
         "sets up a taskbox widget"
 
-        w = QtGui.QWidget()
+        w = QtWidgets.QWidget()
         ui = FreeCADGui.UiLoader()
         w.setWindowTitle(translate("Arch","Window options"))
         grid = QtGui.QGridLayout(w)
 
         # include box
-        include = QtGui.QCheckBox(translate("Arch","Auto include in host object"))
+        include = QtWidgets.QCheckBox(translate("Arch","Auto include in host object"))
         include.setChecked(True)
         grid.addWidget(include,0,0,1,2)
         QtCore.QObject.connect(include,QtCore.SIGNAL("stateChanged(int)"),self.setInclude)
 
         # sill height
-        labels = QtGui.QLabel(translate("Arch","Sill height"))
+        labels = QtWidgets.QLabel(translate("Arch","Sill height"))
         values = ui.createWidget("Gui::InputField")
         grid.addWidget(labels,1,0,1,1)
         grid.addWidget(values,1,1,1,1)
@@ -367,10 +367,10 @@ class _CommandWindow:
 
 
         # presets box
-        labelp = QtGui.QLabel(translate("Arch","Preset"))
-        valuep = QtGui.QComboBox()
+        labelp = QtWidgets.QLabel(translate("Arch","Preset"))
+        valuep = QtWidgets.QComboBox()
         valuep.setMinimumContentsLength(6)
-        valuep.setSizeAdjustPolicy(QtGui.QComboBox.AdjustToContents)
+        valuep.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         valuep.addItems(WindowPresets)
         valuep.setCurrentIndex(self.Preset)
         grid.addWidget(labelp,2,0,1,1)
@@ -380,7 +380,7 @@ class _CommandWindow:
             valuep.addItem(it[0])
 
         # image display
-        self.pic = QtGui.QLabel()
+        self.pic = QtWidgets.QLabel()
         grid.addWidget(self.pic,3,0,1,2)
         self.pic.setFixedHeight(128)
         self.pic.hide()
@@ -395,7 +395,7 @@ class _CommandWindow:
         # parameters
         i = 5
         for param in self.wparams:
-            lab = QtGui.QLabel(translate("Arch",param))
+            lab = QtWidgets.QLabel(translate("Arch",param))
             setattr(self,"val"+param,ui.createWidget("Gui::InputField"))
             wid = getattr(self,"val"+param)
             if param == "Width":
@@ -1180,7 +1180,7 @@ class _ViewProviderWindow(ArchComponent.ViewProviderComponent):
     def setupContextMenu(self,vobj,menu):
 
         if hasattr(self,"Object"):
-            from PySide import QtCore,QtGui
+            from PySide6 import QtCore,QtGui
             import Draft_rc
             action1 = QtGui.QAction(QtGui.QIcon(":/icons/Arch_Window_Tree.svg"),"Invert opening direction",menu)
             QtCore.QObject.connect(action1,QtCore.SIGNAL("triggered()"),self.invertOpening)
@@ -1234,58 +1234,58 @@ class _ArchWindowTaskPanel:
     def __init__(self):
 
         self.obj = None
-        self.baseform = QtGui.QWidget()
+        self.baseform = QtWidgets.QWidget()
         self.baseform.setObjectName("TaskPanel")
-        self.grid = QtGui.QGridLayout(self.baseform)
+        self.grid = QtWidgets.QGridLayout(self.baseform)
         self.grid.setObjectName("grid")
-        self.title = QtGui.QLabel(self.baseform)
+        self.title = QtWidgets.QLabel(self.baseform)
         self.grid.addWidget(self.title, 0, 0, 1, 7)
         self.basepanel = ArchComponent.ComponentTaskPanel()
         self.form = [self.baseform,self.basepanel.baseform]
 
         # base object
-        self.tree = QtGui.QTreeWidget(self.baseform)
+        self.tree = QtWidgets.QTreeWidget(self.baseform)
         self.grid.addWidget(self.tree, 1, 0, 1, 7)
         self.tree.setColumnCount(1)
         self.tree.setMaximumSize(QtCore.QSize(500,24))
         self.tree.header().hide()
 
         # hole
-        self.holeLabel = QtGui.QLabel(self.baseform)
+        self.holeLabel = QtWidgets.QLabel(self.baseform)
         self.grid.addWidget(self.holeLabel, 2, 0, 1, 1)
 
-        self.holeNumber = QtGui.QLineEdit(self.baseform)
+        self.holeNumber = QtWidgets.QLineEdit(self.baseform)
         self.grid.addWidget(self.holeNumber, 2, 2, 1, 3)
 
-        self.holeButton = QtGui.QPushButton(self.baseform)
+        self.holeButton = QtWidgets.QPushButton(self.baseform)
         self.grid.addWidget(self.holeButton, 2, 6, 1, 1)
         self.holeButton.setEnabled(True)
 
         # trees
-        self.wiretree = QtGui.QTreeWidget(self.baseform)
+        self.wiretree = QtWidgets.QTreeWidget(self.baseform)
         self.grid.addWidget(self.wiretree, 3, 0, 1, 3)
         self.wiretree.setColumnCount(1)
-        self.wiretree.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+        self.wiretree.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
 
-        self.comptree = QtGui.QTreeWidget(self.baseform)
+        self.comptree = QtWidgets.QTreeWidget(self.baseform)
         self.grid.addWidget(self.comptree, 3, 4, 1, 3)
         self.comptree.setColumnCount(1)
 
         # buttons
-        self.addButton = QtGui.QPushButton(self.baseform)
+        self.addButton = QtWidgets.QPushButton(self.baseform)
         self.addButton.setObjectName("addButton")
         self.addButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         self.grid.addWidget(self.addButton, 4, 0, 1, 1)
         self.addButton.setMaximumSize(QtCore.QSize(70,40))
 
-        self.editButton = QtGui.QPushButton(self.baseform)
+        self.editButton = QtWidgets.QPushButton(self.baseform)
         self.editButton.setObjectName("editButton")
         self.editButton.setIcon(QtGui.QIcon(":/icons/Draft_Edit.svg"))
         self.grid.addWidget(self.editButton, 4, 2, 1, 3)
         self.editButton.setMaximumSize(QtCore.QSize(60,40))
         self.editButton.setEnabled(False)
 
-        self.delButton = QtGui.QPushButton(self.baseform)
+        self.delButton = QtWidgets.QPushButton(self.baseform)
         self.delButton.setObjectName("delButton")
         self.delButton.setIcon(QtGui.QIcon(":/icons/Arch_Remove.svg"))
         self.grid.addWidget(self.delButton, 4, 6, 1, 1)
@@ -1293,12 +1293,12 @@ class _ArchWindowTaskPanel:
         self.delButton.setEnabled(False)
 
         # invert buttons
-        self.invertOpeningButton = QtGui.QPushButton(self.baseform)
+        self.invertOpeningButton = QtWidgets.QPushButton(self.baseform)
         self.invertOpeningButton.setIcon(QtGui.QIcon(":/icons/Arch_Window_Tree.svg"))
         self.invertOpeningButton.clicked.connect(self.invertOpening)
         self.grid.addWidget(self.invertOpeningButton, 5, 0, 1, 7)
         self.invertOpeningButton.setEnabled(False)
-        self.invertHingeButton = QtGui.QPushButton(self.baseform)
+        self.invertHingeButton = QtWidgets.QPushButton(self.baseform)
         self.invertHingeButton.setIcon(QtGui.QIcon(":/icons/Arch_Window_Tree.svg"))
         self.invertHingeButton.clicked.connect(self.invertHinge)
         self.grid.addWidget(self.invertHingeButton, 6, 0, 1, 7)
@@ -1307,24 +1307,24 @@ class _ArchWindowTaskPanel:
         # add new
 
         ui = FreeCADGui.UiLoader()
-        self.newtitle = QtGui.QLabel(self.baseform)
-        self.new1 = QtGui.QLabel(self.baseform)
-        self.new2 = QtGui.QLabel(self.baseform)
-        self.new3 = QtGui.QLabel(self.baseform)
-        self.new4 = QtGui.QLabel(self.baseform)
-        self.new5 = QtGui.QLabel(self.baseform)
-        self.new6 = QtGui.QLabel(self.baseform)
-        self.new7 = QtGui.QLabel(self.baseform)
-        self.field1 = QtGui.QLineEdit(self.baseform)
-        self.field2 = QtGui.QComboBox(self.baseform)
-        self.field3 = QtGui.QLineEdit(self.baseform)
+        self.newtitle = QtWidgets.QLabel(self.baseform)
+        self.new1 = QtWidgets.QLabel(self.baseform)
+        self.new2 = QtWidgets.QLabel(self.baseform)
+        self.new3 = QtWidgets.QLabel(self.baseform)
+        self.new4 = QtWidgets.QLabel(self.baseform)
+        self.new5 = QtWidgets.QLabel(self.baseform)
+        self.new6 = QtWidgets.QLabel(self.baseform)
+        self.new7 = QtWidgets.QLabel(self.baseform)
+        self.field1 = QtWidgets.QLineEdit(self.baseform)
+        self.field2 = QtWidgets.QComboBox(self.baseform)
+        self.field3 = QtWidgets.QLineEdit(self.baseform)
         self.field4 = ui.createWidget("Gui::InputField")
         self.field5 = ui.createWidget("Gui::InputField")
-        self.field6 = QtGui.QPushButton(self.baseform)
-        self.field7 = QtGui.QComboBox(self.baseform)
-        self.addp4 = QtGui.QCheckBox(self.baseform)
-        self.addp5 = QtGui.QCheckBox(self.baseform)
-        self.createButton = QtGui.QPushButton(self.baseform)
+        self.field6 = QtWidgets.QPushButton(self.baseform)
+        self.field7 = QtWidgets.QComboBox(self.baseform)
+        self.addp4 = QtWidgets.QCheckBox(self.baseform)
+        self.addp5 = QtWidgets.QCheckBox(self.baseform)
+        self.createButton = QtWidgets.QPushButton(self.baseform)
         self.createButton.setObjectName("createButton")
         self.createButton.setIcon(QtGui.QIcon(":/icons/Arch_Add.svg"))
         self.grid.addWidget(self.newtitle, 7, 0, 1, 7)
@@ -1392,7 +1392,7 @@ class _ArchWindowTaskPanel:
 
     def getStandardButtons(self):
 
-        return int(QtGui.QDialogButtonBox.Close)
+        return int(QtWidgets.QDialogButtonBox.Close)
 
     def check(self,wid,col):
 
@@ -1462,20 +1462,20 @@ class _ArchWindowTaskPanel:
         self.comptree.clear()
         if self.obj:
             if self.obj.Base:
-                item = QtGui.QTreeWidgetItem(self.tree)
+                item = QtWidgets.QTreeWidgetItem(self.tree)
                 item.setText(0,self.obj.Base.Name)
                 item.setIcon(0,self.getIcon(self.obj.Base))
                 if hasattr(self.obj.Base,'Shape'):
                     i = 0
                     for w in self.obj.Base.Shape.Wires:
                         if w.isClosed():
-                            item = QtGui.QTreeWidgetItem(self.wiretree)
+                            item = QtWidgets.QTreeWidgetItem(self.wiretree)
                             item.setText(0,"Wire" + str(i))
                             item.setIcon(0,QtGui.QIcon(":/icons/Draft_Draft.svg"))
                         i += 1
                 if self.obj.WindowParts:
                     for p in range(0,len(self.obj.WindowParts),5):
-                        item = QtGui.QTreeWidgetItem(self.comptree)
+                        item = QtWidgets.QTreeWidgetItem(self.comptree)
                         item.setText(0,self.obj.WindowParts[p])
                         item.setIcon(0, QtGui.QIcon(":/icons/Part_3D_object.svg"))
                 if hasattr(self.obj,"HoleWire"):
@@ -1500,7 +1500,7 @@ class _ArchWindowTaskPanel:
         self.field3.setText('')
         self.field4.setText('')
         self.field5.setText('')
-        self.field6.setText(QtGui.QApplication.translate("Arch", "Get selected edge", None))
+        self.field6.setText(QtWidgets.QApplication.translate("Arch", "Get selected edge", None))
         self.field7.setCurrentIndex(0)
         self.addp4.setChecked(False)
         self.addp5.setChecked(False)
@@ -1549,7 +1549,7 @@ class _ArchWindowTaskPanel:
             if self.obj:
                 if comp in self.obj.WindowParts:
                     ind = self.obj.WindowParts.index(comp)
-                    self.field6.setText(QtGui.QApplication.translate("Arch", "Get selected edge", None))
+                    self.field6.setText(QtWidgets.QApplication.translate("Arch", "Get selected edge", None))
                     self.field7.setCurrentIndex(0)
                     for i in range(5):
                         f = getattr(self,"field"+str(i+1))
@@ -1687,37 +1687,37 @@ class _ArchWindowTaskPanel:
 
     def retranslateUi(self, TaskPanel):
 
-        TaskPanel.setWindowTitle(QtGui.QApplication.translate("Arch", "Window elements", None))
-        self.holeLabel.setText(QtGui.QApplication.translate("Arch", "Hole wire", None))
-        self.holeNumber.setToolTip(QtGui.QApplication.translate("Arch", "The number of the wire that defines a hole in the host object. A value of zero will automatically adopt the largest wire", None))
-        self.holeButton.setText(QtGui.QApplication.translate("Arch", "Pick selected", None))
-        self.delButton.setText(QtGui.QApplication.translate("Arch", "Remove", None))
-        self.addButton.setText(QtGui.QApplication.translate("Arch", "Add", None))
-        self.editButton.setText(QtGui.QApplication.translate("Arch", "Edit", None))
-        self.createButton.setText(QtGui.QApplication.translate("Arch", "Create/update component", None))
-        self.title.setText(QtGui.QApplication.translate("Arch", "Base 2D object", None))
-        self.wiretree.setHeaderLabels([QtGui.QApplication.translate("Arch", "Wires", None)])
-        self.comptree.setHeaderLabels([QtGui.QApplication.translate("Arch", "Components", None)])
-        self.newtitle.setText(QtGui.QApplication.translate("Arch", "Create new component", None))
-        self.new1.setText(QtGui.QApplication.translate("Arch", "Name", None))
-        self.new2.setText(QtGui.QApplication.translate("Arch", "Type", None))
-        self.new3.setText(QtGui.QApplication.translate("Arch", "Wires", None))
-        self.new4.setText(QtGui.QApplication.translate("Arch", "Thickness", None))
-        self.new5.setText(QtGui.QApplication.translate("Arch", "Offset", None))
-        self.new6.setText(QtGui.QApplication.translate("Arch", "Hinge", None))
-        self.new7.setText(QtGui.QApplication.translate("Arch", "Opening mode", None))
-        self.addp4.setText(QtGui.QApplication.translate("Arch", "+ default", None))
-        self.addp4.setToolTip(QtGui.QApplication.translate("Arch", "If this is checked, the default Frame value of this window will be added to the value entered here", None))
-        self.addp5.setText(QtGui.QApplication.translate("Arch", "+ default", None))
-        self.addp5.setToolTip(QtGui.QApplication.translate("Arch", "If this is checked, the default Offset value of this window will be added to the value entered here", None))
-        self.field6.setText(QtGui.QApplication.translate("Arch", "Get selected edge", None))
-        self.field6.setToolTip(QtGui.QApplication.translate("Arch", "Press to retrieve the selected edge", None))
-        self.invertOpeningButton.setText(QtGui.QApplication.translate("Arch", "Invert opening direction", None))
-        self.invertHingeButton.setText(QtGui.QApplication.translate("Arch", "Invert hinge position", None))
+        TaskPanel.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Window elements", None))
+        self.holeLabel.setText(QtWidgets.QApplication.translate("Arch", "Hole wire", None))
+        self.holeNumber.setToolTip(QtWidgets.QApplication.translate("Arch", "The number of the wire that defines a hole in the host object. A value of zero will automatically adopt the largest wire", None))
+        self.holeButton.setText(QtWidgets.QApplication.translate("Arch", "Pick selected", None))
+        self.delButton.setText(QtWidgets.QApplication.translate("Arch", "Remove", None))
+        self.addButton.setText(QtWidgets.QApplication.translate("Arch", "Add", None))
+        self.editButton.setText(QtWidgets.QApplication.translate("Arch", "Edit", None))
+        self.createButton.setText(QtWidgets.QApplication.translate("Arch", "Create/update component", None))
+        self.title.setText(QtWidgets.QApplication.translate("Arch", "Base 2D object", None))
+        self.wiretree.setHeaderLabels([QtWidgets.QApplication.translate("Arch", "Wires", None)])
+        self.comptree.setHeaderLabels([QtWidgets.QApplication.translate("Arch", "Components", None)])
+        self.newtitle.setText(QtWidgets.QApplication.translate("Arch", "Create new component", None))
+        self.new1.setText(QtWidgets.QApplication.translate("Arch", "Name", None))
+        self.new2.setText(QtWidgets.QApplication.translate("Arch", "Type", None))
+        self.new3.setText(QtWidgets.QApplication.translate("Arch", "Wires", None))
+        self.new4.setText(QtWidgets.QApplication.translate("Arch", "Thickness", None))
+        self.new5.setText(QtWidgets.QApplication.translate("Arch", "Offset", None))
+        self.new6.setText(QtWidgets.QApplication.translate("Arch", "Hinge", None))
+        self.new7.setText(QtWidgets.QApplication.translate("Arch", "Opening mode", None))
+        self.addp4.setText(QtWidgets.QApplication.translate("Arch", "+ default", None))
+        self.addp4.setToolTip(QtWidgets.QApplication.translate("Arch", "If this is checked, the default Frame value of this window will be added to the value entered here", None))
+        self.addp5.setText(QtWidgets.QApplication.translate("Arch", "+ default", None))
+        self.addp5.setToolTip(QtWidgets.QApplication.translate("Arch", "If this is checked, the default Offset value of this window will be added to the value entered here", None))
+        self.field6.setText(QtWidgets.QApplication.translate("Arch", "Get selected edge", None))
+        self.field6.setToolTip(QtWidgets.QApplication.translate("Arch", "Press to retrieve the selected edge", None))
+        self.invertOpeningButton.setText(QtWidgets.QApplication.translate("Arch", "Invert opening direction", None))
+        self.invertHingeButton.setText(QtWidgets.QApplication.translate("Arch", "Invert hinge position", None))
         for i in range(len(WindowPartTypes)):
-            self.field2.setItemText(i, QtGui.QApplication.translate("Arch", WindowPartTypes[i], None))
+            self.field2.setItemText(i, QtWidgets.QApplication.translate("Arch", WindowPartTypes[i], None))
         for i in range(len(WindowOpeningModes)):
-            self.field7.setItemText(i, QtGui.QApplication.translate("Arch", WindowOpeningModes[i], None))
+            self.field7.setItemText(i, QtWidgets.QApplication.translate("Arch", WindowOpeningModes[i], None))
 
     def invertOpening(self):
 

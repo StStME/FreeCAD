@@ -26,7 +26,7 @@ import PathGui as PGui  # ensure Path/Gui/Resources are loaded
 import PathScripts.PathGui as PathGui
 import PathScripts.PathOpGui as PathOpGui
 import PathScripts.PathProfile as PathProfile
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 
 __title__ = "Path Profile Operation UI"

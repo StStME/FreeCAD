@@ -29,7 +29,7 @@
 
 ## \addtogroup draftguitools
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCADGui as Gui
 import draftguitools.gui_base as gui_base

@@ -28,7 +28,7 @@ import PathScripts.PathLog as PathLog
 from lazy_loader.lazy_loader import LazyLoader
 Draft = LazyLoader('Draft', globals(), 'Draft')
 
-from PySide import QtCore, QtGui
+from PySide6 import QtCore, QtGui, QtWidgets
 from pivy import coin
 
 __title__ = "Path GetPoint UI"

@@ -34,7 +34,7 @@ and similar objects.
 import pivy.coin as coin
 import PySide.QtCore as QtCore
 import PySide.QtGui as QtGui
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 import FreeCAD as App
 import FreeCADGui as Gui

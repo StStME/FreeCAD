@@ -50,7 +50,7 @@ import re
 import PathScripts.PathCustom as PathCustom
 import PathScripts.PathCustomGui as PathCustomGui
 import PathScripts.PathOpGui as PathOpGui
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 
 if False:

@@ -37,7 +37,7 @@ through Coin (pivy).
 
 ## \addtogroup draftobjects
 # @{
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 from draftutils.messages import _wrn
 from draftutils.translate import translate

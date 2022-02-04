@@ -33,7 +33,7 @@ DraftGeomUtils = LazyLoader('DraftGeomUtils', globals(), 'DraftGeomUtils')
 Part = LazyLoader('Part', globals(), 'Part')
 
 from PathScripts.PathDressupTagPreferences import HoldingTagPreferences
-from PySide import QtCore
+from PySide6 import QtCore
 
 PathLog.setLevel(PathLog.Level.INFO, PathLog.thisModule())
 #PathLog.trackModule()

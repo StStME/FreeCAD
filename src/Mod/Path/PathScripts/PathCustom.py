@@ -26,7 +26,7 @@ import Path
 import PathScripts.PathOp as PathOp
 import PathScripts.PathLog as PathLog
 
-from PySide.QtCore import QT_TRANSLATE_NOOP
+from PySide6.QtCore import QT_TRANSLATE_NOOP
 
 __title__ = "Path Custom Operation"
 __author__ = "sliptonic (Brad Collette)"

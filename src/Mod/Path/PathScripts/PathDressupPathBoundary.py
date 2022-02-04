@@ -29,7 +29,7 @@ import PathScripts.PathStock as PathStock
 import PathScripts.PathUtil as PathUtil
 import PathScripts.PathUtils as PathUtils
 
-from PySide import QtCore
+from PySide6 import QtCore
 
 PathLog.setLevel(PathLog.Level.INFO, PathLog.thisModule())
 # PathLog.trackModule(PathLog.thisModule())

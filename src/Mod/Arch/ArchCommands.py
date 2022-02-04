@@ -25,7 +25,7 @@ import FreeCAD,Draft,ArchComponent,DraftVecUtils
 from FreeCAD import Vector
 if FreeCAD.GuiUp:
     import FreeCADGui
-    from PySide import QtGui,QtCore
+    from PySide6 import QtGui,QtCore
     from draftutils.translate import translate
     from draftutils.utils import utf8_decode
 else:
@@ -885,9 +885,9 @@ def survey(callback=False):
                                         FreeCAD.SurveyDialog.update(1,t)
                                 if FreeCAD.GuiUp and t:
                                     if showUnit:
-                                        QtGui.QApplication.clipboard().setText(t)
+                                        QtWidgets.QApplication.clipboard().setText(t)
                                     else:
-                                        QtGui.QApplication.clipboard().setText(str(u.Value))
+                                        QtWidgets.QApplication.clipboard().setText(str(u.Value))
                             else:
                                 # single element(s)
                                 for el in o.SubElementNames:
@@ -928,9 +928,9 @@ def survey(callback=False):
                                         FreeCAD.Console.PrintMessage("Object: " + n + ", Element: " + el + ", Zcoord: " + utf8_decode(t) + "\n")
                                     if FreeCAD.GuiUp and t:
                                         if showUnit:
-                                            QtGui.QApplication.clipboard().setText(t)
+                                            QtWidgets.QApplication.clipboard().setText(t)
                                         else:
-                                            QtGui.QApplication.clipboard().setText(str(u.Value))
+                                            QtWidgets.QApplication.clipboard().setText(str(u.Value))
 
                     FreeCAD.SurveyObserver.selection.extend(newsels)
             if hasattr(FreeCAD,"SurveyObserver"):
@@ -980,27 +980,27 @@ class SurveyTaskPanel:
     "A task panel for the survey tool"
 
     def __init__(self):
-        self.form = QtGui.QWidget()
+        self.form = QtWidgets.QWidget()
         self.form.setWindowIcon(QtGui.QIcon(":/icons/Arch_Survey.svg"))
-        layout = QtGui.QVBoxLayout(self.form)
-        llayout = QtGui.QHBoxLayout()
-        self.descr = QtGui.QLineEdit()
+        layout = QtWidgets.QVBoxLayout(self.form)
+        llayout = QtWidgets.QHBoxLayout()
+        self.descr = QtWidgets.QLineEdit()
         llayout.addWidget(self.descr)
-        self.addButton = QtGui.QPushButton()
+        self.addButton = QtWidgets.QPushButton()
         llayout.addWidget(self.addButton)
         layout.addLayout(llayout)
-        self.tree = QtGui.QTreeWidget()
+        self.tree = QtWidgets.QTreeWidget()
         self.tree.setColumnCount(3)
         layout.addWidget(self.tree)
-        blayout = QtGui.QHBoxLayout()
-        self.clearButton = QtGui.QPushButton()
+        blayout = QtWidgets.QHBoxLayout()
+        self.clearButton = QtWidgets.QPushButton()
         blayout.addWidget(self.clearButton)
-        self.copyLength = QtGui.QPushButton()
+        self.copyLength = QtWidgets.QPushButton()
         blayout.addWidget(self.copyLength)
-        self.copyArea = QtGui.QPushButton()
+        self.copyArea = QtWidgets.QPushButton()
         blayout.addWidget(self.copyArea)
         layout.addLayout(blayout)
-        self.export = QtGui.QPushButton()
+        self.export = QtWidgets.QPushButton()
         layout.addWidget(self.export)
         QtCore.QObject.connect(self.addButton, QtCore.SIGNAL("clicked()"), self.setText)
         QtCore.QObject.connect(self.clearButton, QtCore.SIGNAL("clicked()"), self.clear)
@@ -1009,19 +1009,19 @@ class SurveyTaskPanel:
         QtCore.QObject.connect(self.export, QtCore.SIGNAL("clicked()"), self.exportCSV)
         QtCore.QObject.connect(self.tree, QtCore.SIGNAL("itemClicked(QTreeWidgetItem*,int)"), self.setDescr)
         self.retranslateUi(self)
-        item = QtGui.QTreeWidgetItem(self.tree)
+        item = QtWidgets.QTreeWidgetItem(self.tree)
         self.tree.setCurrentItem(item)
 
     def retranslateUi(self,dlg):
-        self.form.setWindowTitle(QtGui.QApplication.translate("Arch", "Survey", None))
-        self.addButton.setText(QtGui.QApplication.translate("Arch", "Set description", None))
-        self.clearButton.setText(QtGui.QApplication.translate("Arch", "Clear", None))
-        self.copyLength.setText(QtGui.QApplication.translate("Arch", "Copy Length", None))
-        self.copyArea.setText(QtGui.QApplication.translate("Arch", "Copy Area", None))
-        self.export.setText(QtGui.QApplication.translate("Arch", "Export CSV", None))
-        self.tree.setHeaderLabels([QtGui.QApplication.translate("Arch", "Description", None),
-                                   QtGui.QApplication.translate("Arch", "Length", None),
-                                   QtGui.QApplication.translate("Arch", "Area", None)])
+        self.form.setWindowTitle(QtWidgets.QApplication.translate("Arch", "Survey", None))
+        self.addButton.setText(QtWidgets.QApplication.translate("Arch", "Set description", None))
+        self.clearButton.setText(QtWidgets.QApplication.translate("Arch", "Clear", None))
+        self.copyLength.setText(QtWidgets.QApplication.translate("Arch", "Copy Length", None))
+        self.copyArea.setText(QtWidgets.QApplication.translate("Arch", "Copy Area", None))
+        self.export.setText(QtWidgets.QApplication.translate("Arch", "Export CSV", None))
+        self.tree.setHeaderLabels([QtWidgets.QApplication.translate("Arch", "Description", None),
+                                   QtWidgets.QApplication.translate("Arch", "Length", None),
+                                   QtWidgets.QApplication.translate("Arch", "Area", None)])
 
     def isAllowedAlterSelection(self):
         return True
@@ -1030,7 +1030,7 @@ class SurveyTaskPanel:
         return True
 
     def getStandardButtons(self):
-        return int(QtGui.QDialogButtonBox.Close)
+        return int(QtWidgets.QDialogButtonBox.Close)
 
     def reject(self):
         if hasattr(FreeCAD,"SurveyObserver"):
@@ -1050,9 +1050,9 @@ class SurveyTaskPanel:
             if sys.version_info.major < 3:
                 t = t.encode("utf8")
             if FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/Arch").GetBool("surveyUnits",True):
-                QtGui.QApplication.clipboard().setText(t)
+                QtWidgets.QApplication.clipboard().setText(t)
             else:
-                QtGui.QApplication.clipboard().setText(str(u.Value/u.getUserPreferred()[1]))
+                QtWidgets.QApplication.clipboard().setText(str(u.Value/u.getUserPreferred()[1]))
 
     def clipArea(self):
         if hasattr(FreeCAD,"SurveyObserver"):
@@ -1060,15 +1060,15 @@ class SurveyTaskPanel:
             t = u.getUserPreferred()[0]
             t = string_replace(t, "^2","²")
             if FreeCAD.ParamGet("User parameter:BaseApp/Preferences/Mod/Arch").GetBool("surveyUnits",True):
-                QtGui.QApplication.clipboard().setText(t)
+                QtWidgets.QApplication.clipboard().setText(t)
             else:
-                QtGui.QApplication.clipboard().setText(str(u.Value/u.getUserPreferred()[1]))
+                QtWidgets.QApplication.clipboard().setText(str(u.Value/u.getUserPreferred()[1]))
 
     def newline(self,length=0,area=0):
         FreeCADGui.Selection.clearSelection()
-        item = QtGui.QTreeWidgetItem(self.tree)
+        item = QtWidgets.QTreeWidgetItem(self.tree)
         if length or area:
-            item.setText(0,QtGui.QApplication.translate("Arch", "Total", None))
+            item.setText(0,QtWidgets.QApplication.translate("Arch", "Total", None))
             item.setToolTip(0,"total")
             f = QtGui.QFont()
             f.setBold(True)
@@ -1089,11 +1089,11 @@ class SurveyTaskPanel:
             t = t.replace(u"^2",u"²")
             item.setText(2,t)
         if length or area:
-            item = QtGui.QTreeWidgetItem(self.tree)
+            item = QtWidgets.QTreeWidgetItem(self.tree)
             self.tree.setCurrentItem(item)
 
     def update(self,column,txt):
-        item = QtGui.QTreeWidgetItem(self.tree)
+        item = QtWidgets.QTreeWidgetItem(self.tree)
         self.tree.setCurrentItem(item)
         item.setText(column,utf8_decode(txt))
 
@@ -1110,7 +1110,7 @@ class SurveyTaskPanel:
         import csv
         rows = self.tree.topLevelItemCount()
         if rows:
-            filename = QtGui.QFileDialog.getSaveFileName(QtGui.QApplication.activeWindow(), translate("Arch","Export CSV File"), None, "CSV file (*.csv)");
+            filename = QtWidgets.QFileDialog.getSaveFileName(QtWidgets.QApplication.activeWindow(), translate("Arch","Export CSV File"), None, "CSV file (*.csv)");
             if filename:
                 if sys.version_info.major < 3:
                     mode = 'wb'
@@ -1334,14 +1334,14 @@ def printMessage( message ):
     if FreeCAD.GuiUp :
         if sys.version_info.major < 3:
             message = message.decode("utf8")
-        QtGui.QMessageBox.information( None , "" , message )
+        QtWidgets.QMessageBox.information( None , "" , message )
 
 def printWarning( message ):
     FreeCAD.Console.PrintMessage( message )
     if FreeCAD.GuiUp :
         if sys.version_info.major < 3:
             message = message.decode("utf8")
-        QtGui.QMessageBox.warning( None , "" , message )
+        QtWidgets.QMessageBox.warning( None , "" , message )
 
 
 # command definitions ###############################################
