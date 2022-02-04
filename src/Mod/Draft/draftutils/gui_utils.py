@@ -48,8 +48,8 @@ from draftutils.translate import translate
 if App.GuiUp:
     import FreeCADGui as Gui
     from pivy import coin
-    from PySide import QtGui
-    # from PySide import QtSvg  # for load_texture
+    from PySide6 import QtGui
+    # from PySide6 import QtSvg  # for load_texture
 
 
 def get_3d_view():
@@ -595,7 +595,7 @@ def load_texture(filename, size=None, gui=App.GuiUp):
     """
     if gui:
         # from pivy import coin
-        # from PySide import QtGui, QtSvg
+        # from PySide6 import QtGui, QtSvg
         try:
             p = QtGui.QImage(filename)
 

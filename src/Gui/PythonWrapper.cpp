@@ -93,9 +93,9 @@ PyTypeObject** SbkPySide6_QtGuiTypes=nullptr;
 
 // Do not use SHIBOKEN_MICRO_VERSION; it might contain a dot
 # define SHIBOKEN_FULL_VERSION QT_VERSION_CHECK(SHIBOKEN_MAJOR_VERSION, SHIBOKEN_MINOR_VERSION, 0)
-# if (SHIBOKEN_FULL_VERSION >= QT_VERSION_CHECK(5, 12, 0))
-# define HAVE_SHIBOKEN_TYPE_FOR_TYPENAME
-# endif
+//# if (SHIBOKEN_FULL_VERSION >= QT_VERSION_CHECK(5, 12, 0))
+//# define HAVE_SHIBOKEN_TYPE_FOR_TYPENAME
+//# endif
 
 # ifndef HAVE_SHIBOKEN_TYPE_FOR_TYPENAME
 # include <pyside6_qtcore_python.h>
@@ -103,9 +103,7 @@ PyTypeObject** SbkPySide6_QtGuiTypes=nullptr;
 # include <pyside6_qtwidgets_python.h>
 # endif
 # include <signalmanager.h>
-PyTypeObject** SbkPySide6_QtCoreTypes=nullptr;
-PyTypeObject** SbkPySide6_QtGuiTypes=nullptr;
-PyTypeObject** SbkPySide6_QtWidgetsTypes=nullptr;
+
 # endif // HAVE_PYSIDE2
 #endif // HAVE_SHIBOKEN2
 
@@ -292,11 +290,11 @@ template<typename qttype>
 PyTypeObject *getPyTypeObjectForTypeName()
 {
 #if defined (HAVE_SHIBOKEN) && defined(HAVE_PYSIDE)
-/* #if defined (HAVE_SHIBOKEN_TYPE_FOR_TYPENAME)
+/* #if defined (HAVE_SHIBOKEN_TYPE_FOR_TYPENAME) --> deprecated!
     SbkObjectType* sbkType = Shiboken::ObjectType::typeForTypeName(typeid(qttype).name());
     if (sbkType)
         return &(sbkType->type);
-#else */
+*/
     return Shiboken::SbkType<qttype>();
 //#endif
 #endif
@@ -480,7 +478,7 @@ Py::Object PythonWrapper::fromQObject(QObject* object, const char* className)
 #endif
 }
 
-Py::Object PythonWrapper::fromQWidget(QWidget* widget, const char* className)
+Py::Object PythonWrapper::fromQWidget(QWidget* widget, const char* className) // heere we have some issue!
 {
 #if defined (HAVE_SHIBOKEN) && defined(HAVE_PYSIDE)
     // Access shiboken/PySide via C++

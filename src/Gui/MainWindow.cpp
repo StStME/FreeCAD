@@ -344,7 +344,7 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags f)
     d->windowMapper = new QSignalMapper(this);
 
     // connection between workspace, window menu and tab bar
-    connect(d->windowMapper, SIGNAL(mapped(QWidget *)),
+    connect(d->windowMapper, SIGNAL(mapped(QWidget *)), // warning! no such Signal.
             this, SLOT(onSetActiveSubWindow(QWidget*)));
     connect(d->mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow*)),
             this, SLOT(onWindowActivated(QMdiSubWindow* )));
