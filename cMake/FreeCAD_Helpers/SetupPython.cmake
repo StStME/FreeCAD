@@ -3,7 +3,6 @@ macro(SetupPython)
 
     # For building on OS X
     if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND NOT BUILD_WITH_CONDA)
-
         # If the user doesn't tell us which package manager they're using
         if(NOT DEFINED MACPORTS_PREFIX AND NOT DEFINED HOMEBREW_PREFIX)
 

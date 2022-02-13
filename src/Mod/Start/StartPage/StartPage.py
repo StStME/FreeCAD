@@ -40,7 +40,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 FreeCADGui.addLanguagePath(":/translations")
 FreeCADGui.updateLocale()
 
-iconprovider = QtGui.QFileIconProvider()
+iconprovider = QtWidgets.QFileIconProvider()
 iconbank = {}       # store pre-existing icons so we don't overpollute temp dir
 tempfolder = None   # store icons inside a subfolder in temp dir
 defaulticon = None  # store a default icon for problematic file types
@@ -631,7 +631,7 @@ def postStart():
     # close start tab
     cl = param.GetBool("closeStart",False)
     if cl:
-        title = QtGui.QApplication.translate("Workbench","Start page")
+        title = QtWidgets.QApplication.translate("Workbench","Start page")
         mw = FreeCADGui.getMainWindow()
         if mw:
             mdi = mw.findChild(QtGui.QMdiArea)

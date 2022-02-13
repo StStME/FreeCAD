@@ -501,7 +501,7 @@ BrowserView::BrowserView(QWidget* parent)
 
     interceptLinks = new WebEngineUrlRequestInterceptor(this);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+#if 1//(QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
     profile->setUrlRequestInterceptor(interceptLinks);
 #else
     profile->setRequestInterceptor(interceptLinks);

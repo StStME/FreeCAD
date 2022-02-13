@@ -28,6 +28,7 @@ if (BUILD_ADDONMGR)
     add_definitions(-DBUILD_ADDONMGR )
 endif(BUILD_ADDONMGR)
 
+
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -116,6 +117,8 @@ find_package(Qt6 COMPONENTS OpenGL REQUIRED)
 find_package(Qt6 COMPONENTS Gui REQUIRED)
 find_package(Qt6 COMPONENTS SvgWidgets REQUIRED)
 find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
+find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_definitions(-DHAVE_QT6_OPENGL=1)
 include_directories(
@@ -140,9 +143,8 @@ include_directories(
         Qt6::Gui
         Qt6::SvgWidgets
         Qt6::OpenGLWidgets
-        /Users/stefan.steinmueller/workspace/pyside-setup/build/qfp-py3.9-qt6.2.2-64bit-release/build/shiboken6/libshiboken/libshiboken6.cpython-39-darwin.6.0.0.dylib
-        /Users/stefan.steinmueller/workspace/pyside-setup/build/qfp-py3.9-qt6.2.2-64bit-release/build/pyside6/libpyside/libpyside6.cpython-39-darwin.6.0.0.dylib
-
+        Qt6::Core
+        Qt6::Widgets
     )
 else()
     include_directories(
@@ -224,12 +226,15 @@ if(FREECAD_USE_SHIBOKEN)
             ${SHIBOKEN_LIBRARY}
         )
     else (SHIBOKEN_LIBRARY)
+        # message(FATAL_ERROR "No Shiboken Library!")
         if (TARGET Shiboken6::libshiboken)
             list(APPEND FreeCADGui_LIBS
                 Shiboken6::libshiboken
             )
         endif (TARGET Shiboken6::libshiboken)
-    endif (SHIBOKEN_LIBRARY)
+        # add_definitions(-DHAVE_SHIBOKEN6)
+        # add_definitions(-DHAVE_SHIBOKEN)
+        endif (SHIBOKEN_LIBRARY)
 endif(FREECAD_USE_SHIBOKEN)
 
 if(FREECAD_USE_PYSIDE)
@@ -259,6 +264,7 @@ if(FREECAD_USE_PYSIDE)
             ${PYSIDE_INCLUDE_DIR}/QtWidgets
         )
         add_definitions(-DHAVE_PYSIDE6)
+        # add_definitions(-DHAVE_PYSIDE)
     else()
         add_definitions(-DHAVE_PYSIDE)
     endif()

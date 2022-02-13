@@ -20,7 +20,7 @@
 #***************************************************************************
 
 import sys
-from PySide6 import QtGui
+from PySide6 import QtGui, QtWidgets
 
 
 def translate(context,text):
@@ -28,10 +28,10 @@ def translate(context,text):
     "convenience function for the Qt translator"
 
     try:
-        _encoding = QtGui.QApplication.UnicodeUTF8
-        u = QtGui.QApplication.translate(context, text, None, _encoding)
+        _encoding = QtWidgets.QApplication.UnicodeUTF8
+        u = QtWidgets.QApplication.translate(context, text, None, _encoding)
     except AttributeError:
-        u = QtGui.QApplication.translate(context, text, None)
+        u = QtWidgets.QApplication.translate(context, text, None)
 
     if sys.version_info.major < 3:
         u = u.encode("utf8")

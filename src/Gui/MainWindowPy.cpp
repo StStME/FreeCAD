@@ -82,7 +82,6 @@ Py::Object MainWindowPy::createWrapper(MainWindow *mw)
         printf("Failed to load Python wrapper for Qt");
         throw Py::RuntimeError("Failed to load Python wrapper for Qt");
     }
-        printf("Failed2 to load Python wrapper for Qt");
 
     // copy attributes
     std::list<std::string> attr = {"getWindows", "getWindowsOfType", "setActiveWindow", "getActiveWindow"};
